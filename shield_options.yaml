@@ -1,0 +1,6 @@
+# dart_shield configuration file
+# This file is used to configure dart_shield behavior.
+# For more information, see [link]
+shield:
+  rules:
+    - prefer-https-over-http

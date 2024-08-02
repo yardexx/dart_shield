@@ -1,0 +1,20 @@
+name: dart_shield_example
+description: An example project to demonstrate how to use dart_shield.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ^3.4.1
+
+dependencies:
+  # Add the dart_shield package to your dependencies.
+  # Your dependency will probably point to pub.dev version, rather than a local path:
+  # dart_shield: ^0.1.0
+  dart_shield:
+    path: ../
+
+  http: ^1.2.2
+  crypto: ^3.0.3
+
+dev_dependencies:
+  lints: ^1.0.0
