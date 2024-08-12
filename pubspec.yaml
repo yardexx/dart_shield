@@ -1,6 +1,6 @@
 name: dart_shield
 description: A security scout for your code.
-version: 0.1.0-dev.1
+version: 0.1.0-dev.2
 publish_to: none
 
 environment:

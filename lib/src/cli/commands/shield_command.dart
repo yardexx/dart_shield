@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
-import 'package:dart_shield/src/cli/cli.dart';
 import 'package:mason_logger/mason_logger.dart';
 
 abstract class ShieldCommand extends Command<int> {
@@ -18,15 +17,16 @@ abstract class ShieldCommand extends Command<int> {
     return results;
   }
 
-  // rootFolderExists && targetsExist && configExists
-  bool get validWorkspace => true;
+  bool get validWorkspace => rootFolderExists && targetsExist;
 
   bool get rootFolderExists {
-    final rootPath = argResults[Flags.rootFolder.name] as String;
-    return Directory(rootPath).existsSync();
+    return Directory.current.existsSync();
   }
 
-  bool get targetsExist => argResults.rest.isNotEmpty;
+  bool get targetsExist {
+    return argResults.rest.length == 1 &&
+        Directory(argResults.rest.first).existsSync();
+  }
 
   Logger get logger => _logger ??= Logger();
 

@@ -1,5 +1,6 @@
 import 'package:dart_shield/src/security_analyzer/extensions.dart';
 import 'package:dart_shield/src/security_analyzer/report/report.dart';
+import 'package:dart_shield/src/security_analyzer/report/reporters/issue_reporter.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/lint_issue.dart';
 
 class ConsoleReport extends IssueReporter {
