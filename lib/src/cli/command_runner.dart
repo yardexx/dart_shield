@@ -2,6 +2,7 @@ import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_completion/cli_completion.dart';
 import 'package:dart_shield/src/cli/commands/commands.dart';
+import 'package:dart_shield/src/security_analyzer/exceptions/exceptions.dart';
 import 'package:mason_logger/mason_logger.dart';
 
 const executableName = 'dart_shield';
@@ -12,8 +13,6 @@ class ShieldCommandRunner extends CompletionCommandRunner<int> {
   ShieldCommandRunner({Logger? logger})
       : _logger = logger ?? Logger(),
         super(executableName, description) {
-    // Add root options and flags
-    argParser.addFlags();
 
     // Add sub commands
     addCommand(AnalyzeCommand(logger: _logger));
@@ -29,9 +28,6 @@ class ShieldCommandRunner extends CompletionCommandRunner<int> {
   Future<int> run(Iterable<String> args) async {
     try {
       final topLevelResults = parse(args);
-      if (topLevelResults['verbose'] == true) {
-        _logger.level = Level.verbose;
-      }
       return await runCommand(topLevelResults) ?? ExitCode.success.code;
     } on FormatException catch (e, stackTrace) {
       // On format errors, show the commands error message, root usage and
@@ -50,6 +46,11 @@ class ShieldCommandRunner extends CompletionCommandRunner<int> {
         ..info('')
         ..info(e.usage);
       return ExitCode.usage.code;
+    } on InvalidConfigurationException catch (e) {
+      // On invalid configuration errors, show the error message and
+      // exit with an error code
+      _logger.err(e.message);
+      return ExitCode.config.code;
     }
   }
 
@@ -61,37 +62,7 @@ class ShieldCommandRunner extends CompletionCommandRunner<int> {
       return ExitCode.success.code;
     }
 
-    // Verbose logs
-    _logger
-      ..detail('Argument information:')
-      ..detail('  Top level options:');
-    for (final option in topLevelResults.options) {
-      if (topLevelResults.wasParsed(option)) {
-        _logger.detail('  - $option: ${topLevelResults[option]}');
-      }
-    }
-    if (topLevelResults.command != null) {
-      final commandResult = topLevelResults.command!;
-      _logger
-        ..detail('  Command: ${commandResult.name}')
-        ..detail('    Command options:');
-      for (final option in commandResult.options) {
-        if (commandResult.wasParsed(option)) {
-          _logger.detail('    - $option: ${commandResult[option]}');
-        }
-      }
-    }
-
     final code = super.runCommand(topLevelResults);
     return code;
-  }
-}
-
-extension on ArgParser {
-  void addFlags() {
-    addFlag(
-      'verbose',
-      help: 'Noisy logging, including all shell commands executed.',
-    );
   }
 }

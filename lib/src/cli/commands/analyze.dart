@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:dart_shield/src/cli/commands/shield_command.dart';
 import 'package:dart_shield/src/security_analyzer/configuration/shield_config.dart';
-import 'package:dart_shield/src/security_analyzer/project_workspace.dart';
-import 'package:dart_shield/src/security_analyzer/report/reporters/console_report.dart';
+import 'package:dart_shield/src/security_analyzer/report/report.dart';
 import 'package:dart_shield/src/security_analyzer/security_analyzer.dart';
+import 'package:dart_shield/src/security_analyzer/workspace.dart';
 import 'package:mason_logger/mason_logger.dart';
 
 class AnalyzeCommand extends ShieldCommand {
@@ -21,32 +21,62 @@ class AnalyzeCommand extends ShieldCommand {
 
   @override
   Future<int> run() async {
-    Progress progress;
-
-    progress = logger.progress('Checking environment');
-    if (!validWorkspace) {
+    if (!_isEnvironmentHealthy()) {
       return ExitCode.usage.code;
     }
-    progress.complete('Environment is healthy');
 
-    progress = logger.progress('Parsing configuration');
+    final workspace = _createWorkspace();
+    final config = _parseShieldConfig(workspace);
+    final analysisResult = await _analyze(workspace, config);
+    _processReport(analysisResult);
+    return ExitCode.success.code;
+  }
+
+  bool _isEnvironmentHealthy() {
+    final progress = logger.progress('Checking environment');
+    if (!validWorkspace) {
+      progress.fail('Environment is unhealthy.');
+      logger.err('Root/Target directory missing or does not exist.');
+      return false;
+    }
+    progress.complete('Environment is healthy.');
+    return true;
+  }
+
+  Workspace _createWorkspace() {
+    final progress = logger.progress('Creating workspace');
+
     final workspace = Workspace(
       analyzedPaths: argResults.rest,
       rootFolder: Directory.current.path,
     );
+
+    progress.complete('Workspace created.');
+    return workspace;
+  }
+
+  ShieldConfig _parseShieldConfig(Workspace workspace) {
+    final progress = logger.progress('Parsing shield configuration');
     final config = ShieldConfig.fromFile(workspace.configPath);
-    progress.complete('Configuration parsed');
+    progress.complete('Configuration parsed.');
+    return config;
+  }
 
-    progress = logger.progress('Performing analysis');
-    final analysisResult = await _analyzer.analyzeFromCli(workspace, config);
-    progress.complete('Analysis complete');
+  Future<ProjectReport> _analyze(
+    Workspace workspace,
+    ShieldConfig config,
+  ) async {
+    final progress = logger.progress('Analyzing project');
+    final report = await _analyzer.analyzeFromCli(workspace, config);
+    progress.complete('Project analyzed.');
+    return report;
+  }
 
-    progress = logger.progress('Preparing report');
+  void _processReport(ProjectReport report) {
+    final progress = logger.progress('Processing report');
     final reporter = ConsoleReport();
-    final report = reporter.report(analysisResult);
-    progress.complete('Report ready');
-
-    logger.info(report);
-    return ExitCode.success.code;
+    final output = reporter.report(report);
+    progress.complete('Report processed');
+    logger.info(output);
   }
 }

@@ -1,1 +1,1 @@
-export 'models/models.dart';
+const packageName = 'dart_shield';

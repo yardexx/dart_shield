@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dart_shield/src/security_analyzer/configuration/glob_converter.dart';
 import 'package:dart_shield/src/security_analyzer/configuration/lint_rule_converter.dart';
+import 'package:dart_shield/src/security_analyzer/exceptions/exceptions.dart';
 import 'package:dart_shield/src/security_analyzer/rules/enums/enums.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/lint_rule.dart';
 import 'package:dart_shield/src/utils/utils.dart';
@@ -9,16 +10,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:yaml/yaml.dart';
 
 part 'shield_config.g.dart';
-
-// Custom exception for configuration validation errors
-class ConfigValidationException implements Exception {
-  ConfigValidationException(this.message);
-
-  final String message;
-
-  @override
-  String toString() => 'ConfigValidationException: $message';
-}
 
 @JsonSerializable(
   fieldRename: FieldRename.kebab,
@@ -50,22 +41,27 @@ class ShieldConfig {
   void _verifyValidity() {
     // Ensure no experimental rules are in the main rules list
     if (rules.any((rule) => rule.status == RuleStatus.experimental)) {
-      throw ConfigValidationException('Rules with status experimental are not '
-          'allowed in the rules list');
+      throw const InvalidConfigurationException(
+        'Rules with status experimental are not allowed in the rules list',
+      );
     }
 
     // Ensure experimental rules are only allowed if the experimental flag is
     // enabled
     if (!enableExperimental && experimentalRules.isNotEmpty) {
-      throw ConfigValidationException('Experimental rules are not allowed when '
-          'the experimental flag is disabled');
+      throw const InvalidConfigurationException(
+        'Experimental rules are not allowed when the experimental flag is '
+        'disabled',
+      );
     }
 
     // Ensure only experimental rules are in the experimental rules list
     if (experimentalRules
         .any((rule) => rule.status != RuleStatus.experimental)) {
-      throw ConfigValidationException('Only rules with status experimental '
-          'are allowed in the experimental rules list');
+      throw const InvalidConfigurationException(
+        'Only rules with status experimental are allowed in the experimental '
+        'rules list',
+      );
     }
   }
 

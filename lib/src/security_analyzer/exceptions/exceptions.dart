@@ -1,1 +1,1 @@
-export 'invalid_rule_exception.dart';
+export 'invalid_configuration_exception.dart';

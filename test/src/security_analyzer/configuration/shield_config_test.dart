@@ -1,4 +1,5 @@
 import 'package:dart_shield/src/security_analyzer/configuration/configuration.dart';
+import 'package:dart_shield/src/security_analyzer/exceptions/exceptions.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
 import 'package:dart_shield/src/utils/utils.dart';
 import 'package:test/test.dart';
@@ -68,7 +69,7 @@ void main() {
           yamlToDartMap(loadYaml(invalidConfig)) as Map<String, dynamic>;
       expect(
         () => ShieldConfig.fromYaml(map),
-        throwsA(isA<ConfigValidationException>()),
+        throwsA(isA<InvalidConfigurationException>()),
       );
     });
   });

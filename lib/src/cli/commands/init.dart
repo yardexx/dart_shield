@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:dart_shield/src/cli/cli.dart';
 import 'package:dart_shield/src/cli/commands/shield_command.dart';
-import 'package:dart_shield/src/security_analyzer/project_workspace.dart';
+import 'package:dart_shield/src/security_analyzer/workspace.dart';
 import 'package:mason_logger/mason_logger.dart';
 
 class InitCommand extends ShieldCommand {
-
   InitCommand({super.logger}) {
     argParser.addFlag(
       'force',
@@ -16,18 +16,16 @@ class InitCommand extends ShieldCommand {
     );
   }
 
-  final _packageName = 'dart_shield';
-
   @override
   String get description =>
-      'Initialize $_packageName with default config in the current directory.';
+      'Initialize $packageName with default config in the current directory.';
 
   @override
   String get name => 'init';
 
   @override
   Future<int> run() async {
-    final progress = logger.progress('Initializing $_packageName');
+    final progress = logger.progress('Initializing $packageName');
 
     final workspace = Workspace(
       analyzedPaths: [],
@@ -35,12 +33,14 @@ class InitCommand extends ShieldCommand {
     );
 
     if (workspace.configExists) {
-      progress.update('$_packageName is already initialized');
+      progress.update('Checking force flag');
       final force = argResults['force'] as bool;
 
       if (!force) {
         progress.fail('Initialization failed');
-        logger.err('Use -f to overwrite existing configuration');
+        logger
+          ..err('$packageName is already initialized')
+          ..err("Use '$packageName $name -f' to force initialization");
         return ExitCode.usage.code;
       }
 
@@ -48,7 +48,7 @@ class InitCommand extends ShieldCommand {
     }
 
     workspace.createDefaultConfig();
-    progress.complete('$_packageName initialized');
+    progress.complete('$packageName successfully initialized');
     return ExitCode.success.code;
   }
 }
