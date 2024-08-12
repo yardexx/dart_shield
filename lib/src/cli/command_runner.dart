@@ -13,7 +13,6 @@ class ShieldCommandRunner extends CompletionCommandRunner<int> {
   ShieldCommandRunner({Logger? logger})
       : _logger = logger ?? Logger(),
         super(executableName, description) {
-
     // Add sub commands
     addCommand(AnalyzeCommand(logger: _logger));
     addCommand(InitCommand(logger: _logger));
