@@ -9,13 +9,3 @@ linter:
   rules:
     public_member_api_docs: false
     flutter_style_todos: false
-
-dart_shield:
-  exclude:
-    - some/path/to/file/*
-  rules:
-    - some-rule
-  enable-experimental: true
-  experimental-rules:
-    - some-experimental-rule
-
