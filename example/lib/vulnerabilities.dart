@@ -43,3 +43,28 @@ void unsecureRandom() {
   // Violation: Using `Random` instead of `Random.secure()`
   final random = Random();
 }
+
+// dart_shield rule: avoid-hardcoded-secrets
+void hardcodedSecrets() {
+  // Violation: Hardcoded Gitlab Personal Access Token
+  final gitlabPersonalToken = 'glpat-xxxxxxxxxxxxxxxxxxxx';
+
+  // Violation: Hardcoded GitHub Personal Access Token
+  final githubPersonalToken = 'ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+
+  // Violation: Hardcoded GitHub OAuth Token
+  final githubOAuthToken = 'gho_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+
+  // Violation: Hardcoded GitHub App Token
+  final githubAppTokenFirst = 'gho_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+  final githubAppTokenSecond = 'ghs_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+
+  // Violation: Hardcoded AWS Access Token
+  final awsAccessToken = 'AKIAxxxxxxxxxxxxxxxx';
+
+  // Violation: Hardcoded Stripe Live API Key
+  final stripeLiveApiKey = 'sk_live_xxxxxxxxxxxxxxxxxxxxxxxx';
+
+  // Violation: Hardcoded Google API Key
+  final googleApiKey = 'AIzaxxx-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+}

@@ -15,7 +15,6 @@ dependencies:
   file: ^7.0.0
   file_system: ^2.0.0
   glob: ^2.1.2
-  json: ^0.20.2
   json_annotation: ^4.9.0
   mason_logger: ^0.2.15
   path: ^1.9.0

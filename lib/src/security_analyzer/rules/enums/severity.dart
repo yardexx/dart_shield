@@ -1,7 +1,7 @@
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 
 enum Severity {
-  error('error', AnalysisErrorSeverity.ERROR),
+  critical('critical', AnalysisErrorSeverity.ERROR),
   warning('warning', AnalysisErrorSeverity.WARNING),
   info('info', AnalysisErrorSeverity.INFO);
 
