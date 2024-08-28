@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:dart_shield/assets/assets.dart';
 import 'package:dart_shield/src/security_analyzer/rules/models/matching_pattern.dart';
 import 'package:dart_shield/src/utils/utils.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -16,7 +15,9 @@ class ShieldSecrets {
   });
 
   factory ShieldSecrets.preset() {
-    final content = File(_defaultConfigPath).readAsStringSync();
+    // TODO: Fix after asset support is added.
+    // final content = File(_defaultConfigPath).readAsStringSync();
+    const content = shieldSecretsSource;
     final dartMap = yamlToDartMap(loadYaml(content)) as Map<String, dynamic>;
     return ShieldSecrets.fromYaml(dartMap);
   }
@@ -26,7 +27,8 @@ class ShieldSecrets {
     return _$ShieldSecretsFromJson(config);
   }
 
-  static const _defaultConfigPath = '../rules_list/utils/shield_secrets.yaml';
+  // TODO: Fix after asset support is added.
+  // static const _defaultConfigPath = '../rules_list/utils/shield_secrets.yaml';
   static const _yamlRootKey = 'shield_patterns';
 
   final String version;

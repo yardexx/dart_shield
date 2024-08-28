@@ -16,8 +16,8 @@ shield:
 
   # List of rules that dart_shield will use to analyze your code
   rules:
-    - prefer-https-over-http
-    - avoid-hardcoded-secrets
+    #- prefer-https-over-http
+    #- avoid-hardcoded-secrets
 
   # Some rules need more fine-tuning and are marked as experimental.
   # You can enable them by setting `enable-experimental` to `true`.
@@ -27,6 +27,6 @@ shield:
   # ⚠️ Experimental rules are subject to change and may not be as stable as regular rules.
   # ⚠️ Using "experimental-rules" without setting "enable-experimental" to "true" will cause an error.
   experimental-rules:
-    - avoid-hardcoded-urls
-    - avoid-weak-hashing
+    #- avoid-hardcoded-urls
+    #- avoid-weak-hashing
     - prefer-secure-random

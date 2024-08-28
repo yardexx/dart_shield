@@ -41,7 +41,7 @@ void weakHashes() {
 // dart_shield rule: prefer-secure-random
 void unsecureRandom() {
   // Violation: Using `Random` instead of `Random.secure()`
-  final random = Random();
+  final random = Random.secure();
 }
 
 // dart_shield rule: avoid-hardcoded-secrets
