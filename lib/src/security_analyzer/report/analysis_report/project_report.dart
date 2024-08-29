@@ -17,6 +17,7 @@ class ProjectReport {
   final String path;
   final List<FileReport> fileReports;
 
+  int get criticalCount => fileReports.map((report) => report.criticalCount).sum;
   int get warningCount => fileReports.map((report) => report.warningCount).sum;
   int get infoCount => fileReports.map((report) => report.infoCount).sum;
 

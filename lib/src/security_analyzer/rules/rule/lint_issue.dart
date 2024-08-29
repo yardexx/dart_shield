@@ -35,9 +35,4 @@ class LintIssue {
         'message': message,
         'location': location.toJson(),
       };
-
-  @override
-  String toString() {
-    return '  - \u{1F535} [$ruleId]\n    $message\n    ${location.string}';
-  }
 }
