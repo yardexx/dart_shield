@@ -24,11 +24,13 @@ class ConsoleReport extends IssueReporter {
   // Appends the header section of the report
   void _appendReportHeader(ProjectReport projectReport) {
     _buffer
-      ..writeln('=== [Analysis Summary] ===')..writeln(
-      '📄 Files Analyzed: ${projectReport.fileReports.length}',
-    )..writeln(
-      '$criticalSymbol Critical Issues: ${projectReport.criticalCount}',
-    )
+      ..writeln('=== [Analysis Summary] ===')
+      ..writeln(
+        '📄 Files Analyzed: ${projectReport.fileReports.length}',
+      )
+      ..writeln(
+        '$criticalSymbol Critical Issues: ${projectReport.criticalCount}',
+      )
       ..writeln('$warningSymbol Warnings: ${projectReport.warningCount}')
       ..writeln('$infoSymbol Infos: ${projectReport.infoCount}')
       ..linePadding();
