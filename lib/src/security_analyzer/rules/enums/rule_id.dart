@@ -1,6 +1,7 @@
 enum RuleId {
   preferHttpsOverHttp,
   avoidHardcodedUrls,
+  avoidHardcodedSecrets,
   avoidWeakHashing,
   preferSecureRandom;
 

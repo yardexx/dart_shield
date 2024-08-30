@@ -17,6 +17,8 @@ class RuleCreator {
         return AvoidWeakHashing(excludes: excludes);
       case RuleId.preferSecureRandom:
         return PreferSecureRandom(excludes: excludes);
+      case RuleId.avoidHardcodedSecrets:
+        return AvoidHardcodedSecrets(excludes: excludes);
     }
   }
 }
