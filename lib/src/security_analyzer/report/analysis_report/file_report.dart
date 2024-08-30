@@ -10,7 +10,7 @@ class FileReport {
   });
 
   factory FileReport.fromIssues(String relativePath, List<LintIssue> issues) {
-    final criticals=
+    final criticals =
         issues.where((issue) => issue.severity == Severity.critical).toList();
     final warnings =
         issues.where((issue) => issue.severity == Severity.warning).toList();
