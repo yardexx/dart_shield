@@ -6,7 +6,11 @@
 </div>
 
 <div align="center">
-Dart-based security scanner which analyzes your Dart code and finds potential security flaws.
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="resources/img/shield-logo.svg">
+    <img alt="Bearer" src="resources/img/shield-logo.svg">
+  </picture>
+Dart-based security-focused code analyzer which analyzes your Dart code for potential security flaws.
 </div>
 
 > 🚧 UNDER CONSTRUCTION 🚧
