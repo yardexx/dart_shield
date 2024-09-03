@@ -69,3 +69,19 @@ extension SourceSpanX on SourceSpan {
 
   String get string => 'Line ${start.line}, Column ${start.column}';
 }
+
+String _parsePackageName(String identifier) {
+  // Matches: package:[somePackage]/[packagePath].dart or dart:[some_package]
+  // Returns: package:[somePackage] or dart:[some_package]
+  // ignore: unnecessary_raw_strings
+  final regex = RegExp(r'^(package:[^/]+|dart:[^/]+)');
+  return regex.firstMatch(identifier)?.group(0) ?? '';
+}
+
+extension ExpressionX on Expression {
+  bool belongsToPackage(String packageName) {
+    final identifier = staticType?.element?.library?.identifier ?? '';
+    final nodePackageName = _parsePackageName(identifier);
+    return nodePackageName == packageName;
+  }
+}
