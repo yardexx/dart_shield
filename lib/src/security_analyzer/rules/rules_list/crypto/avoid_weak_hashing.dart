@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:dart_shield/src/security_analyzer/extensions.dart';
 import 'package:dart_shield/src/security_analyzer/rules/enums/enums.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
 
@@ -25,10 +26,15 @@ class AvoidWeakHashing extends LintRule {
 }
 
 class _WeakCryptoHashingVisitor extends ErrorNodeCollector {
+  final _packageName = 'package:crypto';
   final _unsafeHashes = ['md5', 'sha1'];
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
+    if (!node.belongsToPackage(_packageName)) {
+      return super.visitMethodInvocation(node);
+    }
+
     if (_isTargetWeakHash(node)) {
       errorNodes.add(node);
     }

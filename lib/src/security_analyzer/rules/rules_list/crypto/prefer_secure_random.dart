@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:dart_shield/src/security_analyzer/extensions.dart';
 import 'package:dart_shield/src/security_analyzer/rules/enums/enums.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/error_node_collector.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/lint_rule.dart';
@@ -27,8 +28,14 @@ class PreferSecureRandom extends LintRule {
 }
 
 class _PreferSecureRandomVisitor extends ErrorNodeCollector {
+  final _packageName = 'dart:math';
+
   @override
   void visitInstanceCreationExpression(InstanceCreationExpression node) {
+    if (!node.belongsToPackage(_packageName)) {
+      return super.visitInstanceCreationExpression(node);
+    }
+
     final token = node.beginToken;
     if (token.lexeme != 'Random') {
       return;

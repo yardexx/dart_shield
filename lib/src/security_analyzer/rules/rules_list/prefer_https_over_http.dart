@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:dart_shield/src/security_analyzer/extensions.dart';
 import 'package:dart_shield/src/security_analyzer/rules/enums/enums.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
 
@@ -23,8 +24,14 @@ class PreferHttpsOverHttp extends LintRule {
 }
 
 class _PreferHttpsOverHttpVisitor extends ErrorNodeCollector {
+  final _packageName = 'dart:core';
+
   @override
   void visitInstanceCreationExpression(InstanceCreationExpression node) {
+    if (!node.belongsToPackage(_packageName)) {
+      return super.visitInstanceCreationExpression(node);
+    }
+
     if (node.beginToken.lexeme != 'Uri') {
       return;
     }
