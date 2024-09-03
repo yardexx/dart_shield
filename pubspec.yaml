@@ -1,10 +1,17 @@
 name: dart_shield
-description: A security analysis tool.
-version: 0.1.0-dev.3
-publish_to: none
+description: A security CLI tool (SAST) to detect security issues in Dart code.
+version: 0.1.0-dev.4
+repository: https://github.com/yardexx/dart_shield
+issue_tracker: https://github.com/yardexx/dart_shield/issues
+topics:
+  - security
+  - analyzer
+  - sast
+  - tools
+  - static-analysis
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: ">=3.3.0 <4.0.0"
 
 dependencies:
   analyzer: ^6.5.0
