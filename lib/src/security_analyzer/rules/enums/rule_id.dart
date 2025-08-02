@@ -3,7 +3,9 @@ enum RuleId {
   avoidHardcodedUrls,
   avoidHardcodedSecrets,
   avoidWeakHashing,
-  preferSecureRandom;
+  preferSecureRandom,
+  detectSqlInjection,
+  detectCommandInjection;
 
   static RuleId fromYamlName(String name) {
     // Convert kebab-case to camelCase

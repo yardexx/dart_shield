@@ -12,7 +12,8 @@ shield:
     # Exclude a file using path (path begins at the root of the project):
     - 'lib/ignored.dart'
     - 'lib/vulnerabilities.dart'
-    - 'lib/no-vulnerabilities.dart'
+    - 'lib/no_vulnerabilities.dart'
+    - 'lib/flow_analysis_example.dart'
     # Globs are also supported
     - '**.g.dart'
 
