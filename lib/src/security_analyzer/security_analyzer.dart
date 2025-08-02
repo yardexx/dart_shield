@@ -3,6 +3,7 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:dart_shield/src/security_analyzer/configuration/shield_config.dart';
 import 'package:dart_shield/src/security_analyzer/extensions.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/flow_analysis.dart';
 import 'package:dart_shield/src/security_analyzer/report/report.dart';
 import 'package:dart_shield/src/security_analyzer/workspace.dart';
 import 'package:glob/glob.dart';
@@ -49,8 +50,12 @@ class SecurityAnalyzer {
   ) {
     final relativePath = relative(result.path, from: workspace.rootFolder);
     // TODO: Should be able to skip experimental rules
-    final issues =
-        config.allRules.expand((rule) => rule.check(result)).toList();
+    final issues = config.allRules
+        .expand((rule) => rule.check(result))
+        .toList();
+
+    // TODO: Add flow analysis
+
     return FileReport.fromIssues(relativePath, issues);
   }
 
