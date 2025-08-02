@@ -11,6 +11,8 @@ shield:
   exclude:
     # Exclude a file using path (path begins at the root of the project):
     - 'lib/ignored.dart'
+    - 'lib/vulnerabilities.dart'
+    - 'lib/no-vulnerabilities.dart'
     # Globs are also supported
     - '**.g.dart'
 
@@ -30,3 +32,5 @@ shield:
     - avoid-hardcoded-urls
     - avoid-weak-hashing
     - prefer-secure-random
+    - detect-sql-injection
+    - detect-command-injection
