@@ -22,9 +22,11 @@ class RuleCreator {
       case RuleId.avoidHardcodedSecrets:
         return AvoidHardcodedSecrets(excludes: excludes);
       case RuleId.detectSqlInjection:
-        return DetectSqlInjection(excludes: excludes);
+        throw UnimplementedError();
+        // return DetectSqlInjection(excludes: excludes);
       case RuleId.detectCommandInjection:
-        return DetectCommandInjection(excludes: excludes);
+        throw UnimplementedError();
+        // return DetectCommandInjection(excludes: excludes);
     }
   }
 }

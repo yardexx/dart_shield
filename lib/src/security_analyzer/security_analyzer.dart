@@ -3,7 +3,6 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:dart_shield/src/security_analyzer/configuration/shield_config.dart';
 import 'package:dart_shield/src/security_analyzer/extensions.dart';
-import 'package:dart_shield/src/security_analyzer/flow_analysis/flow_analysis.dart';
 import 'package:dart_shield/src/security_analyzer/report/report.dart';
 import 'package:dart_shield/src/security_analyzer/workspace.dart';
 import 'package:glob/glob.dart';
