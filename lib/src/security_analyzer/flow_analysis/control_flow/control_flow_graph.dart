@@ -1,15 +1,15 @@
-import 'cfg_node.dart';
-import 'cfg_node_type.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/cfg_node.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/cfg_node_type.dart';
 
 /// Represents a complete Control Flow Graph
 class ControlFlowGraph {
-  final CFGNode entry;
-  final CFGNode exit;
-  final List<CFGNode> nodes = [];
-
   ControlFlowGraph({required this.entry, required this.exit}) {
     nodes.addAll([entry, exit]);
   }
+
+  final CFGNode entry;
+  final CFGNode exit;
+  final List<CFGNode> nodes = [];
 
   void addNode(CFGNode node) {
     if (!nodes.contains(node)) {
@@ -48,14 +48,14 @@ class ControlFlowGraph {
 
   /// Generate DOT format for visualization
   String toDot() {
-    final buffer = StringBuffer();
-    buffer.writeln('digraph CFG {');
-    buffer.writeln('  rankdir=TB;');
-    buffer.writeln('  node [shape=box];');
+    final buffer = StringBuffer()
+      ..writeln('digraph CFG {')
+      ..writeln('  rankdir=TB;')
+      ..writeln('  node [shape=box];');
 
     for (final node in nodes) {
       final shape = _getNodeShape(node.type);
-      final label = node.label?.replaceAll('"', '\\"');
+      final label = node.label.replaceAll('"', r'\"');
       buffer.writeln('  "${node.id}" [label="$label", shape=$shape];');
     }
 
@@ -78,7 +78,13 @@ class ControlFlowGraph {
         return 'diamond';
       case CFGNodeType.loop:
         return 'hexagon';
-      default:
+      case CFGNodeType.statement:
+      case CFGNodeType.branch:
+      case CFGNodeType.call:
+      case CFGNodeType.return_:
+      case CFGNodeType.throw_:
+      case CFGNodeType.catch_:
+      case CFGNodeType.continue_:
         return 'box';
     }
   }

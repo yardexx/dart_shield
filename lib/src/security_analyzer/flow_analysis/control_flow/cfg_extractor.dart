@@ -1,14 +1,14 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'cfg_builder.dart';
-import 'control_flow_graph.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/cfg_builder.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/control_flow_graph.dart';
 
 /// Visitor to extract all executable elements from a compilation unit
 class CFGExtractor extends RecursiveAstVisitor<void> {
-  final CFGBuilder builder;
-  final Map<String, ControlFlowGraph> cfgs;
 
   CFGExtractor(this.builder, this.cfgs);
+  final CFGBuilder builder;
+  final Map<String, ControlFlowGraph> cfgs;
 
   @override
   void visitFunctionDeclaration(FunctionDeclaration node) {
@@ -38,7 +38,7 @@ class CFGExtractor extends RecursiveAstVisitor<void> {
   }
 
   String? _getEnclosingClassName(AstNode node) {
-    AstNode? current = node.parent;
+    var current = node.parent;
     while (current != null) {
       if (current is ClassDeclaration) {
         return current.name.lexeme;

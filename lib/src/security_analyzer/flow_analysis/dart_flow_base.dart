@@ -1,15 +1,15 @@
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
-import './control_flow/cfg_builder.dart';
-import './control_flow/cfg_extractor.dart';
-import './control_flow/control_flow_graph.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/cfg_builder.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/cfg_extractor.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/control_flow_graph.dart';
 
 /// Main API for the CFG library
 class DartCFGAnalyzer {
-  final AnalysisContextCollection _collection;
 
   DartCFGAnalyzer._(this._collection);
+  final AnalysisContextCollection _collection;
 
   static DartCFGAnalyzer forAnalysisContext(AnalysisContextCollection context) {
     return DartCFGAnalyzer._(context);
@@ -59,7 +59,6 @@ class DartCFGAnalyzer {
           }
         } catch (e) {
           // Skip files that can't be analyzed
-          print('Warning: Could not analyze $file: $e');
         }
       }
     }

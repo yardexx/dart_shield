@@ -1,7 +1,14 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'cfg_node_type.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/cfg_node_type.dart';
 
 class CFGNode {
+  CFGNode({
+    required this.id,
+    required this.label,
+    required this.type,
+    this.astNode,
+  });
+
   final String id;
   final AstNode? astNode;
   final String label;
@@ -9,13 +16,6 @@ class CFGNode {
 
   final List<CFGNode> successors = [];
   final List<CFGNode> predecessors = [];
-
-  CFGNode({
-    required this.id,
-    this.astNode,
-    required this.label,
-    required this.type,
-  });
 
   void addSuccessor(CFGNode successor) {
     if (!successors.contains(successor)) {

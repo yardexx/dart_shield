@@ -1,8 +1,8 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'cfg_node.dart';
-import 'cfg_node_type.dart';
-import 'control_flow_graph.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/cfg_node.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/cfg_node_type.dart';
+import 'package:dart_shield/src/security_analyzer/flow_analysis/control_flow/control_flow_graph.dart';
 
 /// Builder for creating Control Flow Graphs from Dart AST
 class CFGBuilder extends RecursiveAstVisitor<void> {
@@ -41,7 +41,8 @@ class CFGBuilder extends RecursiveAstVisitor<void> {
     }
 
     // Connect current node to exit if not already connected
-    if (_currentNode != _exitNode && !_currentNode.successors.contains(_exitNode)) {
+    if (_currentNode != _exitNode &&
+        !_currentNode.successors.contains(_exitNode)) {
       _currentNode.addSuccessor(_exitNode);
     }
 
@@ -76,7 +77,9 @@ class CFGBuilder extends RecursiveAstVisitor<void> {
 
   CFGNode _createStatementNode(Statement stmt) {
     final label = stmt.toString().replaceAll('\n', ' ').trim();
-    final truncated = label.length > 50 ? '${label.substring(0, 47)}...' : label;
+    final truncated = label.length > 50
+        ? '${label.substring(0, 47)}...'
+        : label;
     return _createNode(CFGNodeType.statement, truncated, stmt);
   }
 
@@ -115,8 +118,9 @@ class CFGBuilder extends RecursiveAstVisitor<void> {
     final thenStart = _createNode(CFGNodeType.branch, 'then');
     final elseStart = _createNode(CFGNodeType.branch, 'else');
 
-    conditionNode.addSuccessor(thenStart);
-    conditionNode.addSuccessor(elseStart);
+    conditionNode
+      ..addSuccessor(thenStart)
+      ..addSuccessor(elseStart);
 
     // Process then branch
     _currentNode = thenStart;
@@ -149,8 +153,9 @@ class CFGBuilder extends RecursiveAstVisitor<void> {
     final loopBody = _createNode(CFGNodeType.branch, 'loop body');
     final loopExit = _createNode(CFGNodeType.statement, 'loop exit');
 
-    loopHeader.addSuccessor(loopBody);
-    loopHeader.addSuccessor(loopExit);
+    loopHeader
+      ..addSuccessor(loopBody)
+      ..addSuccessor(loopExit);
 
     // Set up break/continue targets
     _breakTargets.add(loopExit);
@@ -199,7 +204,7 @@ class CFGBuilder extends RecursiveAstVisitor<void> {
 
     // Get condition and updaters based on the for loop parts type
     Expression? condition;
-    List<Expression> updaters = [];
+    var updaters = <Expression>[];
 
     if (node.forLoopParts is ForPartsWithDeclarations) {
       final forParts = node.forLoopParts as ForPartsWithDeclarations;
@@ -221,8 +226,9 @@ class CFGBuilder extends RecursiveAstVisitor<void> {
     final loopBody = _createNode(CFGNodeType.branch, 'for body');
     final loopExit = _createNode(CFGNodeType.statement, 'for exit');
 
-    loopHeader.addSuccessor(loopBody);
-    loopHeader.addSuccessor(loopExit);
+    loopHeader
+      ..addSuccessor(loopBody)
+      ..addSuccessor(loopExit);
 
     // Set up break/continue targets
     final updateNode = _createNode(CFGNodeType.statement, 'for update');

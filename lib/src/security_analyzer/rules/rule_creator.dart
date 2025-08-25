@@ -1,7 +1,5 @@
 import 'package:dart_shield/src/security_analyzer/rules/enums/enums.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
-import 'package:dart_shield/src/security_analyzer/rules/rules_list/detect_command_injection.dart';
-import 'package:dart_shield/src/security_analyzer/rules/rules_list/detect_sql_injection.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rules_list/rules_list.dart';
 import 'package:glob/glob.dart';
 
@@ -21,12 +19,6 @@ class RuleCreator {
         return PreferSecureRandom(excludes: excludes);
       case RuleId.avoidHardcodedSecrets:
         return AvoidHardcodedSecrets(excludes: excludes);
-      case RuleId.detectSqlInjection:
-        throw UnimplementedError();
-        // return DetectSqlInjection(excludes: excludes);
-      case RuleId.detectCommandInjection:
-        throw UnimplementedError();
-        // return DetectCommandInjection(excludes: excludes);
     }
   }
 }
