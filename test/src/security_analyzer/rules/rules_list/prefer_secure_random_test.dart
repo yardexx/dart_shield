@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/analysis_context.dart';
 import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rules_list/crypto/prefer_secure_random.dart';
@@ -10,16 +9,14 @@ import 'package:test/test.dart';
 void main() {
   group('PreferSecureRandom', () {
     late PreferSecureRandom rule;
-    late AnalysisContextCollection collection;
 
     setUp(() {
       rule = PreferSecureRandom(excludes: []);
-      collection = AnalysisContextCollection(includedPaths: []);
     });
 
     group('detects insecure Random usage', () {
       test('flags Random() constructor as violation', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void main() {
@@ -32,12 +29,14 @@ void main() {
 
         expect(issues.length, equals(1));
         expect(issues.first.ruleId, equals('preferSecureRandom'));
-        expect(issues.first.message,
-            contains('Random() is not cryptographically safe'));
+        expect(
+          issues.first.message,
+          contains('Random() is not cryptographically safe'),
+        );
       });
 
       test('flags Random() in variable assignment', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void main() {
@@ -52,7 +51,7 @@ void main() {
       });
 
       test('flags Random() in method call', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void generateNumber() {
@@ -67,7 +66,7 @@ void generateNumber() {
       });
 
       test('flags multiple Random() instances', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void main() {
@@ -85,7 +84,7 @@ void main() {
 
     group('does not flag secure Random usage', () {
       test('does not flag Random.secure()', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void main() {
@@ -100,7 +99,7 @@ void main() {
       });
 
       test('does not flag Random.secure() in variable assignment', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void main() {
@@ -115,7 +114,7 @@ void main() {
       });
 
       test('does not flag Random.secure() in method call', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void generateNumber() {
@@ -130,7 +129,7 @@ void generateNumber() {
       });
 
       test('does not flag other Random methods', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void main() {
@@ -149,7 +148,7 @@ void main() {
 
     group('mixed usage scenarios', () {
       test('flags only insecure Random() when both are present', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 void main() {
@@ -165,7 +164,7 @@ void main() {
       });
 
       test('handles Random in different scopes', () async {
-        final code = '''
+        const code = '''
 import 'dart:math';
 
 class RandomGenerator {
@@ -203,7 +202,9 @@ class RandomGenerator {
 
       test('has appropriate message', () {
         expect(
-            rule.message, contains('Random() is not cryptographically safe'));
+          rule.message,
+          contains('Random() is not cryptographically safe'),
+        );
         expect(rule.message, contains('Random.secure()'));
       });
     });
@@ -214,8 +215,8 @@ class RandomGenerator {
 Future<ResolvedUnitResult> _analyzeCode(String code) async {
   // Create a temporary file
   final tempDir = Directory.systemTemp.createTempSync('dart_shield_test_');
-  final tempFile = File(path.join(tempDir.path, 'test.dart'));
-  tempFile.writeAsStringSync(code);
+  final tempFile = File(path.join(tempDir.path, 'test.dart'))
+    ..writeAsStringSync(code);
 
   try {
     // Create analysis context
