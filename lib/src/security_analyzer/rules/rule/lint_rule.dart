@@ -34,14 +34,14 @@ abstract class LintRule {
   }
 
   /// Collects AST nodes that violate this rule.
-  /// 
+  ///
   /// This method must be implemented by concrete rule implementations.
   /// It should traverse the provided [source] and identify all AST nodes
   /// that represent security violations according to this rule's logic.
-  /// 
+  ///
   /// Returns a list of [SyntacticEntity] nodes where violations were found.
   /// An empty list indicates no violations were detected in the source.
-  /// 
+  ///
   /// Example implementation:
   /// ```dart
   /// @override

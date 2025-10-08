@@ -10,7 +10,7 @@ import 'package:path/path.dart';
 
 class _AnalysisContextResult {
   _AnalysisContextResult(this.reports, this.skippedFiles);
-  
+
   final List<FileReport> reports;
   final List<String> skippedFiles;
 }

@@ -54,13 +54,11 @@ class ShieldConfig {
   // Verifies the validity of the configuration
   void _verifyValidity() {
     // Ensure no experimental rules are in the main rules list
-    final experimentalInMainRules = rules
-        .where((rule) => rule.status == RuleStatus.experimental)
-        .toList();
+    final experimentalInMainRules =
+        rules.where((rule) => rule.status == RuleStatus.experimental).toList();
     if (experimentalInMainRules.isNotEmpty) {
-      final ruleNames = experimentalInMainRules
-          .map((rule) => rule.id.name)
-          .join(', ');
+      final ruleNames =
+          experimentalInMainRules.map((rule) => rule.id.name).join(', ');
       throw InvalidConfigurationException(
         'Found experimental rule(s) in the "rules" list: $ruleNames. '
         'Move these to "experimental-rules" list.',
@@ -70,9 +68,8 @@ class ShieldConfig {
     // Ensure experimental rules are only allowed if the experimental flag is
     // enabled
     if (!enableExperimental && experimentalRules.isNotEmpty) {
-      final ruleNames = experimentalRules
-          .map((rule) => rule.id.name)
-          .join(', ');
+      final ruleNames =
+          experimentalRules.map((rule) => rule.id.name).join(', ');
       throw InvalidConfigurationException(
         'Found experimental rule(s) in "experimental-rules" list: $ruleNames, '
         'but "enable-experimental" is set to false. '

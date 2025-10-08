@@ -26,13 +26,14 @@ void main() {
   final random = Random();
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(1));
         expect(issues.first.ruleId, equals('preferSecureRandom'));
-        expect(issues.first.message, contains('Random() is not cryptographically safe'));
+        expect(issues.first.message,
+            contains('Random() is not cryptographically safe'));
       });
 
       test('flags Random() in variable assignment', () async {
@@ -43,10 +44,10 @@ void main() {
   Random random = Random();
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(1));
       });
 
@@ -58,10 +59,10 @@ void generateNumber() {
   return Random().nextInt(100);
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(1));
       });
 
@@ -74,10 +75,10 @@ void main() {
   final random2 = Random();
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(2));
       });
     });
@@ -91,10 +92,10 @@ void main() {
   final random = Random.secure();
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(0));
       });
 
@@ -106,10 +107,10 @@ void main() {
   Random random = Random.secure();
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(0));
       });
 
@@ -121,10 +122,10 @@ void generateNumber() {
   return Random.secure().nextInt(100);
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(0));
       });
 
@@ -138,10 +139,10 @@ void main() {
   final doubleValue = random.nextDouble();
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(0));
       });
     });
@@ -156,10 +157,10 @@ void main() {
   final insecureRandom = Random();
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(1));
       });
 
@@ -179,10 +180,10 @@ class RandomGenerator {
   }
 }
 ''';
-        
+
         final result = await _analyzeCode(code);
         final issues = rule.check(result);
-        
+
         expect(issues.length, equals(1));
       });
     });
@@ -201,7 +202,8 @@ class RandomGenerator {
       });
 
       test('has appropriate message', () {
-        expect(rule.message, contains('Random() is not cryptographically safe'));
+        expect(
+            rule.message, contains('Random() is not cryptographically safe'));
         expect(rule.message, contains('Random.secure()'));
       });
     });
@@ -214,15 +216,15 @@ Future<ResolvedUnitResult> _analyzeCode(String code) async {
   final tempDir = Directory.systemTemp.createTempSync('dart_shield_test_');
   final tempFile = File(path.join(tempDir.path, 'test.dart'));
   tempFile.writeAsStringSync(code);
-  
+
   try {
     // Create analysis context
     final collection = AnalysisContextCollection(includedPaths: [tempDir.path]);
     final context = collection.contexts.first;
-    
+
     // Get resolved unit
     final result = await context.currentSession.getResolvedUnit(tempFile.path);
-    
+
     if (result is ResolvedUnitResult) {
       return result;
     } else {
