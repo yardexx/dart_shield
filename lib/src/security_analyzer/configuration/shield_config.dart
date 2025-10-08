@@ -32,9 +32,23 @@ class ShieldConfig {
   }
 
   factory ShieldConfig.fromFile(String path) {
-    final content = File(path).readAsStringSync();
-    final dartMap = yamlToDartMap(loadYaml(content)) as Map<String, dynamic>;
-    return ShieldConfig.fromYaml(dartMap);
+    try {
+      final content = File(path).readAsStringSync();
+      final dartMap = yamlToDartMap(loadYaml(content)) as Map<String, dynamic>;
+      return ShieldConfig.fromYaml(dartMap);
+    } on FileSystemException catch (e) {
+      throw InvalidConfigurationException(
+        'Could not read config file at $path: ${e.message}',
+      );
+    } on YamlException catch (e) {
+      throw InvalidConfigurationException(
+        'Invalid YAML in config file at $path: ${e.message}',
+      );
+    } catch (e) {
+      throw InvalidConfigurationException(
+        'Invalid configuration structure in $path: $e',
+      );
+    }
   }
 
   // Verifies the validity of the configuration
