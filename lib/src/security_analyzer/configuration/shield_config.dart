@@ -40,27 +40,43 @@ class ShieldConfig {
   // Verifies the validity of the configuration
   void _verifyValidity() {
     // Ensure no experimental rules are in the main rules list
-    if (rules.any((rule) => rule.status == RuleStatus.experimental)) {
-      throw const InvalidConfigurationException(
-        'Rules with status experimental are not allowed in the rules list',
+    final experimentalInMainRules = rules
+        .where((rule) => rule.status == RuleStatus.experimental)
+        .toList();
+    if (experimentalInMainRules.isNotEmpty) {
+      final ruleNames = experimentalInMainRules
+          .map((rule) => rule.id.name)
+          .join(', ');
+      throw InvalidConfigurationException(
+        'Found experimental rule(s) in the "rules" list: $ruleNames. '
+        'Move these to "experimental-rules" list.',
       );
     }
 
     // Ensure experimental rules are only allowed if the experimental flag is
     // enabled
     if (!enableExperimental && experimentalRules.isNotEmpty) {
-      throw const InvalidConfigurationException(
-        'Experimental rules are not allowed when the experimental flag is '
-        'disabled',
+      final ruleNames = experimentalRules
+          .map((rule) => rule.id.name)
+          .join(', ');
+      throw InvalidConfigurationException(
+        'Found experimental rule(s) in "experimental-rules" list: $ruleNames, '
+        'but "enable-experimental" is set to false. '
+        'Set "enable-experimental" to true to use these rules.',
       );
     }
 
     // Ensure only experimental rules are in the experimental rules list
-    if (experimentalRules
-        .any((rule) => rule.status != RuleStatus.experimental)) {
-      throw const InvalidConfigurationException(
-        'Only rules with status experimental are allowed in the experimental '
-        'rules list',
+    final nonExperimentalInExperimentalRules = experimentalRules
+        .where((rule) => rule.status != RuleStatus.experimental)
+        .toList();
+    if (nonExperimentalInExperimentalRules.isNotEmpty) {
+      final ruleNames = nonExperimentalInExperimentalRules
+          .map((rule) => rule.id.name)
+          .join(', ');
+      throw InvalidConfigurationException(
+        'Found non-experimental rule(s) in "experimental-rules" list: '
+        '$ruleNames. Move these to the "rules" list.',
       );
     }
   }
