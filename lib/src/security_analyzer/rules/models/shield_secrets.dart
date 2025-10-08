@@ -36,5 +36,6 @@ class ShieldSecrets {
   final List<MatchingPattern> keys;
 
   bool containsSecret(String value) =>
-      secrets.any((p) => p.regex.hasMatch(value) || p.regex.hasMatch(value));
+      secrets.any((p) => p.regex.hasMatch(value)) ||
+      keys.any((p) => p.regex.hasMatch(value));
 }
