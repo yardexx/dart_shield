@@ -47,7 +47,7 @@ class AnalyzeCommand extends ShieldCommand {
     final progress = logger.progress('Creating workspace');
 
     final workspace = Workspace(
-      analyzedPaths: argResults.rest,
+      analyzedPaths: argResults.rest.isEmpty ? ['.'] : argResults.rest,
       rootFolder: Directory.current.path,
     );
 
@@ -68,6 +68,15 @@ class AnalyzeCommand extends ShieldCommand {
   ) async {
     final progress = logger.progress('Analyzing project');
     final report = await _analyzer.analyzeFromCli(workspace, config);
+
+    // Log skipped files if any
+    if (report.skippedFiles.isNotEmpty) {
+      logger.warn('Could not analyze ${report.skippedFiles.length} file(s):');
+      for (final file in report.skippedFiles) {
+        logger.warn('  - $file');
+      }
+    }
+
     progress.complete('Project analyzed.');
     return report;
   }

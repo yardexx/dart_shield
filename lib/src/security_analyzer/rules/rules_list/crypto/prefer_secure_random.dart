@@ -42,12 +42,9 @@ class _PreferSecureRandomVisitor extends ErrorNodeCollector {
   }
 
   bool _isRandomUnsecure(InstanceCreationExpression node) {
-    final token = node.beginToken;
-    final baseConstructor = token.lexeme;
+    final baseConstructor = node.beginToken.lexeme;
     final constructorName = node.constructorName.name?.name;
-    final constructorToken = token.next?.next?.lexeme;
 
-    return baseConstructor == 'Random' &&
-        (constructorName == 'secure' || constructorToken == 'secure');
+    return baseConstructor == 'Random' && constructorName != 'secure';
   }
 }

@@ -73,15 +73,16 @@ dart_shield init -f
 dart_shield init --force
 ```
 
-To analyze your Dart code for potential security flaws, run the following command,
-specifying the directory:
+To analyze your Dart code for potential security flaws, run the following command:
 
 ```bash
-dart_shield analyze .
-```
+# Analyze current directory (default)
+dart_shield analyze
 
-> **Note:** The . at the end of the command specifies the directory to be analyzed and must always
-> be included. The command does not automatically add it.
+# Or explicitly specify a directory
+dart_shield analyze .
+dart_shield analyze lib
+```
 
 This command analyzes your Dart code based on the configuration in the shield_options.yaml file.
 If the configuration file is not found, the command will fail.

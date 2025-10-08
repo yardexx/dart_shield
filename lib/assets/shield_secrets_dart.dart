@@ -1,5 +1,7 @@
-// Copy of [shield_secrets.dart] because Dart doesn't support assets.
-// TODO: Remove this file once Dart supports assets: https://github.com/dart-lang/sdk/issues/53562
+// Copy of [shield_secrets.yaml] because Dart doesn't support native assets yet.
+// This is a workaround until Dart SDK adds native asset support.
+// See: https://github.com/dart-lang/sdk/issues/53562
+// TODO: Remove this file and use native assets when Dart SDK supports it
 
 const String shieldSecretsSource = r'''
 shield_patterns:

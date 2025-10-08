@@ -15,7 +15,9 @@ class ShieldSecrets {
   });
 
   factory ShieldSecrets.preset() {
-    // TODO: Fix after asset support is added.
+    // Workaround: Using assets.dart instead of native asset support
+    // See: https://github.com/dart-lang/sdk/issues/53562
+    // TODO: Migrate to native assets when Dart SDK supports it
     // final content = File(_defaultConfigPath).readAsStringSync();
     const content = shieldSecretsSource;
     final dartMap = yamlToDartMap(loadYaml(content)) as Map<String, dynamic>;
@@ -27,7 +29,9 @@ class ShieldSecrets {
     return _$ShieldSecretsFromJson(config);
   }
 
-  // TODO: Fix after asset support is added.
+  // Workaround: Using assets.dart instead of native asset support
+  // See: https://github.com/dart-lang/sdk/issues/53562
+  // TODO: Migrate to native assets when Dart SDK supports it
   // static const _defaultConfigPath = '../rules_list/utils/shield_secrets.yaml';
   static const _yamlRootKey = 'shield_patterns';
 
@@ -36,5 +40,6 @@ class ShieldSecrets {
   final List<MatchingPattern> keys;
 
   bool containsSecret(String value) =>
-      secrets.any((p) => p.regex.hasMatch(value) || p.regex.hasMatch(value));
+      secrets.any((p) => p.regex.hasMatch(value)) ||
+      keys.any((p) => p.regex.hasMatch(value));
 }

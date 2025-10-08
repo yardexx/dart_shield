@@ -14,11 +14,11 @@ void main() {
     });
 
     test('fromJson should throw an exception for invalid ruleId', () {
-      expect(() => converter.fromJson('Invalid_RuleId'), throwsStateError);
+      expect(() => converter.fromJson('Invalid_RuleId'), throwsArgumentError);
     });
 
     test('toJson should return a string for valid LintRule', () {
-      final rule = RuleCreator.createRule(
+      final rule = RuleRegistry.createRule(
         id: RuleId.avoidHardcodedUrls,
         excludes: [],
       );

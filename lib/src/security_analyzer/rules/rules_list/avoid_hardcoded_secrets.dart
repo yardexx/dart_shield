@@ -21,14 +21,14 @@ class AvoidHardcodedSecrets extends LintRule {
   @override
   List<SyntacticEntity> collectErrorNodes(ResolvedUnitResult source) {
     final secrets = ShieldSecrets.preset();
-    final visitor = _AvoidHardcodedCredentialsVisitor(secrets: secrets);
+    final visitor = _AvoidHardcodedSecretsVisitor(secrets: secrets);
     source.unit.accept(visitor);
     return visitor.errorNodes;
   }
 }
 
-class _AvoidHardcodedCredentialsVisitor extends ErrorNodeCollector {
-  _AvoidHardcodedCredentialsVisitor({required this.secrets});
+class _AvoidHardcodedSecretsVisitor extends ErrorNodeCollector {
+  _AvoidHardcodedSecretsVisitor({required this.secrets});
 
   final ShieldSecrets secrets;
 
