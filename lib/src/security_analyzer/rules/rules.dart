@@ -1,2 +1,2 @@
 export 'rule/rule.dart';
-export 'rule_creator.dart';
+export 'rule_registry.dart';
