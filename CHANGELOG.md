@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0-dev.4] - 2025-10-08
+
+### Added
+- Implicit current folder analysis - users can now run analysis without specifying a target directory ([issue #6](https://github.com/yardexx/dart_shield/issues/6))
+- Rule registry system for better rule management and organization
+- Improved analysis report handling with better error reporting and progress tracking ([issue #9](https://github.com/yardexx/dart_shield/issues/9))
+
+### Changed
+- Enhanced configuration parsing for better flexibility
+- Improved report handling and project report structure
+- Refactored class declarations for better code organization
+- Updated visitor naming for consistency
+
+### Fixed
+- Secure random detection in crypto rules
+- Hardcoded secrets detection now includes key detection
+- Various rule detection improvements
+
+### Tests
+- Added comprehensive tests for secure random rule
+- Enhanced test coverage for configuration parsing
+
 ## [0.1.0-dev.3] - 2024-08-31
 
 ### Added
