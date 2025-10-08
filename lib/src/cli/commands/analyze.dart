@@ -47,7 +47,7 @@ class AnalyzeCommand extends ShieldCommand {
     final progress = logger.progress('Creating workspace');
 
     final workspace = Workspace(
-      analyzedPaths: argResults.rest,
+      analyzedPaths: argResults.rest.isEmpty ? ['.'] : argResults.rest,
       rootFolder: Directory.current.path,
     );
 

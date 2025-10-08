@@ -24,8 +24,8 @@ abstract class ShieldCommand extends Command<int> {
   }
 
   bool get targetsExist {
-    return argResults.rest.length == 1 &&
-        Directory(argResults.rest.first).existsSync();
+    if (argResults.rest.isEmpty) return true; // Default to current directory
+    return argResults.rest.length == 1 && Directory(argResults.rest.first).existsSync();
   }
 
   Logger get logger => _logger ??= Logger();
