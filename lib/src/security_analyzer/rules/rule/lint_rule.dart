@@ -5,7 +5,7 @@ import 'package:dart_shield/src/security_analyzer/rules/enums/enums.dart';
 import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
 import 'package:glob/glob.dart';
 
-class LintRule {
+abstract class LintRule {
   LintRule({
     required this.id,
     required this.message,
@@ -33,9 +33,25 @@ class LintRule {
         .toList(growable: false);
   }
 
-  List<SyntacticEntity> collectErrorNodes(ResolvedUnitResult source) {
-    throw UnimplementedError();
-  }
+  /// Collects AST nodes that violate this rule.
+  /// 
+  /// This method must be implemented by concrete rule implementations.
+  /// It should traverse the provided [source] and identify all AST nodes
+  /// that represent security violations according to this rule's logic.
+  /// 
+  /// Returns a list of [SyntacticEntity] nodes where violations were found.
+  /// An empty list indicates no violations were detected in the source.
+  /// 
+  /// Example implementation:
+  /// ```dart
+  /// @override
+  /// List<SyntacticEntity> collectErrorNodes(ResolvedUnitResult source) {
+  ///   final visitor = _MyRuleVisitor();
+  ///   source.unit.accept(visitor);
+  ///   return visitor.errorNodes;
+  /// }
+  /// ```
+  List<SyntacticEntity> collectErrorNodes(ResolvedUnitResult source);
 
   Map<String, dynamic> toJson() {
     return {
