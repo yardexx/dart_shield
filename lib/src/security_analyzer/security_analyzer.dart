@@ -64,7 +64,6 @@ class SecurityAnalyzer {
     ShieldConfig config,
   ) {
     final relativePath = relative(result.path, from: workspace.rootFolder);
-    // TODO: Should be able to skip experimental rules
     final issues =
         config.allRules.expand((rule) => rule.check(result)).toList();
     return FileReport.fromIssues(relativePath, issues);
