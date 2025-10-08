@@ -6,9 +6,7 @@ import 'package:glob/glob.dart';
 /// Registry for managing rule creation and instantiation.
 ///
 /// This class provides a centralized way to create rule instances by mapping
-/// [RuleId] values to their corresponding constructor functions. This eliminates
-/// the need for switch statements and makes adding new rules as simple as
-/// adding a single line to the registry map.
+/// [RuleId] values to their corresponding constructor functions.
 class RuleRegistry {
   /// Static map that associates each [RuleId] with its constructor function.
   ///
