@@ -5,6 +5,7 @@ class ProjectReport {
   ProjectReport({
     required this.path,
     required this.fileReports,
+    this.skippedFiles = const [],
   });
 
   factory ProjectReport.empty(String path) {
@@ -16,6 +17,7 @@ class ProjectReport {
 
   final String path;
   final List<FileReport> fileReports;
+  List<String> skippedFiles;
 
   int get criticalCount =>
       fileReports.map((report) => report.criticalCount).sum;

@@ -8,6 +8,13 @@ import 'package:dart_shield/src/security_analyzer/workspace.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
 
+class _AnalysisContextResult {
+  _AnalysisContextResult(this.reports, this.skippedFiles);
+  
+  final List<FileReport> reports;
+  final List<String> skippedFiles;
+}
+
 class SecurityAnalyzer {
   Future<ProjectReport> analyzeFromCli(
     Workspace workspace,
@@ -15,31 +22,40 @@ class SecurityAnalyzer {
   ) async {
     final projectReport = ProjectReport.empty(workspace.rootFolder);
     final collection = _createCollection(workspace);
+    final allSkippedFiles = <String>[];
 
     for (final context in collection.contexts) {
-      final report = await _analyzeContext(workspace, context, config);
-      projectReport.addLintReports(report);
+      final result = await _analyzeContext(workspace, context, config);
+      projectReport.addLintReports(result.reports);
+      allSkippedFiles.addAll(result.skippedFiles);
     }
+
+    // Store skipped files in the project report for logging
+    projectReport.skippedFiles = allSkippedFiles;
 
     return projectReport;
   }
 
-  Future<List<FileReport>> _analyzeContext(
+  Future<_AnalysisContextResult> _analyzeContext(
     Workspace workspace,
     AnalysisContext context,
     ShieldConfig config,
   ) async {
     final dartFiles = _parseDartFiles(workspace, config);
     final analyzerResults = <FileReport>[];
+    final skippedFiles = <String>[];
 
     for (final file in dartFiles) {
       final result = await context.currentSession.tryGetResolvedUnit(file);
       if (result != null) {
         final fileReport = _analyzeUnit(workspace, result, config);
         analyzerResults.add(fileReport);
+      } else {
+        skippedFiles.add(file);
       }
     }
-    return analyzerResults;
+
+    return _AnalysisContextResult(analyzerResults, skippedFiles);
   }
 
   FileReport _analyzeUnit(
