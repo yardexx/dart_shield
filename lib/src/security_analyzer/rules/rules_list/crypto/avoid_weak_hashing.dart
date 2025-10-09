@@ -6,12 +6,12 @@ import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
 
 class AvoidWeakHashing extends LintRule {
   AvoidWeakHashing({required super.excludes})
-      : super(
-          id: RuleId.avoidWeakHashing,
-          message: _message,
-          severity: Severity.warning,
-          status: RuleStatus.experimental,
-        );
+    : super(
+        id: RuleId.avoidWeakHashing,
+        message: _message,
+        severity: Severity.warning,
+        status: RuleStatus.experimental,
+      );
 
   static const _message =
       'Avoid using weak hashing algorithms such as MD5 or SHA-1.';

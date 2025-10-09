@@ -30,9 +30,9 @@ class LintIssue {
   final SourceSpan location;
 
   Map<String, Object?> toJson() => {
-        'ruleId': ruleId,
-        'severity': severity.name,
-        'message': message,
-        'location': location.toJson(),
-      };
+    'ruleId': ruleId,
+    'severity': severity.name,
+    'message': message,
+    'location': location.toJson(),
+  };
 }

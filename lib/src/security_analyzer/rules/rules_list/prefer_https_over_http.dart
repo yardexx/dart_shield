@@ -6,11 +6,11 @@ import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
 
 class PreferHttpsOverHttp extends LintRule {
   PreferHttpsOverHttp({required super.excludes})
-      : super(
-          id: RuleId.preferHttpsOverHttp,
-          message: _message,
-          severity: Severity.info,
-        );
+    : super(
+        id: RuleId.preferHttpsOverHttp,
+        message: _message,
+        severity: Severity.info,
+      );
 
   static const _message = 'Prefer HTTPS over HTTP for URLs in the code.';
 

@@ -6,12 +6,12 @@ import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
 
 class AvoidHardcodedUrls extends LintRule {
   AvoidHardcodedUrls({required super.excludes})
-      : super(
-          id: RuleId.avoidHardcodedUrls,
-          message: _message,
-          severity: Severity.warning,
-          status: RuleStatus.experimental,
-        );
+    : super(
+        id: RuleId.avoidHardcodedUrls,
+        message: _message,
+        severity: Severity.warning,
+        status: RuleStatus.experimental,
+      );
 
   static const _message =
       'Avoid hardcoding URLs in the code. Use configuration files or '

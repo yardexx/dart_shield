@@ -25,9 +25,9 @@ class ProjectReport {
   int get infoCount => fileReports.map((report) => report.infoCount).sum;
 
   Map<String, Object?> toJson() => {
-        'path': path,
-        'reports': fileReports.map((report) => report.toJson()).toList(),
-      };
+    'path': path,
+    'reports': fileReports.map((report) => report.toJson()).toList(),
+  };
 
   void addLintReports(List<FileReport> reports) {
     fileReports.addAll(reports);

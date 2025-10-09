@@ -10,10 +10,10 @@ import 'package:path/path.dart';
 import 'package:source_span/source_span.dart';
 
 extension GlobX on Glob {
-  Iterable<String> normalizePaths(String path) =>
-      listSync(root: path, followLinks: false)
-          .whereType<File>()
-          .map((file) => normalize(file.path));
+  Iterable<String> normalizePaths(String path) => listSync(
+    root: path,
+    followLinks: false,
+  ).whereType<File>().map((file) => normalize(file.path));
 }
 
 extension AnalysisSessionX on AnalysisSession {
@@ -61,11 +61,11 @@ extension SourceSpanX on SourceSpan {
   }
 
   Map<String, Object?> toJson() => {
-        'startLine': start.line,
-        'startColumn': start.column,
-        'endLine': end.line,
-        'endColumn': end.column,
-      };
+    'startLine': start.line,
+    'startColumn': start.column,
+    'endLine': end.line,
+    'endColumn': end.column,
+  };
 
   String get string => 'Line ${start.line}, Column ${start.column}';
 }
