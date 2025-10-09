@@ -7,12 +7,12 @@ import 'package:dart_shield/src/security_analyzer/rules/rule/lint_rule.dart';
 
 class PreferSecureRandom extends LintRule {
   PreferSecureRandom({required super.excludes})
-      : super(
-          id: RuleId.preferSecureRandom,
-          message: _message,
-          severity: Severity.info,
-          status: RuleStatus.experimental,
-        );
+    : super(
+        id: RuleId.preferSecureRandom,
+        message: _message,
+        severity: Severity.info,
+        status: RuleStatus.experimental,
+      );
 
   static const _message =
       'Random() is not cryptographically safe. Use Random.secure() for '

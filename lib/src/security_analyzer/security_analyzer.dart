@@ -64,8 +64,9 @@ class SecurityAnalyzer {
     ShieldConfig config,
   ) {
     final relativePath = relative(result.path, from: workspace.rootFolder);
-    final issues =
-        config.allRules.expand((rule) => rule.check(result)).toList();
+    final issues = config.allRules
+        .expand((rule) => rule.check(result))
+        .toList();
     return FileReport.fromIssues(relativePath, issues);
   }
 

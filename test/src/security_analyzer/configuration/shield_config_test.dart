@@ -41,8 +41,9 @@ void main() {
     });
 
     test('fromJson should handle only experimental rules', () {
-      final map = yamlToDartMap(loadYaml(onlyExperimentalConfig))
-          as Map<String, dynamic>;
+      final map =
+          yamlToDartMap(loadYaml(onlyExperimentalConfig))
+              as Map<String, dynamic>;
       final config = ShieldConfig.fromYaml(map);
 
       expect(config.rules.length, equals(0));

@@ -7,12 +7,12 @@ import 'package:dart_shield/src/security_analyzer/rules/rule/rule.dart';
 
 class AvoidHardcodedSecrets extends LintRule {
   AvoidHardcodedSecrets({required super.excludes})
-      : super(
-          id: RuleId.avoidHardcodedSecrets,
-          message: _message,
-          severity: Severity.critical,
-          status: RuleStatus.stable,
-        );
+    : super(
+        id: RuleId.avoidHardcodedSecrets,
+        message: _message,
+        severity: Severity.critical,
+        status: RuleStatus.stable,
+      );
 
   static const _message =
       'Avoid hardcoding credentials/keys in the code. Use configuration files '

@@ -10,12 +10,15 @@ class FileReport {
   });
 
   factory FileReport.fromIssues(String relativePath, List<LintIssue> issues) {
-    final criticals =
-        issues.where((issue) => issue.severity == Severity.critical).toList();
-    final warnings =
-        issues.where((issue) => issue.severity == Severity.warning).toList();
-    final infos =
-        issues.where((issue) => issue.severity == Severity.info).toList();
+    final criticals = issues
+        .where((issue) => issue.severity == Severity.critical)
+        .toList();
+    final warnings = issues
+        .where((issue) => issue.severity == Severity.warning)
+        .toList();
+    final infos = issues
+        .where((issue) => issue.severity == Severity.info)
+        .toList();
 
     return FileReport(
       relativePath: relativePath,
@@ -39,9 +42,9 @@ class FileReport {
   bool get hasIssues => criticalCount > 0 || warningCount > 0 || infoCount > 0;
 
   Map<String, Object?> toJson() => {
-        'relativePath': relativePath,
-        'criticals': criticals.map((issue) => issue.toJson()).toList(),
-        'warnings': warnings.map((issue) => issue.toJson()).toList(),
-        'infos': infos.map((issue) => issue.toJson()).toList(),
-      };
+    'relativePath': relativePath,
+    'criticals': criticals.map((issue) => issue.toJson()).toList(),
+    'warnings': warnings.map((issue) => issue.toJson()).toList(),
+    'infos': infos.map((issue) => issue.toJson()).toList(),
+  };
 }

@@ -10,7 +10,8 @@ class InitCommand extends ShieldCommand {
     argParser.addFlag(
       'force',
       abbr: 'f',
-      help: 'Force initialization even if already initialized. This will '
+      help:
+          'Force initialization even if already initialized. This will '
           'overwrite existing configuration.',
       negatable: false,
     );
