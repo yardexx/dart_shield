@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dart-lang/setup-dart@v1.6.5
         with:
-          sdk: '3.4'
+          sdk: '3.9.0'
 
       - name: ⛓ Install Dependencies
         run: dart pub get
@@ -27,3 +27,6 @@ jobs:
 
       - name: 📊 Analyze
         run: dart analyze --fatal-infos --fatal-warnings .
+
+      - name: 📊 Run Pana
+        run: dart pub global activate pana && dart pub global run pana
