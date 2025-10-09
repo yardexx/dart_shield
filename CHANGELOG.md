@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0-dev.5] - 2025-10-09
+
+### Added
+- Pana analysis integration in CI/CD pipeline for enhanced code quality checks
+
+### Changed
+- Updated package dependencies to latest versions for improved stability and security
+- Enhanced lint rules configuration for better code quality enforcement
+- Improved code formatting and style consistency across the codebase
+
+### Fixed
+- Removed publish limitations to enable proper package distribution
+
+### Refactored
+- Added explanatory comments for better code documentation
+- Improved type declarations and code organization
+- Enhanced code structure for better maintainability
+
 ## [0.1.0-dev.4] - 2025-10-08
 
 ### Added
