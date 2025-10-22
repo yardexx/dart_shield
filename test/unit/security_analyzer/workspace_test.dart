@@ -27,7 +27,10 @@ void main() {
 
         expect(workspace.analyzedPaths, equals(['lib', 'test']));
         expect(workspace.rootFolder, equals(tempPath));
-        expect(workspace.configPath, equals(path.join(tempPath, 'shield_options.yaml')));
+        expect(
+          workspace.configPath,
+          equals(path.join(tempPath, 'shield_options.yaml')),
+        );
       });
 
       test('creates workspace with empty analyzed paths', () {
@@ -59,7 +62,7 @@ void main() {
         );
 
         final normalizedFolders = workspace.normalizedFolders;
-        
+
         expect(normalizedFolders.length, equals(3));
         expect(normalizedFolders, contains(path.join(tempPath, 'lib')));
         expect(normalizedFolders, contains(path.join(tempPath, 'test')));
@@ -74,7 +77,7 @@ void main() {
         );
 
         final normalizedFolders = workspace.normalizedFolders;
-        
+
         expect(normalizedFolders.length, equals(2));
         expect(normalizedFolders, contains(absolutePath));
         expect(normalizedFolders, contains(path.join(tempPath, 'relative')));
@@ -87,7 +90,7 @@ void main() {
         );
 
         final normalizedFolders = workspace.normalizedFolders;
-        
+
         expect(normalizedFolders, isEmpty);
       });
 
@@ -98,7 +101,7 @@ void main() {
         );
 
         final normalizedFolders = workspace.normalizedFolders;
-        
+
         expect(normalizedFolders.length, equals(1));
         expect(normalizedFolders.first, equals(tempPath));
       });
@@ -151,10 +154,10 @@ void main() {
         workspace.createDefaultConfig();
 
         expect(workspace.configExists, isTrue);
-        
+
         final configFile = File(workspace.configPath);
         expect(configFile.existsSync(), isTrue);
-        
+
         final content = configFile.readAsStringSync();
         expect(content, contains('shield:'));
         expect(content, contains('rules:'));
@@ -174,7 +177,7 @@ void main() {
         workspace.createDefaultConfig();
 
         expect(workspace.configExists, isTrue);
-        
+
         final content = File(workspace.configPath).readAsStringSync();
         expect(content, isNot(equals('initial content')));
         expect(content, contains('shield:'));
@@ -184,15 +187,15 @@ void main() {
         final workspace = Workspace(
           analyzedPaths: [],
           rootFolder: tempPath,
-        );
+        )
 
-        workspace.createDefaultConfig();
+        ..createDefaultConfig();
 
         final configFile = File(workspace.configPath);
         expect(configFile.existsSync(), isTrue);
-        
+
         // File should be readable
-        expect(() => configFile.readAsStringSync(), returnsNormally);
+        expect(configFile.readAsStringSync, returnsNormally);
       });
     });
 
@@ -203,7 +206,10 @@ void main() {
           rootFolder: tempPath,
         );
 
-        expect(workspace.configPath, equals(path.join(tempPath, 'shield_options.yaml')));
+        expect(
+          workspace.configPath,
+          equals(path.join(tempPath, 'shield_options.yaml')),
+        );
       });
 
       test('config path uses correct filename', () {
@@ -212,7 +218,10 @@ void main() {
           rootFolder: tempPath,
         );
 
-        expect(path.basename(workspace.configPath), equals('shield_options.yaml'));
+        expect(
+          path.basename(workspace.configPath),
+          equals('shield_options.yaml'),
+        );
       });
 
       test('config path is absolute', () {
@@ -234,7 +243,10 @@ void main() {
         );
 
         expect(workspace.rootFolder, equals(rootWithSlash));
-        expect(workspace.configPath, equals(path.join(rootWithSlash, 'shield_options.yaml')));
+        expect(
+          workspace.configPath,
+          equals(path.join(rootWithSlash, 'shield_options.yaml')),
+        );
       });
 
       test('handles analyzed paths with trailing slashes', () {
@@ -244,7 +256,7 @@ void main() {
         );
 
         final normalizedFolders = workspace.normalizedFolders;
-        
+
         expect(normalizedFolders.length, equals(2));
         expect(normalizedFolders, contains(path.join(tempPath, 'lib')));
         expect(normalizedFolders, contains(path.join(tempPath, 'test')));
@@ -257,9 +269,12 @@ void main() {
         );
 
         final normalizedFolders = workspace.normalizedFolders;
-        
+
         expect(normalizedFolders.length, equals(2));
-        expect(normalizedFolders, contains(path.join(path.dirname(tempPath), 'parent')));
+        expect(
+          normalizedFolders,
+          contains(path.join(path.dirname(tempPath), 'parent')),
+        );
         expect(normalizedFolders, contains(path.join(tempPath, 'current')));
       });
     });

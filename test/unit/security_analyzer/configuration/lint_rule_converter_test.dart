@@ -17,7 +17,10 @@ void main() {
       });
 
       test('fromJson should throw an exception for invalid ruleId', () {
-        expect(() => converter.fromJson('invalid-rule-id'), throwsArgumentError);
+        expect(
+          () => converter.fromJson('invalid-rule-id'),
+          throwsArgumentError,
+        );
       });
     });
 
@@ -25,19 +28,22 @@ void main() {
       test('fromJson should parse object format with exclude patterns', () {
         final rule = converter.fromJson({
           'avoid-hardcoded-secrets': {
-            'exclude': ['test/**', 'lib/config.dart']
-          }
+            'exclude': ['test/**', 'lib/config.dart'],
+          },
         });
         expect(rule, isA<LintRule>());
         expect(rule.id, equals(RuleId.avoidHardcodedSecrets));
         expect(rule.excludes, hasLength(2));
         expect(rule.excludes.any((glob) => glob.pattern == 'test/**'), isTrue);
-        expect(rule.excludes.any((glob) => glob.pattern == 'lib/config.dart'), isTrue);
+        expect(
+          rule.excludes.any((glob) => glob.pattern == 'lib/config.dart'),
+          isTrue,
+        );
       });
 
       test('fromJson should handle object format with empty exclude', () {
         final rule = converter.fromJson(<String, dynamic>{
-          'prefer-https-over-http': <String, dynamic>{}
+          'prefer-https-over-http': <String, dynamic>{},
         });
         expect(rule, isA<LintRule>());
         expect(rule.id, equals(RuleId.preferHttpsOverHttp));
@@ -46,7 +52,7 @@ void main() {
 
       test('fromJson should handle object format with missing exclude', () {
         final rule = converter.fromJson({
-          'prefer-https-over-http': {'other-config': 'value'}
+          'prefer-https-over-http': {'other-config': 'value'},
         });
         expect(rule, isA<LintRule>());
         expect(rule.id, equals(RuleId.preferHttpsOverHttp));
@@ -54,10 +60,13 @@ void main() {
       });
 
       test('fromJson should throw for object format with multiple entries', () {
-        expect(() => converter.fromJson(<String, dynamic>{
-          'rule1': <String, dynamic>{},
-          'rule2': <String, dynamic>{}
-        }), throwsArgumentError);
+        expect(
+          () => converter.fromJson(<String, dynamic>{
+            'rule1': <String, dynamic>{},
+            'rule2': <String, dynamic>{},
+          }),
+          throwsArgumentError,
+        );
       });
     });
 
@@ -71,8 +80,8 @@ void main() {
         // Test object format
         final objectRule = converter.fromJson({
           'avoid-hardcoded-secrets': {
-            'exclude': ['test/**']
-          }
+            'exclude': ['test/**'],
+          },
         });
         expect(objectRule.id, equals(RuleId.avoidHardcodedSecrets));
         expect(objectRule.excludes, hasLength(1));

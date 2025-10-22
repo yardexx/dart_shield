@@ -12,7 +12,7 @@ class LintRuleConverter implements JsonConverter<LintRule, dynamic> {
   LintRule fromJson(dynamic value) {
     final ruleConfig = RuleConfig.fromDynamic(value);
     final excludePatterns = ruleConfig.exclude.map(Glob.new).toList();
-    
+
     final rule = RuleRegistry.createRule(
       id: RuleId.fromYamlName(ruleConfig.name),
       excludes: excludePatterns,

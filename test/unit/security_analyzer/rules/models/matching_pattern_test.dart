@@ -71,7 +71,7 @@ void main() {
         expect(regex.hasMatch('+'), isTrue);
         expect(regex.hasMatch('?'), isTrue);
         expect(regex.hasMatch('^'), isTrue);
-        expect(regex.hasMatch('\$'), isTrue);
+        expect(regex.hasMatch(r'$'), isTrue);
         expect(regex.hasMatch('{'), isTrue);
         expect(regex.hasMatch('}'), isTrue);
         expect(regex.hasMatch('('), isTrue);
@@ -79,7 +79,7 @@ void main() {
         expect(regex.hasMatch('|'), isTrue);
         expect(regex.hasMatch('['), isTrue);
         expect(regex.hasMatch(']'), isTrue);
-        expect(regex.hasMatch('\\'), isTrue);
+        expect(regex.hasMatch(r'\'), isTrue);
       });
 
       test('handles empty pattern', () {
@@ -90,7 +90,10 @@ void main() {
 
         final regex = pattern.regex;
         expect(regex.hasMatch(''), isTrue);
-        expect(regex.hasMatch('any'), isTrue); // Empty pattern matches everything
+        expect(
+          regex.hasMatch('any'),
+          isTrue,
+        ); // Empty pattern matches everything
       });
 
       test('handles invalid regex patterns gracefully', () {
@@ -131,8 +134,7 @@ void main() {
       test('handles missing fields', () {
         final json = <String, dynamic>{};
 
-        expect(() => MatchingPattern.fromJson(json), 
-               throwsA(isA<TypeError>()));
+        expect(() => MatchingPattern.fromJson(json), throwsA(isA<TypeError>()));
       });
     });
 

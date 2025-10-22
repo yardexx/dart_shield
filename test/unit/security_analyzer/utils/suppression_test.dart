@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 LineInfo _createLineInfo(String content) {
   final lineStarts = <int>[];
-  for (int i = 0; i < content.length; i++) {
+  for (var i = 0; i < content.length; i++) {
     if (i == 0 || content[i - 1] == '\n') {
       lineStarts.add(i);
     }
@@ -24,9 +24,15 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
-        expect(suppression.isSuppressedAt('avoid_hardcoded_secrets', 2), isTrue);
-        expect(suppression.isSuppressedAt('prefer_https_over_http', 2), isFalse);
+
+        expect(
+          suppression.isSuppressedAt('avoid_hardcoded_secrets', 2),
+          isTrue,
+        );
+        expect(
+          suppression.isSuppressedAt('prefer_https_over_http', 2),
+          isFalse,
+        );
       });
 
       test('parses single rule on next line', () {
@@ -38,9 +44,15 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
-        expect(suppression.isSuppressedAt('avoid_hardcoded_secrets', 3), isTrue);
-        expect(suppression.isSuppressedAt('prefer_https_over_http', 3), isFalse);
+
+        expect(
+          suppression.isSuppressedAt('avoid_hardcoded_secrets', 3),
+          isTrue,
+        );
+        expect(
+          suppression.isSuppressedAt('prefer_https_over_http', 3),
+          isFalse,
+        );
       });
 
       test('parses multiple rules in one comment', () {
@@ -51,8 +63,11 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
-        expect(suppression.isSuppressedAt('avoid_hardcoded_secrets', 2), isTrue);
+
+        expect(
+          suppression.isSuppressedAt('avoid_hardcoded_secrets', 2),
+          isTrue,
+        );
         expect(suppression.isSuppressedAt('prefer_https_over_http', 2), isTrue);
         expect(suppression.isSuppressedAt('avoid_weak_hashing', 2), isFalse);
       });
@@ -65,8 +80,11 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
-        expect(suppression.isSuppressedAt('avoid_hardcoded_secrets', 2), isTrue);
+
+        expect(
+          suppression.isSuppressedAt('avoid_hardcoded_secrets', 2),
+          isTrue,
+        );
       });
 
       test('handles kebab-case to underscore conversion', () {
@@ -77,8 +95,11 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
-        expect(suppression.isSuppressedAt('avoid_hardcoded_secrets', 2), isTrue);
+
+        expect(
+          suppression.isSuppressedAt('avoid_hardcoded_secrets', 2),
+          isTrue,
+        );
       });
 
       test('ignores standard ignore comments', () {
@@ -89,8 +110,11 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
-        expect(suppression.isSuppressedAt('avoid_hardcoded_secrets', 2), isFalse);
+
+        expect(
+          suppression.isSuppressedAt('avoid_hardcoded_secrets', 2),
+          isFalse,
+        );
       });
     });
 
@@ -105,10 +129,16 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
+
         expect(suppression.isSuppressed('avoid_hardcoded_secrets'), isTrue);
-        expect(suppression.isSuppressedAt('avoid_hardcoded_secrets', 4), isTrue);
-        expect(suppression.isSuppressedAt('prefer_https_over_http', 4), isFalse);
+        expect(
+          suppression.isSuppressedAt('avoid_hardcoded_secrets', 4),
+          isTrue,
+        );
+        expect(
+          suppression.isSuppressedAt('prefer_https_over_http', 4),
+          isFalse,
+        );
       });
 
       test('parses multiple file-level suppressions', () {
@@ -121,7 +151,7 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
+
         expect(suppression.isSuppressed('avoid_hardcoded_secrets'), isTrue);
         expect(suppression.isSuppressed('prefer_https_over_http'), isTrue);
         expect(suppression.isSuppressed('avoid_weak_hashing'), isFalse);
@@ -137,7 +167,7 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
+
         expect(suppression.isSuppressed('avoid_hardcoded_secrets'), isTrue);
       });
 
@@ -151,7 +181,7 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
+
         expect(suppression.isSuppressed('avoid_hardcoded_secrets'), isFalse);
       });
     });
@@ -161,7 +191,7 @@ void main() {
         const content = '';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
+
         expect(suppression.isSuppressed('any_rule'), isFalse);
         expect(suppression.isSuppressedAt('any_rule', 1), isFalse);
       });
@@ -174,8 +204,11 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
-        expect(suppression.isSuppressedAt('avoid_hardcoded_secrets', 2), isTrue);
+
+        expect(
+          suppression.isSuppressedAt('avoid_hardcoded_secrets', 2),
+          isTrue,
+        );
         expect(suppression.isSuppressedAt('prefer_https_over_http', 2), isTrue);
       });
 
@@ -188,7 +221,7 @@ void main() {
 ''';
         final lineInfo = _createLineInfo(content);
         final suppression = Suppression(content, lineInfo);
-        
+
         // Should not crash and should not match anything
         expect(suppression.isSuppressedAt('any_rule', 2), isFalse);
         expect(suppression.isSuppressedAt('any_rule', 3), isFalse);

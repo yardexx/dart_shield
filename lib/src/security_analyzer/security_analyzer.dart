@@ -66,21 +66,23 @@ class SecurityAnalyzer {
   ) {
     final relativePath = relative(result.path, from: workspace.rootFolder);
     final suppression = Suppression(result.content, result.lineInfo);
-    
+
     // Filter rules by file-level suppression
     final applicableRules = config.allRules.where(
       (rule) => !suppression.isSuppressed(rule.id.toUnderscoreCase()),
     );
-    
+
     // Check rules and filter issues by line-level suppression
     final issues = applicableRules
         .expand((rule) => rule.check(result))
-        .where((issue) => !suppression.isSuppressedAt(
-              issue.ruleId,
-              issue.location.start.line,
-            ))
+        .where(
+          (issue) => !suppression.isSuppressedAt(
+            issue.ruleId,
+            issue.location.start.line,
+          ),
+        )
         .toList();
-    
+
     return FileReport.fromIssues(relativePath, issues);
   }
 

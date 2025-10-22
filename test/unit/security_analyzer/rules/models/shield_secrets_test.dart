@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_raw_strings
+
 import 'package:dart_shield/src/security_analyzer/rules/models/models.dart';
 import 'package:test/test.dart';
 
@@ -99,7 +101,7 @@ void main() {
             'keys': [
               {'name': 'private_key', 'pattern': r'private[_-]?key'},
             ],
-          }
+          },
         };
 
         final shieldSecrets = ShieldSecrets.fromYaml(yamlData);
@@ -114,7 +116,7 @@ void main() {
             'version': '1.0.0',
             'secrets': <Map<String, dynamic>>[],
             'keys': <Map<String, dynamic>>[],
-          }
+          },
         };
 
         final shieldSecrets = ShieldSecrets.fromYaml(yamlData);
@@ -130,8 +132,10 @@ void main() {
           'keys': <Map<String, dynamic>>[],
         };
 
-        expect(() => ShieldSecrets.fromYaml(yamlData), 
-               throwsA(isA<TypeError>()));
+        expect(
+          () => ShieldSecrets.fromYaml(yamlData),
+          throwsA(isA<TypeError>()),
+        );
       });
 
       test('throws for invalid YAML structure', () {
@@ -139,15 +143,17 @@ void main() {
           'shield_patterns': 'invalid',
         };
 
-        expect(() => ShieldSecrets.fromYaml(yamlData), 
-               throwsA(isA<TypeError>()));
+        expect(
+          () => ShieldSecrets.fromYaml(yamlData),
+          throwsA(isA<TypeError>()),
+        );
       });
     });
 
     group('preset factory', () {
       test('creates ShieldSecrets from preset configuration', () {
         final shieldSecrets = ShieldSecrets.preset();
-        
+
         expect(shieldSecrets.version, isNotEmpty);
         expect(shieldSecrets.secrets, isNotEmpty);
         expect(shieldSecrets.keys, isNotEmpty);
@@ -155,14 +161,16 @@ void main() {
 
       test('preset configuration contains expected patterns', () {
         final shieldSecrets = ShieldSecrets.preset();
-        
+
         // Test that preset configuration is loaded successfully
         expect(shieldSecrets.version, isNotEmpty);
         expect(shieldSecrets.secrets, isNotEmpty);
         expect(shieldSecrets.keys, isNotEmpty);
-        
-        // Test that patterns can detect secrets (without assuming specific patterns)
-        // This tests the functionality without depending on specific preset content
+
+        // Test that patterns can detect secrets, without assuming
+        // specific patterns
+        // This tests the functionality without depending on
+        // specific preset content
         expect(shieldSecrets.secrets.length, greaterThan(0));
         expect(shieldSecrets.keys.length, greaterThan(0));
       });

@@ -25,7 +25,7 @@ abstract class LintRule {
     if (_isFileExcluded(source.path)) {
       return [];
     }
-    
+
     final issues = collectErrorNodes(source);
     return issues
         .map(

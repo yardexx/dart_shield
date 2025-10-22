@@ -12,25 +12,36 @@ class TestAnalyzer {
   }
 
   /// Creates a temporary Dart file with the given content
-  static File createTempDartFile(Directory tempDir, String filename, String content) {
-    final file = File(path.join(tempDir.path, filename));
-    file.writeAsStringSync(content);
+  static File createTempDartFile(
+    Directory tempDir,
+    String filename,
+    String content,
+  ) {
+    final file = File(path.join(tempDir.path, filename))
+      ..writeAsStringSync(content);
     return file;
   }
 
   /// Analyzes Dart code and returns a ResolvedUnitResult
-  static Future<ResolvedUnitResult> analyzeCode(String code, {String filename = 'test.dart'}) async {
+  static Future<ResolvedUnitResult> analyzeCode(
+    String code, {
+    String filename = 'test.dart',
+  }) async {
     final tempDir = createTempDir();
     try {
       final tempFile = createTempDartFile(tempDir, filename, code);
-      
+
       // Create analysis context
-      final collection = AnalysisContextCollection(includedPaths: [tempDir.path]);
+      final collection = AnalysisContextCollection(
+        includedPaths: [tempDir.path],
+      );
       final context = collection.contexts.first;
-      
+
       // Get resolved unit
-      final result = await context.currentSession.getResolvedUnit(tempFile.path);
-      
+      final result = await context.currentSession.getResolvedUnit(
+        tempFile.path,
+      );
+
       if (result is ResolvedUnitResult) {
         return result;
       } else {
@@ -52,22 +63,24 @@ class TestAnalyzer {
       for (final entry in files.entries) {
         createTempDartFile(tempDir, entry.key, entry.value);
       }
-      
+
       // Create analysis context
-      final collection = AnalysisContextCollection(includedPaths: [tempDir.path]);
+      final collection = AnalysisContextCollection(
+        includedPaths: [tempDir.path],
+      );
       final context = collection.contexts.first;
-      
+
       // Analyze all files
       final results = <ResolvedUnitResult>[];
       for (final entry in files.entries) {
         final filePath = path.join(tempDir.path, entry.key);
         final result = await context.currentSession.getResolvedUnit(filePath);
-        
+
         if (result is ResolvedUnitResult) {
           results.add(result);
         }
       }
-      
+
       return results;
     } finally {
       // Clean up temporary directory
@@ -81,18 +94,19 @@ class TestAnalyzer {
     String? configContent,
   }) {
     final tempDir = createTempDir();
-    
+
     // Create Dart files
     for (final entry in dartFiles.entries) {
       createTempDartFile(tempDir, entry.key, entry.value);
     }
-    
+
     // Create config file if provided
     if (configContent != null) {
-      final configFile = File(path.join(tempDir.path, 'shield_options.yaml'));
-      configFile.writeAsStringSync(configContent);
+      File(
+        path.join(tempDir.path, 'shield_options.yaml'),
+      ).writeAsStringSync(configContent);
     }
-    
+
     return tempDir;
   }
 
@@ -106,11 +120,6 @@ class TestAnalyzer {
 
 /// Mock workspace for testing
 class MockWorkspace {
-  final String rootFolder;
-  final List<String> analyzedPaths;
-  final Map<String, String> files;
-  final String? configContent;
-
   MockWorkspace({
     required this.rootFolder,
     required this.analyzedPaths,
@@ -118,10 +127,19 @@ class MockWorkspace {
     this.configContent,
   });
 
+  final String rootFolder;
+  final List<String> analyzedPaths;
+  final Map<String, String> files;
+  final String? configContent;
+
   String get configPath => path.join(rootFolder, 'shield_options.yaml');
 
   List<String> get normalizedFolders => analyzedPaths
-      .map((analyzedPath) => analyzedPath.startsWith('/') ? analyzedPath : path.join(rootFolder, analyzedPath))
+      .map(
+        (analyzedPath) => analyzedPath.startsWith('/')
+            ? analyzedPath
+            : path.join(rootFolder, analyzedPath),
+      )
       .toList();
 
   bool get configExists => configContent != null;

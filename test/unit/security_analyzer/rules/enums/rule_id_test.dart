@@ -5,57 +5,87 @@ void main() {
   group('RuleId', () {
     group('fromYamlName', () {
       test('converts kebab-case to camelCase correctly', () {
-        expect(RuleId.fromYamlName('prefer-https-over-http'), 
-               equals(RuleId.preferHttpsOverHttp));
-        expect(RuleId.fromYamlName('avoid-hardcoded-urls'), 
-               equals(RuleId.avoidHardcodedUrls));
-        expect(RuleId.fromYamlName('avoid-hardcoded-secrets'), 
-               equals(RuleId.avoidHardcodedSecrets));
-        expect(RuleId.fromYamlName('avoid-weak-hashing'), 
-               equals(RuleId.avoidWeakHashing));
-        expect(RuleId.fromYamlName('prefer-secure-random'), 
-               equals(RuleId.preferSecureRandom));
+        expect(
+          RuleId.fromYamlName('prefer-https-over-http'),
+          equals(RuleId.preferHttpsOverHttp),
+        );
+        expect(
+          RuleId.fromYamlName('avoid-hardcoded-urls'),
+          equals(RuleId.avoidHardcodedUrls),
+        );
+        expect(
+          RuleId.fromYamlName('avoid-hardcoded-secrets'),
+          equals(RuleId.avoidHardcodedSecrets),
+        );
+        expect(
+          RuleId.fromYamlName('avoid-weak-hashing'),
+          equals(RuleId.avoidWeakHashing),
+        );
+        expect(
+          RuleId.fromYamlName('prefer-secure-random'),
+          equals(RuleId.preferSecureRandom),
+        );
       });
 
       test('handles single word rules', () {
-        // Test edge case for rules without hyphens - should throw for non-existent rules
-        expect(() => RuleId.fromYamlName('test-rule'), 
-               throwsA(isA<ArgumentError>()));
+        // Test edge case for rules without hyphens - should throw for
+        // non-existent rules
+        expect(
+          () => RuleId.fromYamlName('test-rule'),
+          throwsA(isA<ArgumentError>()),
+        );
       });
 
       test('throws for invalid rule names', () {
-        expect(() => RuleId.fromYamlName('invalid-rule'), 
-               throwsA(isA<ArgumentError>()));
-        expect(() => RuleId.fromYamlName(''), 
-               throwsA(isA<ArgumentError>()));
-        expect(() => RuleId.fromYamlName('unknown-rule-name'), 
-               throwsA(isA<ArgumentError>()));
+        expect(
+          () => RuleId.fromYamlName('invalid-rule'),
+          throwsA(isA<ArgumentError>()),
+        );
+        expect(() => RuleId.fromYamlName(''), throwsA(isA<ArgumentError>()));
+        expect(
+          () => RuleId.fromYamlName('unknown-rule-name'),
+          throwsA(isA<ArgumentError>()),
+        );
       });
 
       test('handles case sensitivity', () {
-        expect(() => RuleId.fromYamlName('PREFER-HTTPS-OVER-HTTP'), 
-               throwsA(isA<ArgumentError>()));
+        expect(
+          () => RuleId.fromYamlName('PREFER-HTTPS-OVER-HTTP'),
+          throwsA(isA<ArgumentError>()),
+        );
       });
     });
 
     group('toUnderscoreCase', () {
       test('converts camelCase to underscore_case correctly', () {
-        expect(RuleId.preferHttpsOverHttp.toUnderscoreCase(), 
-               equals('prefer_https_over_http'));
-        expect(RuleId.avoidHardcodedUrls.toUnderscoreCase(), 
-               equals('avoid_hardcoded_urls'));
-        expect(RuleId.avoidHardcodedSecrets.toUnderscoreCase(), 
-               equals('avoid_hardcoded_secrets'));
-        expect(RuleId.avoidWeakHashing.toUnderscoreCase(), 
-               equals('avoid_weak_hashing'));
-        expect(RuleId.preferSecureRandom.toUnderscoreCase(), 
-               equals('prefer_secure_random'));
+        expect(
+          RuleId.preferHttpsOverHttp.toUnderscoreCase(),
+          equals('prefer_https_over_http'),
+        );
+        expect(
+          RuleId.avoidHardcodedUrls.toUnderscoreCase(),
+          equals('avoid_hardcoded_urls'),
+        );
+        expect(
+          RuleId.avoidHardcodedSecrets.toUnderscoreCase(),
+          equals('avoid_hardcoded_secrets'),
+        );
+        expect(
+          RuleId.avoidWeakHashing.toUnderscoreCase(),
+          equals('avoid_weak_hashing'),
+        );
+        expect(
+          RuleId.preferSecureRandom.toUnderscoreCase(),
+          equals('prefer_secure_random'),
+        );
       });
 
       test('handles single word rules', () {
         // Test edge case for rules without camelCase
-        expect(RuleId.preferSecureRandom.toUnderscoreCase(), 
-               equals('prefer_secure_random'));
+        expect(
+          RuleId.preferSecureRandom.toUnderscoreCase(),
+          equals('prefer_secure_random'),
+        );
       });
     });
 

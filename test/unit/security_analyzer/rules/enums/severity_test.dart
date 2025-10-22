@@ -7,17 +7,26 @@ void main() {
     group('enum values', () {
       test('has correct critical severity', () {
         expect(Severity.critical.value, equals('critical'));
-        expect(Severity.critical.analysisSeverity, equals(AnalysisErrorSeverity.ERROR));
+        expect(
+          Severity.critical.analysisSeverity,
+          equals(AnalysisErrorSeverity.ERROR),
+        );
       });
 
       test('has correct warning severity', () {
         expect(Severity.warning.value, equals('warning'));
-        expect(Severity.warning.analysisSeverity, equals(AnalysisErrorSeverity.WARNING));
+        expect(
+          Severity.warning.analysisSeverity,
+          equals(AnalysisErrorSeverity.WARNING),
+        );
       });
 
       test('has correct info severity', () {
         expect(Severity.info.value, equals('info'));
-        expect(Severity.info.analysisSeverity, equals(AnalysisErrorSeverity.INFO));
+        expect(
+          Severity.info.analysisSeverity,
+          equals(AnalysisErrorSeverity.INFO),
+        );
       });
     });
 
@@ -43,18 +52,24 @@ void main() {
 
     group('severity comparison', () {
       test('critical is more severe than warning', () {
-        expect(Severity.critical.analysisSeverity.index, 
-               greaterThan(Severity.warning.analysisSeverity.index));
+        expect(
+          Severity.critical.analysisSeverity.index,
+          greaterThan(Severity.warning.analysisSeverity.index),
+        );
       });
 
       test('warning is more severe than info', () {
-        expect(Severity.warning.analysisSeverity.index, 
-               greaterThan(Severity.info.analysisSeverity.index));
+        expect(
+          Severity.warning.analysisSeverity.index,
+          greaterThan(Severity.info.analysisSeverity.index),
+        );
       });
 
       test('critical is more severe than info', () {
-        expect(Severity.critical.analysisSeverity.index, 
-               greaterThan(Severity.info.analysisSeverity.index));
+        expect(
+          Severity.critical.analysisSeverity.index,
+          greaterThan(Severity.info.analysisSeverity.index),
+        );
       });
     });
 

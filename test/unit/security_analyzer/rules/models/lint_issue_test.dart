@@ -117,8 +117,18 @@ void main() {
     group('toJson', () {
       test('converts LintIssue to JSON correctly', () {
         final location = SourceSpan(
-          SourceLocation(5, sourceUrl: Uri.parse('file://test.dart'), line: 1, column: 5),
-          SourceLocation(17, sourceUrl: Uri.parse('file://test.dart'), line: 1, column: 17),
+          SourceLocation(
+            5,
+            sourceUrl: Uri.parse('file://test.dart'),
+            line: 1,
+            column: 5,
+          ),
+          SourceLocation(
+            17,
+            sourceUrl: Uri.parse('file://test.dart'),
+            line: 1,
+            column: 17,
+          ),
           'test content',
         );
 
@@ -135,8 +145,8 @@ void main() {
         expect(json['severity'], equals('warning'));
         expect(json['message'], equals('Test message'));
         expect(json['location'], isA<Map<String, Object?>>());
-        
-        final locationJson = json['location'] as Map<String, Object?>;
+
+        final locationJson = json['location']! as Map<String, Object?>;
         expect(locationJson['startLine'], equals(1));
         expect(locationJson['startColumn'], equals(5));
         expect(locationJson['endLine'], equals(1));
@@ -204,15 +214,12 @@ void main() {
 // Mock LintRule for testing
 class _MockLintRule extends LintRule {
   _MockLintRule({
-    required RuleId id,
-    required Severity severity,
-    required String message,
+    required super.id,
+    required super.severity,
+    required super.message,
   }) : super(
-          id: id,
-          message: message,
-          severity: severity,
-          excludes: [],
-        );
+         excludes: [],
+       );
 
   @override
   List<SyntacticEntity> collectErrorNodes(ResolvedUnitResult source) => [];
