@@ -9,12 +9,12 @@ part of 'shield_config.dart';
 ShieldConfig _$ShieldConfigFromJson(Map<String, dynamic> json) => ShieldConfig(
   rules:
       (json['rules'] as List<dynamic>?)
-          ?.map((e) => const LintRuleConverter().fromJson(e as String))
+          ?.map(const LintRuleConverter().fromJson)
           .toList() ??
       const [],
   experimentalRules:
       (json['experimental-rules'] as List<dynamic>?)
-          ?.map((e) => const LintRuleConverter().fromJson(e as String))
+          ?.map(const LintRuleConverter().fromJson)
           .toList() ??
       const [],
   enableExperimental: json['enable-experimental'] as bool? ?? false,
