@@ -1,0 +1,10 @@
+# Invalid configuration for dart_shield
+shield:
+  rules:
+    - invalid-rule-name
+    - another-invalid-rule
+  experimental-rules:
+    - yet-another-invalid-rule
+  enable-experimental: false  # This should cause validation error
+  exclude:
+    - 'test/**'
