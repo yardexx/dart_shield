@@ -4,6 +4,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:dart_shield/src/security_analyzer/configuration/shield_config.dart';
 import 'package:dart_shield/src/security_analyzer/extensions.dart';
 import 'package:dart_shield/src/security_analyzer/report/report.dart';
+import 'package:dart_shield/src/security_analyzer/utils/suppression.dart';
 import 'package:dart_shield/src/security_analyzer/workspace.dart';
 import 'package:glob/glob.dart';
 import 'package:path/path.dart';
@@ -64,9 +65,22 @@ class SecurityAnalyzer {
     ShieldConfig config,
   ) {
     final relativePath = relative(result.path, from: workspace.rootFolder);
-    final issues = config.allRules
+    final suppression = Suppression(result.content, result.lineInfo);
+    
+    // Filter rules by file-level suppression
+    final applicableRules = config.allRules.where(
+      (rule) => !suppression.isSuppressed(rule.id.toUnderscoreCase()),
+    );
+    
+    // Check rules and filter issues by line-level suppression
+    final issues = applicableRules
         .expand((rule) => rule.check(result))
+        .where((issue) => !suppression.isSuppressedAt(
+              issue.ruleId,
+              issue.location.start.line,
+            ))
         .toList();
+    
     return FileReport.fromIssues(relativePath, issues);
   }
 

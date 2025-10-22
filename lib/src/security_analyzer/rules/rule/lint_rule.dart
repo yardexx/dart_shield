@@ -21,6 +21,11 @@ abstract class LintRule {
   final RuleStatus status;
 
   Iterable<LintIssue> check(ResolvedUnitResult source) {
+    // Check if file is excluded for this rule
+    if (_isFileExcluded(source.path)) {
+      return [];
+    }
+    
     final issues = collectErrorNodes(source);
     return issues
         .map(
@@ -31,6 +36,11 @@ abstract class LintRule {
           ),
         )
         .toList(growable: false);
+  }
+
+  /// Checks if the file path matches any exclusion pattern for this rule.
+  bool _isFileExcluded(String filePath) {
+    return excludes.any((glob) => glob.matches(filePath));
   }
 
   /// Collects AST nodes that violate this rule.
