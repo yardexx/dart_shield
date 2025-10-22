@@ -28,7 +28,7 @@ void main() {
         final issues = rule.check(result);
 
         expect(issues.length, equals(1));
-        expect(issues.first.ruleId, equals('preferSecureRandom'));
+        expect(issues.first.ruleId, equals('prefer_secure_random'));
         expect(
           issues.first.message,
           contains('Random() is not cryptographically safe'),
