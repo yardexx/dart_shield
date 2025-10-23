@@ -13,11 +13,11 @@ ShieldConfig _$ShieldConfigFromJson(Map<String, dynamic> json) => ShieldConfig(
           .toList() ??
       const [],
   experimentalRules:
-      (json['experimental-rules'] as List<dynamic>?)
+      (json['experimental_rules'] as List<dynamic>?)
           ?.map(const LintRuleConverter().fromJson)
           .toList() ??
       const [],
-  enableExperimental: json['enable-experimental'] as bool? ?? false,
+  enableExperimental: json['enable_experimental'] as bool? ?? false,
   exclude:
       (json['exclude'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
