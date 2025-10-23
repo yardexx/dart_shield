@@ -17,22 +17,22 @@ shield:
   # List of rules that dart_shield will use to analyze your code
   # You can use both simple string format and object format with exclusions
   rules:
-    - prefer-https-over-http
-    - avoid-hardcoded-secrets:
+    - prefer_https_over_http
+    - avoid_hardcoded_secrets:
         exclude:
           - lib/config.dart
           - test/**
 
   # Some rules need more fine-tuning and are marked as experimental.
-  # You can enable them by setting `enable-experimental` to `true`.
-  enable-experimental: true
+  # You can enable them by setting `enable_experimental` to `true`.
+  enable_experimental: true
 
   # List of experimental rules that dart_shield will use to analyze your code
   # ⚠️ Experimental rules are subject to change and may not be as stable as regular rules.
-  # ⚠️ Using "experimental-rules" without setting "enable-experimental" to "true" will cause an error.
-  experimental-rules:
-    - avoid-hardcoded-urls
-    - avoid-weak-hashing:
+  # ⚠️ Using "experimental_rules" without setting "enable_experimental" to "true" will cause an error.
+  experimental_rules:
+    - avoid_hardcoded_urls
+    - avoid_weak_hashing:
         exclude:
           - lib/legacy/**
-    - prefer-secure-random
+    - prefer_secure_random
