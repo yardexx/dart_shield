@@ -161,7 +161,7 @@ void main() {
         final content = configFile.readAsStringSync();
         expect(content, contains('shield:'));
         expect(content, contains('rules:'));
-        expect(content, contains('prefer-https-over-http'));
+        expect(content, contains('prefer_https_over_http'));
       });
 
       test('overwrites existing config file', () {

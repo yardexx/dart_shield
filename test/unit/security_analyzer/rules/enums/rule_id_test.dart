@@ -4,53 +4,53 @@ import 'package:test/test.dart';
 void main() {
   group('RuleId', () {
     group('fromYamlName', () {
-      test('converts kebab-case to camelCase correctly', () {
+      test('converts snake_case to camelCase correctly', () {
         expect(
-          RuleId.fromYamlName('prefer-https-over-http'),
+          RuleId.fromYamlName('prefer_https_over_http'),
           equals(RuleId.preferHttpsOverHttp),
         );
         expect(
-          RuleId.fromYamlName('avoid-hardcoded-urls'),
+          RuleId.fromYamlName('avoid_hardcoded_urls'),
           equals(RuleId.avoidHardcodedUrls),
         );
         expect(
-          RuleId.fromYamlName('avoid-hardcoded-secrets'),
+          RuleId.fromYamlName('avoid_hardcoded_secrets'),
           equals(RuleId.avoidHardcodedSecrets),
         );
         expect(
-          RuleId.fromYamlName('avoid-weak-hashing'),
+          RuleId.fromYamlName('avoid_weak_hashing'),
           equals(RuleId.avoidWeakHashing),
         );
         expect(
-          RuleId.fromYamlName('prefer-secure-random'),
+          RuleId.fromYamlName('prefer_secure_random'),
           equals(RuleId.preferSecureRandom),
         );
       });
 
       test('handles single word rules', () {
-        // Test edge case for rules without hyphens - should throw for
+        // Test edge case for rules without underscores - should throw for
         // non-existent rules
         expect(
-          () => RuleId.fromYamlName('test-rule'),
+          () => RuleId.fromYamlName('test_rule'),
           throwsA(isA<ArgumentError>()),
         );
       });
 
       test('throws for invalid rule names', () {
         expect(
-          () => RuleId.fromYamlName('invalid-rule'),
+          () => RuleId.fromYamlName('invalid_rule'),
           throwsA(isA<ArgumentError>()),
         );
         expect(() => RuleId.fromYamlName(''), throwsA(isA<ArgumentError>()));
         expect(
-          () => RuleId.fromYamlName('unknown-rule-name'),
+          () => RuleId.fromYamlName('unknown_rule_name'),
           throwsA(isA<ArgumentError>()),
         );
       });
 
       test('handles case sensitivity', () {
         expect(
-          () => RuleId.fromYamlName('PREFER-HTTPS-OVER-HTTP'),
+          () => RuleId.fromYamlName('PREFER_HTTPS_OVER_HTTP'),
           throwsA(isA<ArgumentError>()),
         );
       });
@@ -109,8 +109,7 @@ void main() {
       test('fromYamlName and toUnderscoreCase work together', () {
         for (final ruleId in RuleId.values) {
           final underscoreCase = ruleId.toUnderscoreCase();
-          final kebabCase = underscoreCase.replaceAll('_', '-');
-          final convertedBack = RuleId.fromYamlName(kebabCase);
+          final convertedBack = RuleId.fromYamlName(underscoreCase);
           expect(convertedBack, equals(ruleId));
         }
       });

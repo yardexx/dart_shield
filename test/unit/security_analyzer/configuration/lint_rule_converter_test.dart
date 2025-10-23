@@ -10,7 +10,7 @@ void main() {
   group('LintRuleConverter', () {
     group('string format', () {
       test('fromJson should return a LintRule object for valid ruleId', () {
-        final rule = converter.fromJson('avoid-hardcoded-urls');
+        final rule = converter.fromJson('avoid_hardcoded_urls');
         expect(rule, isA<LintRule>());
         expect(rule.id, equals(RuleId.avoidHardcodedUrls));
         expect(rule.excludes, isEmpty);
@@ -18,7 +18,7 @@ void main() {
 
       test('fromJson should throw an exception for invalid ruleId', () {
         expect(
-          () => converter.fromJson('invalid-rule-id'),
+          () => converter.fromJson('invalid_rule_id'),
           throwsArgumentError,
         );
       });
@@ -27,7 +27,7 @@ void main() {
     group('object format', () {
       test('fromJson should parse object format with exclude patterns', () {
         final rule = converter.fromJson({
-          'avoid-hardcoded-secrets': {
+          'avoid_hardcoded_secrets': {
             'exclude': ['test/**', 'lib/config.dart'],
           },
         });
@@ -43,7 +43,7 @@ void main() {
 
       test('fromJson should handle object format with empty exclude', () {
         final rule = converter.fromJson(<String, dynamic>{
-          'prefer-https-over-http': <String, dynamic>{},
+          'prefer_https_over_http': <String, dynamic>{},
         });
         expect(rule, isA<LintRule>());
         expect(rule.id, equals(RuleId.preferHttpsOverHttp));
@@ -52,7 +52,7 @@ void main() {
 
       test('fromJson should handle object format with missing exclude', () {
         final rule = converter.fromJson({
-          'prefer-https-over-http': {'other-config': 'value'},
+          'prefer_https_over_http': {'other-config': 'value'},
         });
         expect(rule, isA<LintRule>());
         expect(rule.id, equals(RuleId.preferHttpsOverHttp));
@@ -73,13 +73,13 @@ void main() {
     group('mixed format support', () {
       test('should handle both string and object formats', () {
         // Test string format
-        final stringRule = converter.fromJson('avoid-hardcoded-urls');
+        final stringRule = converter.fromJson('avoid_hardcoded_urls');
         expect(stringRule.id, equals(RuleId.avoidHardcodedUrls));
         expect(stringRule.excludes, isEmpty);
 
         // Test object format
         final objectRule = converter.fromJson({
-          'avoid-hardcoded-secrets': {
+          'avoid_hardcoded_secrets': {
             'exclude': ['test/**'],
           },
         });

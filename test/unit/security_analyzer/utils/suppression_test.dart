@@ -87,10 +87,10 @@ void main() {
         );
       });
 
-      test('handles kebab-case to underscore conversion', () {
+      test('handles snake_case parsing', () {
         const content = '''
 void main() {
-  const key = 'secret'; // shield_ignore: avoid-hardcoded-secrets
+  const key = 'secret'; // shield_ignore: avoid_hardcoded_secrets
 }
 ''';
         final lineInfo = _createLineInfo(content);
