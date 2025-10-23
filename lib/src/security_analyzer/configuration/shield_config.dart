@@ -12,7 +12,7 @@ import 'package:yaml/yaml.dart';
 part 'shield_config.g.dart';
 
 @JsonSerializable(
-  fieldRename: FieldRename.kebab,
+  fieldRename: FieldRename.snake,
   converters: [LintRuleConverter(), GlobConverter()],
   createToJson: false,
 )
@@ -63,7 +63,7 @@ class ShieldConfig {
           .join(', ');
       throw InvalidConfigurationException(
         'Found experimental rule(s) in the "rules" list: $ruleNames. '
-        'Move these to "experimental-rules" list.',
+        'Move these to "experimental_rules" list.',
       );
     }
 
@@ -74,9 +74,9 @@ class ShieldConfig {
           .map((rule) => rule.id.name)
           .join(', ');
       throw InvalidConfigurationException(
-        'Found experimental rule(s) in "experimental-rules" list: $ruleNames, '
-        'but "enable-experimental" is set to false. '
-        'Set "enable-experimental" to true to use these rules.',
+        'Found experimental rule(s) in "experimental_rules" list: $ruleNames, '
+        'but "enable_experimental" is set to false. '
+        'Set "enable_experimental" to true to use these rules.',
       );
     }
 
@@ -89,7 +89,7 @@ class ShieldConfig {
           .map((rule) => rule.id.name)
           .join(', ');
       throw InvalidConfigurationException(
-        'Found non-experimental rule(s) in "experimental-rules" list: '
+        'Found non-experimental rule(s) in "experimental_rules" list: '
         '$ruleNames. Move these to the "rules" list.',
       );
     }

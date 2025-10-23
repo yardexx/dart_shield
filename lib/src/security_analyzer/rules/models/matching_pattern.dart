@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'matching_pattern.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.kebab, createToJson: false)
+@JsonSerializable(fieldRename: FieldRename.snake, createToJson: false)
 class MatchingPattern {
   MatchingPattern({
     required this.name,

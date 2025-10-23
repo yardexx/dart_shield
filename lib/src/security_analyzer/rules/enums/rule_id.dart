@@ -6,8 +6,8 @@ enum RuleId {
   preferSecureRandom;
 
   static RuleId fromYamlName(String name) {
-    // Convert kebab-case to camelCase
-    final camelCaseName = name.replaceAllMapped(RegExp(r'-(\w)'), (match) {
+    // Convert snake_case to camelCase
+    final camelCaseName = name.replaceAllMapped(RegExp(r'_(\w)'), (match) {
       final matchStr = match.group(1);
       return matchStr != null ? matchStr.toUpperCase() : '';
     });

@@ -6,7 +6,7 @@ import 'package:yaml/yaml.dart';
 
 part 'shield_secrets.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.kebab, createToJson: false)
+@JsonSerializable(fieldRename: FieldRename.snake, createToJson: false)
 class ShieldSecrets {
   ShieldSecrets({
     required this.version,

@@ -39,7 +39,7 @@ class RuleConfig {
     }
   }
 
-  /// The name of the rule (e.g., 'avoid-hardcoded-secrets').
+  /// The name of the rule (e.g., 'avoid_hardcoded_secrets').
   final String name;
 
   /// List of file patterns to exclude for this rule.
