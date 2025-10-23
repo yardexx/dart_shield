@@ -187,9 +187,7 @@ void main() {
         final workspace = Workspace(
           analyzedPaths: [],
           rootFolder: tempPath,
-        )
-
-        ..createDefaultConfig();
+        )..createDefaultConfig();
 
         final configFile = File(workspace.configPath);
         expect(configFile.existsSync(), isTrue);

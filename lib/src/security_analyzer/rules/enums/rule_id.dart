@@ -16,7 +16,7 @@ enum RuleId {
     return RuleId.values.byName(camelCaseName);
   }
 
-  /// Converts the enum name to underscore format for use in suppression 
+  /// Converts the enum name to underscore format for use in suppression
   /// comments.
   /// Example: preferHttpsOverHttp -> prefer_https_over_http
   String toUnderscoreCase() {
