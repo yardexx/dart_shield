@@ -32,5 +32,5 @@ const _defaultConfig = '''
 # For more information, see [link]
 shield:
   rules:
-    - prefer-https-over-http
+    - prefer_https_over_http
 ''';

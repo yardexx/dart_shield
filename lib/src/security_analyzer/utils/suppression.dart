@@ -60,10 +60,8 @@ class Suppression {
     }
   }
 
-  /// Canonicalizes rule IDs by trimming whitespace, converting to lowercase,
-  /// and normalizing kebab-case to underscores.
+  /// Canonicalizes rule IDs by trimming whitespace and converting to lowercase.
   String _canonicalize(String ruleId) {
-    final trimmed = ruleId.trim().toLowerCase();
-    return trimmed.replaceAll('-', '_');
+    return ruleId.trim().toLowerCase();
   }
 }
