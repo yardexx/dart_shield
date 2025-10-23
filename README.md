@@ -2,8 +2,11 @@
 
 <div align="center">
     <picture>
-    <source media="(prefers-color-scheme: light)" srcset="resources/img/shield-logo.svg">
-        <img alt="Dart Shield" src="resources/img/shield-logo.svg" width="150">
+        <img
+        alt="Dart Shield"
+        src="https://github.com/yardexx/dart_shield/blob/master/resources/img/shield-logo.svg"
+        width="150"
+        >
     </picture>
     <p>Dart-based security-focused code analyzer which analyzes your Dart code for potential security flaws.</p>
     <a href="https://github.com/yardexx/dart_shield/actions/workflows/dart.yml"><img src="https://github.com/yardexx/dart_shield/actions/workflows/dart.yml/badge.svg" alt="Pipelines: GitHub Actions"/></a>
