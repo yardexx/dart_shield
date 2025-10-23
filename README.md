@@ -16,8 +16,7 @@
 
 > 🚧 UNDER CONSTRUCTION 🚧
 >
-> Please note that this project is still under construction and **not yet ready for production use
-**.
+> Please note that this project is still under construction and not yet ready for production use.
 >
 > Full documentation will be available once the project is ready for production use. If you have
 > any questions, feel free to open an issue.
@@ -38,12 +37,13 @@ is similar to what you might expect.
 - Usage of insecure HTTP connections
 
 # Installation
-
-> **Note:** dart_shield is not yet available on pub.dev.
-
 To install dart_shield, run the following command:
 
 ```bash
+# Using pub.dev
+dart pub global activate dart_shield
+
+# Directly from GitHub
 dart pub global activate -s git https://github.com/yardexx/dart_shield
 ```
 
@@ -138,11 +138,11 @@ similar to how linter rules enforce code style.
 
 ## List of rules
 
-- avoid-hardcoded-secrets: Detects hardcoded secrets, such as API keys and passwords.
-- avoid-hardcoded-urls: Detects hardcoded URLs.
-- prefer-https-over-http: Detects the use of insecure HTTP connections.
-- avoid-weak-hashing: Detects the use of weak hashing algorithms, such as MD5 and SHA-1.
-- prefer-secure-random: Detects the use of non-secure random number generators.
+- avoid_hardcoded_secrets: Detects hardcoded secrets, such as API keys and passwords.
+- avoid_hardcoded_urls: Detects hardcoded URLs.
+- prefer_https_over_http: Detects the use of insecure HTTP connections.
+- avoid_weak_hashing: Detects the use of weak hashing algorithms, such as MD5 and SHA-1.
+- prefer_secure_random: Detects the use of non-secure random number generators.
 
 # Contributing
 
