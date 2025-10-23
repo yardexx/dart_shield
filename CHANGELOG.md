@@ -5,28 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.1.0-dev.6] - 2025-10-23
 
 ### Breaking Changes
-- **Configuration format changed from kebab-case to snake_case**: All configuration fields and rule names now use snake_case (underscore) naming convention instead of kebab-case (hyphen) to align with Dart's `analysis_options.yaml` conventions.
-  - `enable-experimental` → `enable_experimental`
-  - `experimental-rules` → `experimental_rules`
-  - `prefer-https-over-http` → `prefer_https_over_http`
-  - `avoid-hardcoded-urls` → `avoid_hardcoded_urls`
-  - `avoid-hardcoded-secrets` → `avoid_hardcoded_secrets`
-  - `avoid-weak-hashing` → `avoid_weak_hashing`
-  - `prefer-secure-random` → `prefer_secure_random`
-  - Suppression comments (`// shield_ignore:`) must now use snake_case format
+- Configuration format converted from kebab-case to snake_case to align with Dart's `analysis_options.yaml` conventions
+
+### Added
+- Comprehensive suppression system for ignoring specific rules or lines during analysis
 
 ### Changed
-- Updated all configuration parsing to use snake_case format
-- Simplified suppression canonicalization (removed kebab-case compatibility)
-- Updated default configuration template to use snake_case rule names
-- Updated all documentation and examples to reflect new naming convention
+- Test reorganization plan and improved test coverage
 
 ### Tests
-- Updated all test fixtures and unit tests to use snake_case format
-- Removed backward compatibility tests for kebab-case format
+- Added comprehensive unit tests for suppression system
+- Enhanced test coverage for models and enums
 
 ## [0.1.0-dev.5] - 2025-10-09
 
