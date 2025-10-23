@@ -1,7 +1,7 @@
 import 'package:dart_shield/src/utils/utils.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
-import '../../data/yaml_inputs.dart';
+import '../../fixtures/configs/yaml_inputs.dart';
 
 void main() {
   group('yamlToDartMap', () {

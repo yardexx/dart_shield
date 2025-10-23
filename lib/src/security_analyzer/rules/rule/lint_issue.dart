@@ -17,7 +17,7 @@ class LintIssue {
     required SourceSpan location,
   }) {
     return LintIssue(
-      ruleId: rule.id.name,
+      ruleId: rule.id.toUnderscoreCase(),
       severity: rule.severity,
       message: message,
       location: location,

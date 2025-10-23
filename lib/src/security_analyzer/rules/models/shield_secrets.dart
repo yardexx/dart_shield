@@ -6,7 +6,7 @@ import 'package:yaml/yaml.dart';
 
 part 'shield_secrets.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.kebab, createToJson: false)
+@JsonSerializable(fieldRename: FieldRename.snake, createToJson: false)
 class ShieldSecrets {
   ShieldSecrets({
     required this.version,
@@ -17,7 +17,7 @@ class ShieldSecrets {
   factory ShieldSecrets.preset() {
     // Workaround: Using assets.dart instead of native asset support
     // See: https://github.com/dart-lang/sdk/issues/53562
-    // TODO: Migrate to native assets when Dart SDK supports it
+    // TODO(yardex): Migrate to native assets when Dart SDK supports it
     // final content = File(_defaultConfigPath).readAsStringSync();
     const content = shieldSecretsSource;
     final dartMap = yamlToDartMap(loadYaml(content)) as Map<String, dynamic>;
@@ -31,7 +31,7 @@ class ShieldSecrets {
 
   // Workaround: Using assets.dart instead of native asset support
   // See: https://github.com/dart-lang/sdk/issues/53562
-  // TODO: Migrate to native assets when Dart SDK supports it
+  // TODO(yardex): Migrate to native assets when Dart SDK supports it
   // static const _defaultConfigPath = '../rules_list/utils/shield_secrets.yaml';
   static const _yamlRootKey = 'shield_patterns';
 

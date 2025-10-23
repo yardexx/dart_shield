@@ -1,0 +1,4 @@
+# Minimal configuration for dart_shield
+shield:
+  rules:
+    - prefer_https_over_http

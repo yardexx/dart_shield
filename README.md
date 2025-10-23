@@ -2,8 +2,11 @@
 
 <div align="center">
     <picture>
-    <source media="(prefers-color-scheme: light)" srcset="resources/img/shield-logo.svg">
-        <img alt="Dart Shield" src="resources/img/shield-logo.svg" width="150">
+        <img
+        alt="Dart Shield"
+        src="https://github.com/yardexx/dart_shield/blob/master/resources/img/shield-logo.svg"
+        width="150"
+        >
     </picture>
     <p>Dart-based security-focused code analyzer which analyzes your Dart code for potential security flaws.</p>
     <a href="https://github.com/yardexx/dart_shield/actions/workflows/dart.yml"><img src="https://github.com/yardexx/dart_shield/actions/workflows/dart.yml/badge.svg" alt="Pipelines: GitHub Actions"/></a>
@@ -16,8 +19,7 @@
 
 > 🚧 UNDER CONSTRUCTION 🚧
 >
-> Please note that this project is still under construction and **not yet ready for production use
-**.
+> Please note that this project is still under construction and not yet ready for production use.
 >
 > Full documentation will be available once the project is ready for production use. If you have
 > any questions, feel free to open an issue.
@@ -38,12 +40,13 @@ is similar to what you might expect.
 - Usage of insecure HTTP connections
 
 # Installation
-
-> **Note:** dart_shield is not yet available on pub.dev.
-
 To install dart_shield, run the following command:
 
 ```bash
+# Using pub.dev
+dart pub global activate dart_shield
+
+# Directly from GitHub
 dart pub global activate -s git https://github.com/yardexx/dart_shield
 ```
 
@@ -115,20 +118,20 @@ shield:
 
   # List of rules that dart_shield will use to analyze your code
   rules:
-    - prefer-https-over-http
-    - avoid-hardcoded-secrets
+    - prefer_https_over_http
+    - avoid_hardcoded_secrets
 
   # Some rules need more fine-tuning and are marked as experimental.
-  # You can enable them by setting `enable-experimental` to `true`.
-  enable-experimental: true
+  # You can enable them by setting `enable_experimental` to `true`.
+  enable_experimental: true
 
   # List of experimental rules that dart_shield will use to analyze your code
   # ⚠️ Experimental rules are subject to change and may not be as stable as regular rules.
-  # ⚠️ Using "experimental-rules" without setting "enable-experimental" to "true" will cause an error.
-  experimental-rules:
-    - avoid-hardcoded-urls
-    - avoid-weak-hashing
-    - prefer-secure-random
+  # ⚠️ Using "experimental_rules" without setting "enable_experimental" to "true" will cause an error.
+  experimental_rules:
+    - avoid_hardcoded_urls
+    - avoid_weak_hashing
+    - prefer_secure_random
 ```
 
 # Rules
@@ -138,11 +141,11 @@ similar to how linter rules enforce code style.
 
 ## List of rules
 
-- avoid-hardcoded-secrets: Detects hardcoded secrets, such as API keys and passwords.
-- avoid-hardcoded-urls: Detects hardcoded URLs.
-- prefer-https-over-http: Detects the use of insecure HTTP connections.
-- avoid-weak-hashing: Detects the use of weak hashing algorithms, such as MD5 and SHA-1.
-- prefer-secure-random: Detects the use of non-secure random number generators.
+- avoid_hardcoded_secrets: Detects hardcoded secrets, such as API keys and passwords.
+- avoid_hardcoded_urls: Detects hardcoded URLs.
+- prefer_https_over_http: Detects the use of insecure HTTP connections.
+- avoid_weak_hashing: Detects the use of weak hashing algorithms, such as MD5 and SHA-1.
+- prefer_secure_random: Detects the use of non-secure random number generators.
 
 # Contributing
 

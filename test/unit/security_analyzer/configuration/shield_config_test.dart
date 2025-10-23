@@ -5,7 +5,7 @@ import 'package:dart_shield/src/utils/utils.dart';
 import 'package:test/test.dart';
 import 'package:yaml/yaml.dart';
 
-import '../../../data/config_examples.dart';
+import '../../../fixtures/configs/config_examples.dart';
 
 void main() {
   group('$ShieldConfig - valid configuration', () {

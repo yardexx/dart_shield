@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.0-dev.6] - 2025-10-23
+
+### Breaking Changes
+- Configuration format converted from kebab-case to snake_case to align with Dart's `analysis_options.yaml` conventions
+
+### Added
+- Comprehensive suppression system for ignoring specific rules or lines during analysis
+
+### Changed
+- Test reorganization plan and improved test coverage
+
+### Tests
+- Added comprehensive unit tests for suppression system
+- Enhanced test coverage for models and enums
+
 ## [0.1.0-dev.5] - 2025-10-09
 
 ### Added

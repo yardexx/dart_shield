@@ -1,6 +1,6 @@
 name: dart_shield
-description: A security analysis tool.
-version: 0.1.0-dev.5
+description: Open-source static analysis tool that helps secure your Dart codebase by detecting vulnerabilities before they reach production.
+version: 0.1.0-dev.6
 repository: https://github.com/yardexx/dart_shield
 issue_tracker: https://github.com/yardexx/dart_shield/issues
 topics:
