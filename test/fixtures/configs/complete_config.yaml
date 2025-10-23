@@ -1,13 +1,13 @@
 # Complete configuration for dart_shield
 shield:
   rules:
-    - prefer-https-over-http
-    - avoid-hardcoded-secrets
-  experimental-rules:
-    - avoid-hardcoded-urls
-    - avoid-weak-hashing
-    - prefer-secure-random
-  enable-experimental: true
+    - prefer_https_over_http
+    - avoid_hardcoded_secrets
+  experimental_rules:
+    - avoid_hardcoded_urls
+    - avoid_weak_hashing
+    - prefer_secure_random
+  enable_experimental: true
   exclude:
     - 'test/**'
     - '**/*.g.dart'

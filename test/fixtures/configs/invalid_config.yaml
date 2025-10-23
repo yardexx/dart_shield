@@ -3,8 +3,8 @@ shield:
   rules:
     - invalid-rule-name
     - another-invalid-rule
-  experimental-rules:
+  experimental_rules:
     - yet-another-invalid-rule
-  enable-experimental: false  # This should cause validation error
+  enable_experimental: false  # This should cause validation error
   exclude:
     - 'test/**'

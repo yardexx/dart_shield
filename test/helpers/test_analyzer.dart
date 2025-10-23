@@ -209,12 +209,12 @@ shield:
   static const String completeConfig = '''
 shield:
   rules:
-    - prefer-https-over-http
-    - avoid-hardcoded-secrets
-  experimental-rules:
-    - avoid-hardcoded-urls
-    - avoid-weak-hashing
-  enable-experimental: true
+    - prefer_https_over_http
+    - avoid_hardcoded_secrets
+  experimental_rules:
+    - avoid_hardcoded_urls
+    - avoid_weak_hashing
+  enable_experimental: true
   exclude:
     - 'test/**'
     - '**/*.g.dart'
@@ -224,7 +224,7 @@ shield:
 shield:
   rules:
     - invalid-rule
-  experimental-rules:
+  experimental_rules:
     - another-invalid-rule
 ''';
 }

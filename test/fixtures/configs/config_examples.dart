@@ -1,7 +1,7 @@
 const minimalConfig = '''
 shield:
   rules:
-    - prefer-https-over-http
+    - prefer_https_over_http
 ''';
 
 const excludePathConfig = '''
@@ -9,7 +9,7 @@ shield:
   exclude:
     - 'example/bar.dart'
   rules:
-    - prefer-https-over-http
+    - prefer_https_over_http
 ''';
 
 const excludeGlobConfig = '''
@@ -17,14 +17,14 @@ shield:
   exclude:
     - '**.g.dart'
   rules:
-    - prefer-https-over-http
+    - prefer_https_over_http
 ''';
 
 const onlyExperimentalConfig = '''
 shield:
-  enable-experimental: true
-  experimental-rules:
-    - avoid-hardcoded-urls
+  enable_experimental: true
+  experimental_rules:
+    - avoid_hardcoded_urls
 ''';
 
 const completeConfig = '''
@@ -32,10 +32,10 @@ shield:
   exclude:
     - 'example/bar.dart'
   rules:
-    - prefer-https-over-http
-  enable-experimental: true
-  experimental-rules:
-    - avoid-hardcoded-urls
+    - prefer_https_over_http
+  enable_experimental: true
+  experimental_rules:
+    - avoid_hardcoded_urls
 ''';
 
 const invalidConfig = '''
@@ -43,8 +43,8 @@ shield:
   exclude:
     - 'example/bar.dart'
   rules:
-    - prefer-https-over-http
-  enable-experimental: false
-  experimental-rules:
-    - avoid-hardcoded-urls
+    - prefer_https_over_http
+  enable_experimental: false
+  experimental_rules:
+    - avoid_hardcoded_urls
 ''';
