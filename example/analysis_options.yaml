@@ -1,1 +1,9 @@
 include: package:lints/recommended.yaml
+
+plugins:
+  dart_shield:
+    path: ../.
+
+# I was thinking about shield: or dart_shield:
+shield:
+  # Some config we might want to have

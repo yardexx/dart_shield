@@ -118,7 +118,7 @@ shield:
 
   # List of rules that dart_shield will use to analyze your code
   rules:
-    - prefer_https_over_http
+    - prefer_https_over_http.dart
     - avoid_hardcoded_secrets
 
   # Some rules need more fine-tuning and are marked as experimental.
