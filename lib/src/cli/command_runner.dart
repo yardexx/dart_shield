@@ -1,8 +1,8 @@
 import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_completion/cli_completion.dart';
-import 'package:dart_shield/src/cli/commands/commands.dart';
-import 'package:dart_shield/src/security_analyzer/exceptions/exceptions.dart';
+import 'package:dart_shield/src/cli/commands/analyze_command.dart';
+import 'package:dart_shield/src/cli/commands/init_command.dart';
 import 'package:mason_logger/mason_logger.dart';
 
 const executableName = 'dart_shield';
@@ -45,11 +45,6 @@ class ShieldCommandRunner extends CompletionCommandRunner<int> {
         ..info('')
         ..info(e.usage);
       return ExitCode.usage.code;
-    } on InvalidConfigurationException catch (e) {
-      // On invalid configuration errors, show the error message and
-      // exit with an error code
-      _logger.err(e.message);
-      return ExitCode.config.code;
     }
   }
 
