@@ -9,9 +9,8 @@ import 'package:dart_shield/src/reporters/reporter.dart';
 import 'package:mason_logger/mason_logger.dart';
 
 class ShieldRunner {
-  final Logger _logger;
-
   ShieldRunner({Logger? logger}) : _logger = logger ?? Logger();
+  final Logger _logger;
 
   Future<int> run(ShieldRunConfig runConfig) async {
     // 1. Logger Hygiene
@@ -51,7 +50,7 @@ class ShieldRunner {
   List<Reporter> _getReporters(String mode) {
     return switch (mode) {
       'json' => [JsonReporter()],
-      'both' => [ConsoleReporter(), JsonReporter()],
+      'console' => [ConsoleReporter()],
       _ => [ConsoleReporter()],
     };
   }
