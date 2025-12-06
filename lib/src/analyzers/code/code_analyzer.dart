@@ -1,17 +1,14 @@
-// ignore_for_file: avoid_catches_without_on_clauses
-
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:analyzer/dart/analysis/analysis_context.dart';
-import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
-import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/diagnostic/diagnostic.dart';
+import 'package:collection/collection.dart';
 import 'package:dart_shield/src/analyzers/analyzer.dart';
 import 'package:dart_shield/src/analyzers/code/rules/rules.dart';
-import 'package:dart_shield/src/analyzers/utils/diagnostic_mapper.dart';
+import 'package:dart_shield/src/analyzers/utils/analyzer_result.dart';
+import 'package:dart_shield/src/analyzers/utils/dto_mapper.dart';
 import 'package:dart_shield/src/domain/analysis_issue.dart';
 import 'package:dart_shield/src/domain/analyzer_result.dart';
-import 'package:dart_shield/src/utils/path.dart';
+import 'package:path/path.dart' as path;
 
 class CodeAnalyzer implements Analyzer {
   CodeAnalyzer({
@@ -22,84 +19,66 @@ class CodeAnalyzer implements Analyzer {
   final List<String> analyzedPaths;
   final String rootFolder;
 
-  late final Set<String> _shieldRuleNames = rules
-      .map((r) => r.name.toLowerCase())
-      .toSet();
-
   @override
-  String get id => 'dart_shield_code';
+  String get id => 'code';
 
   @override
   Future<AnalyzerResult> analyze() async {
-    final stopWatch = Stopwatch()..start();
+    final stopwatch = Stopwatch()..start();
 
     try {
-      final collection = _createCollection();
-      final allIssues = <AnalysisIssue>[];
+      final issues = <AnalysisIssue>[];
+      final knownRuleIds = rules.map((r) => r.name).toSet();
 
-      for (final context in collection.contexts) {
-        final issues = await _analyzeContext(context);
-        allIssues.addAll(issues);
+      for (final targetPath in analyzedPaths) {
+        final target = path.join(rootFolder, targetPath);
+
+        final result = await Process.run(
+          'dart',
+          ['analyze', '--format=json', target],
+          runInShell: true,
+        );
+
+        final output = result.stdout as String;
+
+        // `dart analyze` may output impure json (should be fixed by now)
+        // https://github.com/invertase/dart_custom_lint/issues/224
+        final jsonString = output
+            .split('\n')
+            .firstWhereOrNull((e) => e.trim().startsWith('{'));
+
+        if (jsonString == null) {
+          throw StateError('dart analyze did not return valid JSON output.');
+        }
+
+        final analyzeResult = AnalyzeResult.fromJson(
+          jsonDecode(jsonString) as Map<String, dynamic>,
+        );
+
+        for (final diagnostic in analyzeResult.diagnostics) {
+          if (knownRuleIds.contains(diagnostic.code)) {
+            final issue = diagnostic.toAnalysisIssue();
+            if (issue != null) {
+              issues.add(issue);
+            }
+          }
+        }
       }
+
+      stopwatch.stop();
 
       return AnalysisSuccess(
         analyzerId: id,
-        duration: stopWatch.elapsed,
-        issues: allIssues,
+        duration: stopwatch.elapsed,
+        issues: issues,
       );
-    } catch (e, trace) {
+    } catch (e, stack) {
       return AnalysisFailure(
         analyzerId: id,
-        duration: stopWatch.elapsed,
-        errorMessage: 'Analysis crashed: $e',
-        stackTrace: trace,
+        duration: stopwatch.elapsed,
+        errorMessage: 'Failed to run code analysis: $e',
+        stackTrace: stack,
       );
     }
-  }
-
-  AnalysisContextCollection _createCollection() {
-    final normalizedPaths = analyzedPaths
-        .map((p) => normalize(p, rootFolder))
-        .toList();
-
-    return AnalysisContextCollection(includedPaths: normalizedPaths);
-  }
-
-  Future<List<AnalysisIssue>> _analyzeContext(AnalysisContext context) async {
-    final issues = <AnalysisIssue>[];
-    final filesToAnalyze = context.contextRoot.analyzedFiles();
-
-    for (final file in filesToAnalyze) {
-      if (!file.endsWith('.dart')) continue;
-
-      try {
-        final result = await context.currentSession.getResolvedUnit(file);
-        // Delegate the logic to a pure function
-        final analysisIssues = _analyzeResult(result, file);
-        issues.addAll(analysisIssues);
-      } catch (e) {
-        // TODO: Log this to a verbose logger if you have one
-        // print('Failed to analyze $file: $e');
-      }
-    }
-
-    return issues;
-  }
-
-  List<AnalysisIssue> _analyzeResult(
-    SomeResolvedUnitResult result,
-    String file,
-  ) {
-    if (result is! ResolvedUnitResult) return [];
-
-    return result.diagnostics
-        .where(_isShieldRule)
-        .map((d) => d.toAnalysisIssue(file, result.lineInfo))
-        .toList();
-  }
-
-  bool _isShieldRule(Diagnostic diagnostic) {
-    final codeName = diagnostic.diagnosticCode.name.toLowerCase();
-    return _shieldRuleNames.contains(codeName);
   }
 }
