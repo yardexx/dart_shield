@@ -72,7 +72,7 @@ class CodeAnalyzer implements Analyzer {
         duration: stopwatch.elapsed,
         issues: issues,
       );
-    } catch (e, stack) {
+    } on Object catch (e, stack) {
       return AnalysisFailure(
         analyzerId: id,
         duration: stopwatch.elapsed,
