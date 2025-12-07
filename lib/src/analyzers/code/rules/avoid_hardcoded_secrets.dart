@@ -55,8 +55,9 @@ class _Visitor extends SimpleAstVisitor<void> {
       // 1. Keyword Check (Optimization & Context Validation)
       // If the rule has keywords, at least one must exist in value OR context.
       if (secretRule.keywords.isNotEmpty) {
+        final valueLower = value.toLowerCase();
         final hasKeywordInValue =
-            secretRule.keywords.any(value.contains);
+            secretRule.keywords.any(valueLower.contains);
         final hasKeywordInContext =
             secretRule.keywords.any(contextString.contains);
 
