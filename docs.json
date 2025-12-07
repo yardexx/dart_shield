@@ -37,23 +37,19 @@
       "pages": [
         {
           "title": "Roadmap",
-          "href": "/docs/roadmap"
+          "href": "/docs/community-and-development/roadmap"
         },
         {
           "title": "Contribution",
-          "href": "/docs/contribution"
+          "href": "/docs/community-and-development/contribution"
         },
         {
           "title": "Changelog",
-          "href": "/docs/changelog"
-        },
-        {
-          "title": "Code of Conduct",
-          "href": "/docs/code-of-conduct"
+          "href": "/docs/community-and-development/changelog"
         },
         {
           "title": "License",
-          "href": "/docs/license"
+          "href": "/docs/community-and-development/license"
         }
       ]
     },
