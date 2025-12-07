@@ -9,12 +9,12 @@
     {
       "id": "root",
       "title": "Docs",
-      "href": "/docs/introduction"
+      "href": "/"
     },
     {
       "id": "rulebook",
       "title": "Rulebook",
-      "href": "/rulebook/index"
+      "href": "/rulebook/"
     }
   ],
   "sidebar": [
