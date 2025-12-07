@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:checked_yaml/checked_yaml.dart';
+import 'package:dart_shield/src/domain/exceptions.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'shield_config.g.dart';
@@ -40,9 +41,10 @@ class ShieldConfig {
         sourceUrl: file.uri,
       );
     } on ParsedYamlException catch (e) {
-      // TODO: Better error handling
-      print('⚠️ Configuration Error: ${e.formattedMessage}');
-      return const ShieldConfig();
+      throw ConfigException(
+        'Failed to parse analysis_options.yaml',
+        e.formattedMessage,
+      );
     }
   }
 }

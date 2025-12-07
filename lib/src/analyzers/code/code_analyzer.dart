@@ -8,6 +8,7 @@ import 'package:dart_shield/src/analyzers/utils/analyzer_result.dart';
 import 'package:dart_shield/src/analyzers/utils/dto_mapper.dart';
 import 'package:dart_shield/src/domain/analysis_issue.dart';
 import 'package:dart_shield/src/domain/analyzer_result.dart';
+import 'package:dart_shield/src/domain/exceptions.dart';
 import 'package:path/path.dart' as path;
 
 class CodeAnalyzer implements Analyzer {
@@ -33,11 +34,19 @@ class CodeAnalyzer implements Analyzer {
       for (final targetPath in analyzedPaths) {
         final target = path.join(rootFolder, targetPath);
 
-        final result = await Process.run(
-          'dart',
-          ['analyze', '--format=json', target],
-          runInShell: true,
-        );
+        ProcessResult result;
+        try {
+          result = await Process.run(
+            'dart',
+            ['analyze', '--format=json', target],
+            runInShell: true,
+          );
+        } on ProcessException catch (e) {
+          throw ShieldProcessException(
+            'Failed to execute dart analyze.',
+            'Ensure the Dart SDK is installed and accessible in your PATH.\nOriginal error: ${e.message}',
+          );
+        }
 
         final output = result.stdout as String;
 
@@ -48,7 +57,10 @@ class CodeAnalyzer implements Analyzer {
             .firstWhereOrNull((e) => e.trim().startsWith('{'));
 
         if (jsonString == null) {
-          throw StateError('dart analyze did not return valid JSON output.');
+          throw ShieldProcessException(
+            'dart analyze did not return valid JSON output.',
+            'This usually means the analysis command crashed or encountered a fatal error.\nOutput: $output',
+          );
         }
 
         final analyzeResult = AnalyzeResult.fromJson(
