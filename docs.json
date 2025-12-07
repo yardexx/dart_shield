@@ -1,21 +1,44 @@
 {
-  "name": "My Docs",
-  "description": "My documentation site",
+  "name": "dart_shield",
+  "description": "Open-source, dart-first security library for building secure applications.",
+  "logo": {
+    "light": "/assets/shield-logo.svg",
+    "dark": "/assets/shield-logo.svg"
+  },
+  "tabs": [
+    {
+      "id": "root",
+      "title": "Docs",
+      "href": "/docs/"
+    },
+    {
+      "id": "rulebook",
+      "title": "Rulebook",
+      "href": "/rulebook/"
+    }
+  ],
   "sidebar": [
-  {
-    "group": "Getting Started",
-    "pages": [
-      {
-        "title": "Getting to know docs.page",
-        "href": "/",
-        "icon": "rocket"
-      },
-      {
-        "title": "Next Steps",
-        "href": "/next-steps",
-        "icon": "arrow-right"
-      }
-    ]
-  }
-]
+    {
+      "tab": "root",
+      "pages": [
+        {
+          "title": "Introduction",
+          "href": "/docs/"
+        },
+        {
+          "title": "Quick Start",
+          "href": "/docs/quickstart"
+        }
+      ]
+    },
+    {
+      "tab": "rulebook",
+      "pages": [
+        {
+          "title": "Rulebook",
+          "href": "/rulebook"
+        }
+      ]
+    }
+  ]
 }
