@@ -23,11 +23,11 @@
       "pages": [
         {
           "title": "Introduction",
-          "href": "/docs/introduction"
+          "href": "/index"
         },
         {
           "title": "Quick Start",
-          "href": "/docs/quickstart"
+          "href": "/quickstart"
         }
       ]
     },
