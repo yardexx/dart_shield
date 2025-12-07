@@ -9,7 +9,7 @@
     {
       "id": "root",
       "title": "Docs",
-      "href": "/docs/"
+      "href": "/"
     },
     {
       "id": "rulebook",
@@ -23,7 +23,7 @@
       "pages": [
         {
           "title": "Introduction",
-          "href": "/docs/"
+          "href": "/"
         },
         {
           "title": "Quick Start",
