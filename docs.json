@@ -9,12 +9,12 @@
     {
       "id": "root",
       "title": "Docs",
-      "href": "/"
+      "href": "/docs/index"
     },
     {
       "id": "rulebook",
       "title": "Rulebook",
-      "href": "/rulebook/"
+      "href": "/rulebook/index"
     }
   ],
   "sidebar": [
@@ -23,7 +23,7 @@
       "pages": [
         {
           "title": "Introduction",
-          "href": "/docs/"
+          "href": "/docs/introduction"
         },
         {
           "title": "Quick Start",
@@ -36,7 +36,7 @@
       "pages": [
         {
           "title": "Rulebook",
-          "href": "/rulebook"
+          "href": "/rulebook/index"
         }
       ]
     }
