@@ -1,6 +1,15 @@
 {
   "name": "dart_shield",
   "description": "Open-source, dart-first security library for building secure applications.",
+  "theme": {
+    "defaultTheme": "dark",
+    "primary": "#5FC9F8",
+    "primaryDark": "#04599C"
+  },
+  "content": {
+    "automaticallyInferNextPrevious": false
+  },
+  "favicon": "/assets/shield-logo.svg",
   "logo": {
     "light": "/assets/shield-logo.svg",
     "dark": "/assets/shield-logo.svg"
@@ -14,7 +23,7 @@
     {
       "id": "cli",
       "title": "CLI",
-      "href": "/cli"
+      "href": "/cli/index"
     },
     {
       "id": "rulebook",
