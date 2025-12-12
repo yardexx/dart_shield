@@ -55,3 +55,10 @@ dart analyze
 - `lib/src/analyzers/code/rules/`: specific security rules (e.g., `avoid_hardcoded_secrets.dart`).
 - `shield_options.yaml`: (User-side) Configuration file for the tool.
 - `analysis_options.yaml`: (Dev-side) Linter configuration for the project itself.
+## Documentation Style
+- All documentation must follow [Google Developer Documentation Style Guide](https://developers.google.com/style/).
+- Tone: Professional, clear, concise, and direct.
+- Structure: Use the agreed-upon template for rule documentation (Description, Non-Compliant/Compliant Code, How to Fix, Why, When to Ignore, Resources).
+
+## Rule Documentation Template
+Refer to `docs/rulebook/RULE_TEMPLATE.mdx` for the mandatory structure of rule documentation files.

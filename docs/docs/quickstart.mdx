@@ -7,40 +7,52 @@ description: Get started with dart_shield
 
 ## Installation
 
-Install dart_shield using:
+`dart_shield` works as a Dart analyzer plugin. To use it, you need to add it to your project's `dev_dependencies`.
 
-```sh
+```bash
+dart pub add --dev dart_shield
+```
+
+If you want to use the CLI commands globally (optional but recommended for CI/CD or quick initialization), you can also activate it globally:
+
+```bash
 dart pub global activate dart_shield
 ```
 
-If you want to install specific version:
-
-```sh
-dart pub global activate dart_shield <version>
-```
-
 {% hint style="warning" %}
-If this is your first CLI package, you might need to [setup PATH variable](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
+If you only install it globally, `dart analyze` might not be able to load the plugin for your local project. It is highly recommended to add it to `dev_dependencies`.
 {% endhint %}
 
-## Initialisation
+## Initialization
 
-In root of your Dart/Flutter project, initialise dart\_shield using:
+In the root of your Dart/Flutter project, initialize `dart_shield`. This will configure your `analysis_options.yaml` to enable the plugin.
 
-```sh
+```bash
 dart_shield init
 ```
-## Running Analysis
-dart_shield is build upon [analysis_server_plugin](https://pub.dev/packages/analysis_server_plugin) so any code threat is automatically detected by Dart analysis server.
 
-`dart init` automatically enabled this analysis plugin in analysis_options.yaml as well as provided default configuration.
-
-If you want to run analysis by hand, you can run default dart analyzer:
-```sh
-dart analyze <analyzed-folder>
+*Note: If you haven't installed the CLI globally, you can run:*
+```bash
+dart run dart_shield:main init
 ```
 
-If you want to run analysis but only care about issues reported by dart_shield, you can run:
-```sh
-dart_shield analyse <analyzed-folder>
+## Running Analysis
+
+Once initialized, `dart_shield` rules are automatically integrated into the standard Dart analysis server. This means issues will appear in your IDE (VS Code, IntelliJ) and when running `dart analyze`.
+
+### Using standard Dart analyzer
+```bash
+dart analyze
+```
+
+### Using Shield CLI
+You can also use the `dart_shield` CLI to run analysis, which allows for custom reporters (like JSON output):
+
+```bash
+dart_shield analyze
+```
+
+*Or via `dart run`:*
+```bash
+dart run dart_shield:main analyze
 ```

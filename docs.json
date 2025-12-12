@@ -12,6 +12,11 @@
       "href": "/"
     },
     {
+      "id": "cli",
+      "title": "CLI",
+      "href": "/cli/index"
+    },
+    {
       "id": "rulebook",
       "title": "Rulebook",
       "href": "/rulebook/index"
@@ -20,6 +25,7 @@
   "sidebar": [
     {
       "tab": "docs",
+      "group": "Getting Started",
       "pages": [
         {
           "title": "Introduction",
@@ -33,7 +39,53 @@
     },
     {
       "tab": "docs",
-      "group": "Community & Development",
+      "group": "Configuration",
+      "pages": [
+        {
+          "title": "Options",
+          "href": "/configuration/options"
+        },
+        {
+          "title": "Ignoring Rules",
+          "href": "/configuration/ignoring"
+        }
+      ]
+    },
+    {
+      "tab": "docs",
+      "group": "Automation (CI/CD)",
+      "pages": [
+        {
+          "title": "GitHub Actions",
+          "href": "/automation/github-actions"
+        },
+        {
+          "title": "GitLab CI",
+          "href": "/automation/gitlab-ci"
+        },
+        {
+          "title": "Reporters",
+          "href": "/automation/reporters"
+        }
+      ]
+    },
+    {
+      "tab": "docs",
+      "group": "Background",
+      "pages": [
+        {
+          "title": "SAST Basics",
+          "href": "/background/sast-basics"
+        },
+        {
+          "title": "Architecture",
+          "href": "/background/architecture"
+        }
+      ]
+    },
+    {
+      "tab": "docs",
+      "group": "Community",
       "pages": [
         {
           "title": "Roadmap",
@@ -54,12 +106,20 @@
       ]
     },
     {
-      "tab": "docs",
-      "group": "Advanced",
+      "tab": "cli",
+      "group": "Reference",
       "pages": [
         {
-          "title": "SAST Basics",
-          "href": "/docs/advanced/sast-basics"
+          "title": "Overview",
+          "href": "/cli/index"
+        },
+        {
+          "title": "init",
+          "href": "/cli/init"
+        },
+        {
+          "title": "analyze",
+          "href": "/cli/analyze"
         }
       ]
     },
@@ -67,8 +127,50 @@
       "tab": "rulebook",
       "pages": [
         {
-          "title": "Introduction",
+          "title": "Overview",
           "href": "/rulebook/index"
+        },
+        {
+          "title": "Secret Detection Rules",
+          "href": "/rulebook/secrets"
+        }
+      ]
+    },
+    {
+      "tab": "rulebook",
+      "group": "Cryptography",
+      "pages": [
+        {
+          "title": "Avoid Weak Hashing",
+          "href": "/rulebook/cryptography/avoid-weak-hashing"
+        },
+        {
+          "title": "Prefer Secure Random",
+          "href": "/rulebook/cryptography/prefer-secure-random"
+        }
+      ]
+    },
+    {
+      "tab": "rulebook",
+      "group": "Network",
+      "pages": [
+        {
+          "title": "Prefer HTTPS over HTTP",
+          "href": "/rulebook/network/prefer-https-over-http"
+        },
+        {
+          "title": "Avoid Hardcoded URLs",
+          "href": "/rulebook/network/avoid-hardcoded-urls"
+        }
+      ]
+    },
+    {
+      "tab": "rulebook",
+      "group": "Secrets",
+      "pages": [
+        {
+          "title": "Avoid Hardcoded Secrets",
+          "href": "/rulebook/secrets/avoid-hardcoded-secrets"
         }
       ]
     }
