@@ -43,11 +43,11 @@
       "pages": [
         {
           "title": "Options",
-          "href": "/configuration/options"
+          "href": "/docs/configuration/options"
         },
         {
           "title": "Ignoring Rules",
-          "href": "/configuration/ignoring"
+          "href": "/docs/configuration/ignoring"
         }
       ]
     },
@@ -57,15 +57,15 @@
       "pages": [
         {
           "title": "GitHub Actions",
-          "href": "/automation/github-actions"
+          "href": "/docs/automation/github-actions"
         },
         {
           "title": "GitLab CI",
-          "href": "/automation/gitlab-ci"
+          "href": "/docs/automation/gitlab-ci"
         },
         {
           "title": "Reporters",
-          "href": "/automation/reporters"
+          "href": "/docs/automation/reporters"
         }
       ]
     },
@@ -75,11 +75,11 @@
       "pages": [
         {
           "title": "SAST Basics",
-          "href": "/background/sast-basics"
+          "href": "/docs/background/sast-basics"
         },
         {
           "title": "Architecture",
-          "href": "/background/architecture"
+          "href": "/docs/background/architecture"
         }
       ]
     },
