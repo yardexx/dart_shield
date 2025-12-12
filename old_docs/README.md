@@ -31,13 +31,15 @@ dart\_shield leverages existing, familiar practices from the community, rather t
 
 This makes the tool easy to adopt and integrate into any project, making it both developer-friendly and approachable.
 
-### Open-source
+### Open-source first
 
 Security should be accessible to everyone. Whether your project is large or small, security should not be limited by project size or cost.
 
 That’s why dart\_shield is free and open-source.&#x20;
 
 Being open-source ensures transparency—anyone can review the code, identify issues, and contribute improvements. This collaborative approach helps strengthen the tool and keeps it reliable for all users.
+
+dart\_shield also tries to use and integrate with other open-source tools for maximum transparency.
 
 ## Jump right in
 

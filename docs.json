@@ -54,6 +54,16 @@
       ]
     },
     {
+      "tab": "docs",
+      "group": "Advanced",
+      "pages": [
+        {
+          "title": "SAST Basics",
+          "href": "/docs/advanced/sast-basics"
+        }
+      ]
+    },
+    {
       "tab": "rulebook",
       "pages": [
         {

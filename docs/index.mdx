@@ -5,45 +5,29 @@ subtitle: Static Application Security Testing for Dart
 
 # What is dart_shield?
 
-dart\_shield is Dart-native static application security testing tool which scan your codebase and
-looks for potential security risks and breaches.
+`dart_shield` is a Dart-native Static Application Security Testing (SAST) tool that scans your codebase to identify potential security risks and breaches.
 
-It can detect security flaws such as:
-
-* Hardcoded endpoints and API keys
-* Vulnerable cryptography (weak hashing algorithms, unsecure random)
-* Unsecure HTTP connections
+It detects security flaws such as:
+* Hardcoded endpoints and API keys.
+* Vulnerable cryptography (weak hashing algorithms, insecure random generators).
+* Insecure HTTP connections.
 
 ## Motivation
 
-In modern development, security is often an afterthought, but even small vulnerabilities can lead
-to major risks.
-dart\_shield is designed to catch those issues before they become problems, ensuring your code is
-as strong as your features. Instead of pushing security aside or relying on manual checks or risking
-oversight, dart\_shield is another handy tool (just like linter or dcm) to your workflow, allowing
-you to focus on building without worrying about hidden vulnerabilities. Security shouldn't have to
-be a trade-off - you can build secure application efficiently, while focusing on delivery of your
-idea.
+In modern development, security is often an afterthought, but even small vulnerabilities can lead to major risks.
+
+`dart_shield` is designed to catch these issues before they become problems, ensuring your code is as strong as your features. Instead of pushing security aside, relying on manual checks, or risking oversight, `dart_shield` acts as another handy tool in your workflow (just like your linter or `dcm`), allowing you to focus on building.
+
+Security shouldn't have to be a trade-off—you can build secure applications efficiently while focusing on delivering your idea.
 
 ## Core Values
-dart\_shield is built around a few key principles:
+
+`dart_shield` is built around a few key principles:
 
 ### Simple
-dart\_shield leverages existing, familiar practices from the community, rather than inventing new
-solutions. By adopting proven architectures and approaches used within Dart community, it stays in
-line with what developers already know ([Principle of Familiarity](https://en.wikipedia.org/wiki/Mere-exposure_effect)).
-This makes the tool easy to adopt and integrate into any project, making it both developer-friendly
-and approachable.
+We leverage existing, familiar practices from the community rather than inventing new solutions. By adopting the proven architectures used within the Dart community, `dart_shield` stays in line with what developers already know ([Principle of Familiarity](https://en.wikipedia.org/wiki/Mere-exposure_effect)). This makes the tool easy to adopt and integrate into any project.
 
-### Open-source first
-Security should be accessible to everyone. Whether your project is large or small, security should
-not be limited by project size or cost.
+### Open-source
+Security should be accessible to everyone. Whether your project is large or small, security should not be limited by budget.
 
-That’s why dart\_shield is free and open-source.&#x20;
-
-Being open-source ensures transparency—anyone can review the code, identify issues, and contribute
-improvements. This collaborative approach helps strengthen the tool and keeps it reliable for all
-users.
-
-dart\_shield also tries to use and integrate with other open-source tools for maximum transparency.
-
+That’s why `dart_shield` is free and open-source. This ensures transparency—anyone can review the code, identify issues, and contribute improvements. This collaborative approach strengthens the tool and keeps it reliable for all users.

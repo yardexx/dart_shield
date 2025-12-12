@@ -1,56 +1,46 @@
 ---
-title: Welcome to docs.page!
-description: Get started with docs.page
+title: Quickstart
+description: Get started with dart_shield
 ---
 
-Welcome to docs.page! The init command you just ran has created a basic file struture in your project to help you get started.
+# Quickstart
 
-## Walkthrough
+## Installation
 
-### Configuration
+Install dart_shield using:
 
-In the root of your directory a new `docs.json` file has been created. This file is used to configure your documentation site. You can customize the name, description, and sidebar, theme, logos and more using this file.
-
-Here's a basic example of what the file looks like:
-
-```
-{
-  "name": "My Docs",
-  "description": "My documentation site",
-  "sidebar": [
-  {
-    "group": "Getting Started",
-    "pages": [
-      {
-        "title": "Getting to know docs.page",
-        "href": "/",
-        "icon": "rocket"
-      },
-      {
-        "title": "Next Steps",
-        "href": "/next-steps",
-        "icon": "arrow-right"
-      }
-    ]
-  }
-]
-}
+```sh
+dart pub global activate dart_shield
 ```
 
-To learn more about the advanced configuration options, check out the [docs](https://use.docs.page/configuration).
+If you want to install specific version:
 
-### Content
+```sh
+dart pub global activate dart_shield <version>
+```
 
-docs.page uses the `docs` directory to store your documentation pages. Two pages have been created for you:
+{% hint style="warning" %}
+If this is your first CLI package, you might need to [setup PATH variable](https://dart.dev/tools/pub/cmd/pub-global#running-a-script-from-your-path).
+{% endhint %}
 
-- `index.mdx` - The home page of your documentation site, resolves to the root URL.
-- `next-steps.mdx` - A page to help you get started with docs.page, resolves to `/next-steps`.
+## Initialisation
 
-Documentation can be written using the standard [GitHub Flavored Markdown Spec](https://github.github.com/gfm/) and also supports the use of [MDX](https://mdxjs.com/), 
-with the ability to render custom [components](https://use.docs.page/components) for more advanced use cases.
+In root of your Dart/Flutter project, initialise dart\_shield using:
 
-## Preview
+```sh
+dart_shield init
+```
+## Running Analysis
+dart_shield is build upon [analysis_server_plugin](https://pub.dev/packages/analysis_server_plugin) so any code threat is automatically detected by Dart analysis server.
 
-To preview your documentation site, head over to [https://docs.page/preview](https://docs.page/preview) in your browser and open this directory.
+`dart init` automatically enabled this analysis plugin in analysis_options.yaml as well as provided default configuration.
 
-Previewing your documentation site will allow you to see the changes you make in real-time before you publish to the world.
+If you want to run analysis by hand, you can run default dart analyzer:
+```sh
+dart analyze <analyzed-folder>
+```
+
+If you want to run analysis but only care about issues reported by dart_shield, you can run:
+```sh
+dart_shield analyse <analyzed-folder>
+```
