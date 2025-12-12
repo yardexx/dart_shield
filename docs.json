@@ -14,12 +14,12 @@
     {
       "id": "cli",
       "title": "CLI",
-      "href": "/cli/index"
+      "href": "/cli"
     },
     {
       "id": "rulebook",
       "title": "Rulebook",
-      "href": "/rulebook/index"
+      "href": "/rulebook"
     }
   ],
   "sidebar": [
@@ -129,10 +129,6 @@
         {
           "title": "Overview",
           "href": "/rulebook/index"
-        },
-        {
-          "title": "Secret Detection Rules",
-          "href": "/rulebook/secrets"
         }
       ]
     },
