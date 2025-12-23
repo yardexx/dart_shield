@@ -19,21 +19,12 @@ If you want to use the CLI commands globally (optional but recommended for CI/CD
 dart pub global activate dart_shield
 ```
 
-<Warning>
-If you only install it globally, `dart analyze` might not be able to load the plugin for your local project. It is highly recommended to add it to `dev_dependencies`.
-</Warning>
-
 ## Initialization
 
 In the root of your Dart/Flutter project, initialize `dart_shield`. This will configure your `analysis_options.yaml` to enable the plugin.
 
 ```bash
 dart_shield init
-```
-
-*Note: If you haven't installed the CLI globally, you can run:*
-```bash
-dart run dart_shield:main init
 ```
 
 ## Running Analysis
@@ -52,7 +43,4 @@ You can also use the `dart_shield` CLI to run analysis, which allows for custom 
 dart_shield analyze
 ```
 
-*Or via `dart run`:*
-```bash
-dart run dart_shield:main analyze
-```
+<Info>`dart_shield analyze` return only security related errors, while standard analysis returns all linter errors.</Info>
