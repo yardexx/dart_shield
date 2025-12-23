@@ -5,6 +5,52 @@ description: Run security analysis on your project.
 
 # `dart_shield analyze`
 
-Runs the security analysis and outputs the results.
+The `analyze` command runs the security analysis on your codebase. It is designed to be used both locally by developers and in CI/CD pipelines.
 
-*Content coming soon.*
+## Usage
+
+```bash
+dart_shield analyze [path] [options]
+```
+
+*   `[path]`: The directory to analyze. Defaults to the current directory (`.`) if not specified.
+
+## Options
+
+| Option | Abbreviation | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `--reporter` | `-r` | Defines the output format. Options: `console` (human-readable), `json` (machine-readable), `both`. | `console` |
+| `--only` | | Run *only* the specified analyzers, ignoring configuration settings. Useful for targeted checks. | All enabled |
+| `--exclude` | | Exclude specific analyzers from the run. | None |
+| `--help` | `-h` | Prints usage information. | |
+
+## Analyzers
+
+Currently, the main analyzer is `code`, which performs static code analysis for security flaws (hardcoded secrets, weak crypto, etc.).
+
+## Examples
+
+### Basic Analysis
+Run a standard scan on the current project:
+```bash
+dart_shield analyze
+```
+
+### CI/CD Integration (JSON Output)
+Generate a JSON report for easy parsing by other tools:
+```bash
+dart_shield analyze --reporter json
+```
+
+### Targeted Scan
+Run only the code analyzer on the `lib/` directory:
+```bash
+dart_shield analyze lib/ --only code
+```
+
+## Exit Codes
+
+*   `0`: Success (no issues found).
+*   `1`: Issues found (vulnerabilities detected).
+*   `2`: Software error (crash).
+*   `3`: Configuration error.

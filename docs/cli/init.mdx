@@ -5,6 +5,36 @@ description: Initialize dart_shield in your project.
 
 # `dart_shield init`
 
-Initializes `dart_shield` in the current project by updating `analysis_options.yaml`.
+The `init` command is the starting point for integrating `dart_shield` into your project. It automates the configuration process to ensure you're ready to start scanning for security vulnerabilities immediately.
 
-*Content coming soon.*
+## Usage
+
+```bash
+dart_shield init [options]
+```
+
+## What it does
+
+1.  **Checks for `analysis_options.yaml`**: It looks for this file in the current directory (project root).
+2.  **Updates Configuration**:
+    *   Adds `dart_shield` to the `plugins` list.
+    *   Adds the default `dart_shield` configuration block if it doesn't exist.
+
+If `analysis_options.yaml` is missing, the command will fail and prompt you to create it or run the command from the correct directory.
+
+## Options
+
+| Option | Abbreviation | Description |
+| :--- | :--- | :--- |
+| `--force` | `-f` | Overwrites any existing `dart_shield` configuration in `analysis_options.yaml` with the defaults. Use this if your config is broken or you want to reset it. |
+| `--help` | `-h` | Prints usage information. |
+
+## Example
+
+```bash
+# Standard initialization
+dart_shield init
+
+# Reset configuration to defaults
+dart_shield init --force
+```

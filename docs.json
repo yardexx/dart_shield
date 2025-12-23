@@ -62,24 +62,6 @@
     },
     {
       "tab": "guides",
-      "group": "Automation (CI/CD)",
-      "pages": [
-        {
-          "title": "GitHub Actions",
-          "href": "/guides/automation/github-actions"
-        },
-        {
-          "title": "GitLab CI",
-          "href": "/guides/automation/gitlab-ci"
-        },
-        {
-          "title": "Reporters",
-          "href": "/guides/automation/reporters"
-        }
-      ]
-    },
-    {
-      "tab": "guides",
       "group": "Background",
       "pages": [
         {
@@ -96,14 +78,6 @@
       "tab": "guides",
       "group": "Community",
       "pages": [
-        {
-          "title": "Roadmap",
-          "href": "/guides/community-and-development/roadmap"
-        },
-        {
-          "title": "Contribution",
-          "href": "/guides/community-and-development/contribution"
-        },
         {
           "title": "Changelog",
           "href": "/guides/community-and-development/changelog"

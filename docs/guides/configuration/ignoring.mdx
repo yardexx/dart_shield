@@ -1,10 +1,48 @@
 ---
 title: Ignoring Rules
-description: How to suppress specific security warnings.
+description: How to suppress specific security warnings in Dart Shield.
 ---
 
 # Ignoring Rules
 
-Learn how to suppress false positives or accept specific risks.
+There are legitimate cases where you might need to violate a security rule. For example, using a weak hashing algorithm for non-security-critical legacy data compatibility, or hardcoding a non-sensitive token in test code.
 
-*Content coming soon.*
+Since `dart_shield` operates as a plugin for the standard Dart analyzer, you can use the standard Dart mechanisms for suppressing diagnostics.
+
+## Line-Level Ignore
+
+To suppress a warning on a specific line, use a comment starting with `// ignore:` followed by the rule ID.
+
+```dart
+// ignore: avoid_hardcoded_secrets
+const apiKey = "legacy_api_key_that_is_actually_public";
+```
+
+You can place the comment on the line before the violation or on the same line.
+
+```dart
+const apiKey = "legacy_api_key_that_is_actually_public"; // ignore: avoid_hardcoded_secrets
+```
+
+## File-Level Ignore
+
+To suppress a rule for an entire file, use `// ignore_for_file:` at the top of the file.
+
+```dart
+// ignore_for_file: avoid_hardcoded_secrets
+
+void main() {
+  const secret1 = "abc";
+  const secret2 = "def";
+}
+```
+
+## Best Practices
+
+*   **Be Specific:** Always ignore specific rules (e.g., `ignore: avoid_hardcoded_secrets`) rather than `ignore: type=lint` to avoid accidentally hiding other important issues.
+*   **Document Why:** It is good practice to add a comment explaining *why* the rule is being ignored.
+
+```dart
+// ignore: avoid_hardcoded_secrets
+const publicToken = "public_123"; // Safe: This token is not sensitive.
+```
