@@ -16,8 +16,8 @@
   },
   "tabs": [
     {
-      "id": "docs",
-      "title": "Docs",
+      "id": "guides",
+      "title": "guides",
       "href": "/"
     },
     {
@@ -33,7 +33,7 @@
   ],
   "sidebar": [
     {
-      "tab": "docs",
+      "tab": "guides",
       "group": "Getting Started",
       "pages": [
         {
@@ -42,75 +42,75 @@
         },
         {
           "title": "Quick Start",
-          "href": "/docs/getting-started/quick-start"
+          "href": "/guides/getting-started/quick-start"
         }
       ]
     },
     {
-      "tab": "docs",
+      "tab": "guides",
       "group": "Configuration",
       "pages": [
         {
           "title": "Options",
-          "href": "/docs/configuration/options"
+          "href": "/guides/configuration/options"
         },
         {
           "title": "Ignoring Rules",
-          "href": "/docs/configuration/ignoring"
+          "href": "/guides/configuration/ignoring"
         }
       ]
     },
     {
-      "tab": "docs",
+      "tab": "guides",
       "group": "Automation (CI/CD)",
       "pages": [
         {
           "title": "GitHub Actions",
-          "href": "/docs/automation/github-actions"
+          "href": "/guides/automation/github-actions"
         },
         {
           "title": "GitLab CI",
-          "href": "/docs/automation/gitlab-ci"
+          "href": "/guides/automation/gitlab-ci"
         },
         {
           "title": "Reporters",
-          "href": "/docs/automation/reporters"
+          "href": "/guides/automation/reporters"
         }
       ]
     },
     {
-      "tab": "docs",
+      "tab": "guides",
       "group": "Background",
       "pages": [
         {
           "title": "SAST Basics",
-          "href": "/docs/background/sast-basics"
+          "href": "/guides/background/sast-basics"
         },
         {
           "title": "Architecture",
-          "href": "/docs/background/architecture"
+          "href": "/guides/background/architecture"
         }
       ]
     },
     {
-      "tab": "docs",
+      "tab": "guides",
       "group": "Community",
       "pages": [
         {
           "title": "Roadmap",
-          "href": "/docs/community-and-development/roadmap"
+          "href": "/guides/community-and-development/roadmap"
         },
         {
           "title": "Contribution",
-          "href": "/docs/community-and-development/contribution"
+          "href": "/guides/community-and-development/contribution"
         },
         {
           "title": "Changelog",
-          "href": "/docs/community-and-development/changelog"
+          "href": "/guides/community-and-development/changelog"
         },
         {
           "title": "License",
-          "href": "/docs/community-and-development/license"
+          "href": "/guides/community-and-development/license"
         }
       ]
     },
