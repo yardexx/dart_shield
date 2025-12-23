@@ -1,0 +1,58 @@
+---
+title: Configuration
+description: Configure dart_shield via analysis_options.yaml
+---
+
+# Configuration
+
+`dart_shield` is configured through your project's `analysis_options.yaml` file.
+
+When you run `dart_shield init`, a default configuration is automatically added.
+
+## Enabling the Plugin
+
+To enable the security rules, `dart_shield` must be registered as a plugin:
+
+```yaml
+plugins:
+  - dart_shield
+```
+
+## Shield Configuration
+
+The configuration for `dart_shield` lives under the `dart_shield` key.
+
+```yaml
+dart_shield:
+  analyzers:
+    code: true
+    deps: true
+```
+
+### Options
+
+| Key | Type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `analyzers` | `Map` | Configuration for individual analyzers. | |
+| `analyzers.code` | `boolean` | Enable or disable static code analysis (secret detection, etc.). | `true` |
+| `analyzers.deps` | `boolean` | Enable or disable dependency analysis (known vulnerabilities). *Note: Currently a placeholder for future functionality.* | `true` |
+
+## Ignoring Rules
+
+Since `dart_shield` integrates with the Dart analyzer, you can often ignore specific rules using standard Dart ignore comments.
+
+### Ignore a specific line
+
+```dart
+// ignore: avoid_hardcoded_secrets
+const apiKey = "12345-secret";
+```
+
+### Ignore for the whole file
+
+```dart
+// ignore_for_file: avoid_hardcoded_secrets
+
+const apiKey = "12345-secret";
+const anotherSecret = "abcde-secret";
+```

@@ -1,0 +1,79 @@
+---
+title: Prefer Secure Random
+description: Detects the use of insecure random number generators for security-sensitive operations.
+---
+
+# Prefer Secure Random
+
+**Rule ID**: `prefer_secure_random`
+**Severity**: 🟡 Medium
+**Category**: Cryptography (OWASP M10)
+
+## Description
+
+This rule detects the use of standard, non-cryptographically secure random number generators (like `dart:math`'s `Random`) in contexts that appear to be security-sensitive. Standard PRNGs (Pseudo-Random Number Generators) are predictable and should not be used for generating secrets, tokens, passwords, or cryptographic keys.
+
+## Non-Compliant Code
+
+Using `Random` for generating a token or password:
+
+```dart
+import 'dart:math';
+
+void main() {
+  final random = Random();
+  // ❌ BAD: Standard Random is predictable
+  final token = List.generate(32, (_) => random.nextInt(256)).join();
+  print('Token: $token');
+}
+```
+
+## Compliant Code
+
+Use `Random.secure()` from `dart:math`:
+
+```dart
+import 'dart:math';
+
+void main() {
+  // ✅ GOOD: Uses a cryptographically secure source
+  final random = Random.secure();
+  final token = List.generate(32, (_) => random.nextInt(256)).join();
+  print('Token: $token');
+}
+```
+
+## How to Fix
+
+Replace instances of `Random()` with `Random.secure()` when the random value is used for:
+*   Session IDs
+*   CSRF tokens
+*   Reset passwords
+*   Cryptographic keys or initialization vectors (IVs)
+*   Any other security-critical value
+
+## Why is this a problem?
+
+### 1. Predictability
+Standard PRNGs (like the Mersenne Twister or Linear Congruential Generator used in many languages) are designed for speed and statistical distribution, not unpredictability. If an attacker can observe a sequence of outputs, they can often determine the internal state of the generator and predict all future (and sometimes past) values.
+
+### 2. Compromised Secrets
+If a predictable generator is used to create a "secret" token (like a password reset link), an attacker could predict the token assigned to another user and take over their account.
+
+## When to Ignore
+
+You can safely ignore this rule if the random values are **not** used for security purposes.
+
+Examples include:
+*   UI animations or visual effects.
+*   Game mechanics (e.g., shuffling a deck of cards in a casual game, spawning enemies).
+*   Randomized testing (fuzzing) where cryptographic security is irrelevant.
+*   Load balancing (e.g., random backoff).
+
+**Always ensure that ignoring this rule does not introduce a security vulnerability in your specific use case.**
+
+## Resources
+
+*   [OWASP Mobile Top 10: M10 - Insufficient Cryptography](https://owasp.org/www-project-mobile-top-10/2024-Risks/m10-insufficient-cryptography.html)
+*   [CWE-338: Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)](https://cwe.mitre.org/data/definitions/338.html)
+*   [Dart `Random.secure` documentation](https://api.dart.dev/stable/dart-math/Random/Random.secure.html)

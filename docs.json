@@ -1,0 +1,157 @@
+{
+  "name": "dart_shield",
+  "description": "Open-source, dart-first security library for building secure applications.",
+  "theme": {
+    "defaultTheme": "dark",
+    "primary": "#5FC9F8",
+    "primaryDark": "#04599C"
+  },
+  "content": {
+    "automaticallyInferNextPrevious": false
+  },
+  "favicon": "/assets/shield-logo.svg",
+  "logo": {
+    "light": "/assets/shield-logo.svg",
+    "dark": "/assets/shield-logo.svg"
+  },
+  "tabs": [
+    {
+      "id": "guides",
+      "title": "Guides",
+      "href": "/"
+    },
+    {
+      "id": "cli",
+      "title": "CLI",
+      "href": "/cli/index"
+    },
+    {
+      "id": "rulebook",
+      "title": "Rulebook",
+      "href": "/rulebook/index"
+    }
+  ],
+  "sidebar": [
+    {
+      "tab": "guides",
+      "group": "Getting Started",
+      "pages": [
+        {
+          "title": "Introduction",
+          "href": "/"
+        },
+        {
+          "title": "Quick Start",
+          "href": "/guides/getting-started/quick-start"
+        }
+      ]
+    },
+    {
+      "tab": "guides",
+      "group": "Configuration",
+      "pages": [
+        {
+          "title": "Options",
+          "href": "/guides/configuration/options"
+        },
+        {
+          "title": "Ignoring Rules",
+          "href": "/guides/configuration/ignoring"
+        }
+      ]
+    },
+    {
+      "tab": "guides",
+      "group": "Background",
+      "pages": [
+        {
+          "title": "SAST Basics",
+          "href": "/guides/background/sast-basics"
+        },
+        {
+          "title": "Architecture",
+          "href": "/guides/background/architecture"
+        }
+      ]
+    },
+    {
+      "tab": "guides",
+      "group": "Community",
+      "pages": [
+        {
+          "title": "Changelog",
+          "href": "/guides/community-and-development/changelog"
+        },
+        {
+          "title": "License",
+          "href": "/guides/community-and-development/license"
+        }
+      ]
+    },
+    {
+      "tab": "cli",
+      "group": "Reference",
+      "pages": [
+        {
+          "title": "Overview",
+          "href": "/cli/index"
+        },
+        {
+          "title": "init",
+          "href": "/cli/init"
+        },
+        {
+          "title": "analyze",
+          "href": "/cli/analyze"
+        }
+      ]
+    },
+    {
+      "tab": "rulebook",
+      "pages": [
+        {
+          "title": "Overview",
+          "href": "/rulebook/index"
+        }
+      ]
+    },
+    {
+      "tab": "rulebook",
+      "group": "Cryptography",
+      "pages": [
+        {
+          "title": "Avoid Weak Hashing",
+          "href": "/rulebook/cryptography/avoid-weak-hashing"
+        },
+        {
+          "title": "Prefer Secure Random",
+          "href": "/rulebook/cryptography/prefer-secure-random"
+        }
+      ]
+    },
+    {
+      "tab": "rulebook",
+      "group": "Network",
+      "pages": [
+        {
+          "title": "Prefer HTTPS over HTTP",
+          "href": "/rulebook/network/prefer-https-over-http"
+        },
+        {
+          "title": "Avoid Hardcoded URLs",
+          "href": "/rulebook/network/avoid-hardcoded-urls"
+        }
+      ]
+    },
+    {
+      "tab": "rulebook",
+      "group": "Secrets",
+      "pages": [
+        {
+          "title": "Avoid Hardcoded Secrets",
+          "href": "/rulebook/secrets/avoid-hardcoded-secrets"
+        }
+      ]
+    }
+  ]
+}

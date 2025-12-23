@@ -1,0 +1,22 @@
+---
+title: Architecture
+description: High-level overview of Dart Shield.
+---
+
+# Architecture
+
+`dart_shield` operates primarily as a **Dart Analyzer Plugin**. This means it hooks directly into the standard Dart analysis server used by IDEs (VS Code, IntelliJ) and the `dart analyze` command.
+
+## How it works
+
+1.  **Analysis Server**: When you open a project, the Dart Analysis Server starts.
+2.  **Plugin Boot**: It reads `analysis_options.yaml` and starts the `dart_shield` plugin.
+3.  **Scanning**: As you type or save files, `dart_shield` receives the file content.
+4.  **Rules**: The content is checked against a set of security rules (regex patterns, entropy checks, etc.).
+5.  **Reporting**: Issues are reported back to the editor as "Lints" or "Warnings", appearing in your "Problems" tab.
+
+## CLI
+
+The `dart_shield` CLI (`bin/dart_shield.dart`) is a wrapper that facilitates:
+*   **Initialization**: Setting up the plugin.
+*   **CI/CD**: Running the analysis in a pipeline and outputting results in formats like JSON.
