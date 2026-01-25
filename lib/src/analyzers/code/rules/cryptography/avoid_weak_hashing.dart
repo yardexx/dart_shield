@@ -7,10 +7,7 @@ import 'package:analyzer/error/error.dart';
 
 class AvoidWeakHashing extends AnalysisRule {
   AvoidWeakHashing()
-    : super(
-        name: 'avoid_weak_hashing',
-        description: 'Some description',
-      );
+    : super(name: 'avoid_weak_hashing', description: 'Some description');
   static const LintCode code = LintCode(
     'avoid_weak_hashing',
     'Using weak hashing algorithms can lead to security vulnerabilities.',
@@ -65,7 +62,7 @@ class _WeakCryptoHashingVisitor extends SimpleAstVisitor<void> {
   @override
   void visitAssignmentExpression(AssignmentExpression node) {
     if (_isAssignmentWeakHash(node)) {
-        rule.reportAtNode(node);
+      rule.reportAtNode(node);
     }
   }
 

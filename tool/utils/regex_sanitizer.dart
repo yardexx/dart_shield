@@ -69,12 +69,12 @@ class RegexSanitizer {
       pattern = pattern.replaceAll('(?s)', '');
       // TODO: Return dotAll flag if we update SecretRule to support it.
     }
-    
+
     // 6. Handle Scoped Dot-all `(?s:...)`
     if (pattern.contains('(?s:')) {
       pattern = pattern.replaceAll('(?s:', '(?:');
     }
-    
+
     // 7. Clean up potential double-escapes or leftover artifacts if necessary.
     // (Currently not needed for standard Gitleaks patterns).
 

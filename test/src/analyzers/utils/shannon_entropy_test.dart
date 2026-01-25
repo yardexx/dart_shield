@@ -34,7 +34,7 @@ void main() {
     test('calculates entropy for typical API key examples', () {
       // Low entropy string
       final low = ShannonEntropy.calculate('password123');
-      
+
       // High entropy string (simulated API key)
       final high = ShannonEntropy.calculate('7Fz92xK1qM4bJ8vR');
 

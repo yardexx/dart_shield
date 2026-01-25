@@ -12,10 +12,8 @@ import 'package:dart_shield/src/domain/exceptions.dart';
 import 'package:path/path.dart' as path;
 
 class CodeAnalyzer implements Analyzer {
-  CodeAnalyzer({
-    required this.analyzedPaths,
-    String? rootFolder,
-  }) : rootFolder = rootFolder ?? Directory.current.path;
+  CodeAnalyzer({required this.analyzedPaths, String? rootFolder})
+    : rootFolder = rootFolder ?? Directory.current.path;
 
   final List<String> analyzedPaths;
   final String rootFolder;
@@ -36,11 +34,11 @@ class CodeAnalyzer implements Analyzer {
 
         ProcessResult result;
         try {
-          result = await Process.run(
-            'dart',
-            ['analyze', '--format=json', target],
-            runInShell: true,
-          );
+          result = await Process.run('dart', [
+            'analyze',
+            '--format=json',
+            target,
+          ], runInShell: true);
         } on ProcessException catch (e) {
           throw ShieldProcessException(
             'Failed to execute dart analyze.',

@@ -28,7 +28,8 @@ void main() {
       final suffix = 'ABCDEFGHIJKLMNOP';
       final secret = prefix + suffix;
 
-      final codeWithSecret = '''
+      final codeWithSecret =
+          '''
 $originalContent
 
 void injectedSecret() {
@@ -66,7 +67,8 @@ void injectedSecret() {
       expect(
         awsMatch,
         isTrue,
-        reason: 'Should detect AWS specific rule. Found: ${secretIssues.map((e) => e.message)}',
+        reason:
+            'Should detect AWS specific rule. Found: ${secretIssues.map((e) => e.message)}',
       );
     });
   });

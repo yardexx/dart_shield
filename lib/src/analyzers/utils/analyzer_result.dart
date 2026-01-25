@@ -1,9 +1,6 @@
 /// Root object representing the result of `dart analyze --format=json`
 class AnalyzeResult {
-  AnalyzeResult({
-    required this.version,
-    required this.diagnostics,
-  });
+  AnalyzeResult({required this.version, required this.diagnostics});
 
   factory AnalyzeResult.fromJson(Map<String, dynamic> json) {
     return AnalyzeResult(
@@ -53,10 +50,7 @@ class Diagnostic {
 }
 
 class Location {
-  Location({
-    required this.file,
-    required this.range,
-  });
+  Location({required this.file, required this.range});
 
   factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
@@ -70,10 +64,7 @@ class Location {
 }
 
 class SourceRange {
-  SourceRange({
-    required this.start,
-    required this.end,
-  });
+  SourceRange({required this.start, required this.end});
 
   factory SourceRange.fromJson(Map<String, dynamic> json) {
     return SourceRange(
