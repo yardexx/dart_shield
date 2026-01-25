@@ -9,10 +9,10 @@ import 'package:dart_shield/src/analyzers/utils/shannon_entropy.dart';
 
 class AvoidHardcodedSecrets extends AnalysisRule {
   AvoidHardcodedSecrets()
-      : super(
-          name: 'avoid_hardcoded_secrets',
-          description: 'Detects hardcoded secrets, API keys, and tokens.',
-        );
+    : super(
+        name: 'avoid_hardcoded_secrets',
+        description: 'Detects hardcoded secrets, API keys, and tokens.',
+      );
 
   static const LintCode code = LintCode(
     'avoid_hardcoded_secrets',
@@ -56,10 +56,10 @@ class _Visitor extends SimpleAstVisitor<void> {
       // If the rule has keywords, at least one must exist in value OR context.
       if (secretRule.keywords.isNotEmpty) {
         final valueLower = value.toLowerCase();
-        final hasKeywordInValue =
-            secretRule.keywords.any(valueLower.contains);
-        final hasKeywordInContext =
-            secretRule.keywords.any(contextString.contains);
+        final hasKeywordInValue = secretRule.keywords.any(valueLower.contains);
+        final hasKeywordInContext = secretRule.keywords.any(
+          contextString.contains,
+        );
 
         if (!hasKeywordInValue && !hasKeywordInContext) {
           continue;

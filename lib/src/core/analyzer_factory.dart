@@ -20,9 +20,7 @@ class AnalyzerFactory {
     List<String> only = const [],
     List<String> exclude = const [],
   }) {
-    final configEnabled = <String, bool>{
-      'code': config.analyzers.code,
-    };
+    final configEnabled = <String, bool>{'code': config.analyzers.code};
 
     final selected = <Analyzer>[];
 
@@ -39,11 +37,11 @@ class AnalyzerFactory {
   }
 
   static bool _shouldRun(
-      String id,
-      bool isEnabledInYaml,
-      List<String> only,
-      List<String> exclude,
-      ) {
+    String id,
+    bool isEnabledInYaml,
+    List<String> only,
+    List<String> exclude,
+  ) {
     if (exclude.contains(id)) return false;
     if (only.isNotEmpty) return only.contains(id);
     return isEnabledInYaml;

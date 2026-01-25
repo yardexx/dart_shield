@@ -36,8 +36,8 @@ void main() {
     });
 
     test('leaves standard regex untouched', () {
-      final result = RegexSanitizer.sanitize('^abc[0-9]+\$');
-      expect(result.pattern, '^abc[0-9]+\$');
+      final result = RegexSanitizer.sanitize(r'^abc[0-9]+$');
+      expect(result.pattern, r'^abc[0-9]+$');
       expect(result.caseSensitive, isTrue);
       expect(result.multiLine, isFalse);
     });

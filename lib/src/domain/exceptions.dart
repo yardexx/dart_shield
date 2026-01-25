@@ -1,7 +1,8 @@
 /// Base class for all exceptions thrown by dart_shield.
 ///
-/// These exceptions represent "expected" failure modes (configuration errors, environment issues) that should be reported cleanly to the user,
-/// as opposed to unexpected bugs (StateError, ArgumentError) which are crashes.
+/// These exceptions represent "expected" failure modes (configuration errors,
+/// environment issues) that should be reported cleanly to the user, as opposed
+/// to unexpected bugs (StateError, ArgumentError) which are crashes.
 abstract class ShieldException implements Exception {
   const ShieldException(this.message, [this.suggestion]);
 

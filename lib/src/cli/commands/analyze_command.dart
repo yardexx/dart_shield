@@ -13,6 +13,13 @@ class AnalyzeCommand extends ShieldCommand {
         defaultsTo: 'console',
         help: 'Select the output format.',
       )
+      ..addOption(
+        'min-severity',
+        abbr: 's',
+        allowed: ['info', 'low', 'medium', 'high'],
+        defaultsTo: 'info',
+        help: 'Minimum severity level to report.',
+      )
       ..addMultiOption(
         'only',
         allowed: AnalyzerFactory.availableIds,
@@ -34,11 +41,13 @@ class AnalyzeCommand extends ShieldCommand {
 
   @override
   Future<int> run() async {
+    final severityStr = argResults['min-severity'] as String? ?? 'info';
     final config = ShieldRunConfig(
       paths: argResults.rest.isEmpty ? ['.'] : argResults.rest,
       only: argResults['only'] as List<String>? ?? [],
       exclude: argResults['exclude'] as List<String>? ?? [],
       reporterMode: argResults['reporter'] as String? ?? 'console',
+      minSeverity: ShieldRunConfig.parseSeverity(severityStr),
     );
 
     final runner = ShieldRunner(logger: logger);

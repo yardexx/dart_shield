@@ -10,11 +10,10 @@ part 'shield_config.g.dart';
   anyMap: true,
   checked: true,
   disallowUnrecognizedKeys: true,
+  createToJson: false,
 )
 class ShieldConfig {
-  const ShieldConfig({
-    this.analyzers = const ShieldAnalyzersConfig(),
-  });
+  const ShieldConfig({this.analyzers = const ShieldAnalyzersConfig()});
 
   factory ShieldConfig.fromJson(Map<dynamic, dynamic> map) =>
       _$ShieldConfigFromJson(map);
@@ -29,17 +28,13 @@ class ShieldConfig {
     if (content.trim().isEmpty) return const ShieldConfig();
 
     try {
-      return checkedYamlDecode(
-        content,
-        (m) {
-          if (m != null && m['dart_shield'] is Map) {
-            return ShieldConfig.fromJson(m['dart_shield'] as Map);
-          }
+      return checkedYamlDecode(content, (m) {
+        if (m != null && m['dart_shield'] is Map) {
+          return ShieldConfig.fromJson(m['dart_shield'] as Map);
+        }
 
-          return const ShieldConfig();
-        },
-        sourceUrl: file.uri,
-      );
+        return const ShieldConfig();
+      }, sourceUrl: file.uri);
     } on ParsedYamlException catch (e) {
       throw ConfigException(
         'Failed to parse analysis_options.yaml',
@@ -49,12 +44,9 @@ class ShieldConfig {
   }
 }
 
-@JsonSerializable(anyMap: true, checked: true)
+@JsonSerializable(anyMap: true, checked: true, createToJson: false)
 class ShieldAnalyzersConfig {
-  const ShieldAnalyzersConfig({
-    this.code = true,
-    this.deps = true,
-  });
+  const ShieldAnalyzersConfig({this.code = true, this.deps = true});
 
   factory ShieldAnalyzersConfig.fromJson(Map<dynamic, dynamic> map) =>
       _$ShieldAnalyzersConfigFromJson(map);

@@ -78,9 +78,6 @@ dart_shield:
 ''';
 
   static const Map<String, dynamic> _defaultShieldConfig = {
-    'analyzers': {
-      'code': true,
-      'deps': true,
-    },
+    'analyzers': {'code': true, 'deps': true},
   };
 }

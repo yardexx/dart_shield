@@ -1,2 +1,15 @@
+# Documentation (hosted separately)
 docs/
+docs.json
+
+# GitHub files
 .github/
+
+# CI/CD configuration
+codecov.yml
+
+# Tests (not needed for package consumers)
+test/
+
+# Internal tooling
+tool/

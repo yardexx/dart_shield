@@ -49,7 +49,7 @@ dart_shield:
   analyzers: [
 '''); // Broken YAML
       expect(
-        () async => await ShieldConfig.load(),
+        ShieldConfig.load,
         throwsA(isA<ConfigException>()),
       );
     });
@@ -60,7 +60,7 @@ dart_shield:
   analyzers: "invalid_string" 
 ''');
       expect(
-        () async => await ShieldConfig.load(),
+        ShieldConfig.load,
         throwsA(isA<ConfigException>()),
       );
     });

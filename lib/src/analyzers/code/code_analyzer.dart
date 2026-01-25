@@ -12,10 +12,8 @@ import 'package:dart_shield/src/domain/exceptions.dart';
 import 'package:path/path.dart' as path;
 
 class CodeAnalyzer implements Analyzer {
-  CodeAnalyzer({
-    required this.analyzedPaths,
-    String? rootFolder,
-  }) : rootFolder = rootFolder ?? Directory.current.path;
+  CodeAnalyzer({required this.analyzedPaths, String? rootFolder})
+    : rootFolder = rootFolder ?? Directory.current.path;
 
   final List<String> analyzedPaths;
   final String rootFolder;
@@ -36,15 +34,16 @@ class CodeAnalyzer implements Analyzer {
 
         ProcessResult result;
         try {
-          result = await Process.run(
-            'dart',
-            ['analyze', '--format=json', target],
-            runInShell: true,
-          );
+          result = await Process.run('dart', [
+            'analyze',
+            '--format=json',
+            target,
+          ], runInShell: true);
         } on ProcessException catch (e) {
           throw ShieldProcessException(
             'Failed to execute dart analyze.',
-            'Ensure the Dart SDK is installed and accessible in your PATH.\nOriginal error: ${e.message}',
+            'Ensure the Dart SDK is installed and accessible in your PATH.\n'
+                'Original error: ${e.message}',
           );
         }
 
@@ -59,7 +58,8 @@ class CodeAnalyzer implements Analyzer {
         if (jsonString == null) {
           throw ShieldProcessException(
             'dart analyze did not return valid JSON output.',
-            'This usually means the analysis command crashed or encountered a fatal error.\nOutput: $output',
+            'This usually means the analysis command crashed or '
+                'encountered a fatal error.\nOutput: $output',
           );
         }
 

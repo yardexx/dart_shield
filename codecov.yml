@@ -1,0 +1,18 @@
+coverage:
+  precision: 2
+  round: down
+  range: "60...100"
+
+  status:
+    project:
+      default:
+        target: 70%
+        threshold: 5%
+    patch:
+      default:
+        target: 80%
+
+ignore:
+  - "**/*.g.dart"
+  - "lib/src/generated/**"
+  - "test/**"

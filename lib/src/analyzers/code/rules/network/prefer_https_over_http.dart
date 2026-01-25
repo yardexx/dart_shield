@@ -36,7 +36,6 @@ class PreferHttpsOverHttp extends AnalysisRule {
 }
 
 class _PreferHttpsOverHttpVisitor extends SimpleAstVisitor<void> {
-
   _PreferHttpsOverHttpVisitor({required this.rule, required this.context});
   final AnalysisRule rule;
   final RuleContext context;

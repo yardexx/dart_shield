@@ -20,9 +20,6 @@ ShieldConfig _$ShieldConfigFromJson(Map json) =>
       return val;
     });
 
-Map<String, dynamic> _$ShieldConfigToJson(ShieldConfig instance) =>
-    <String, dynamic>{'analyzers': instance.analyzers};
-
 ShieldAnalyzersConfig _$ShieldAnalyzersConfigFromJson(Map json) =>
     $checkedCreate('ShieldAnalyzersConfig', json, ($checkedConvert) {
       final val = ShieldAnalyzersConfig(
@@ -31,7 +28,3 @@ ShieldAnalyzersConfig _$ShieldAnalyzersConfigFromJson(Map json) =>
       );
       return val;
     });
-
-Map<String, dynamic> _$ShieldAnalyzersConfigToJson(
-  ShieldAnalyzersConfig instance,
-) => <String, dynamic>{'code': instance.code, 'deps': instance.deps};

@@ -3,11 +3,14 @@ import 'dart:io';
 
 import 'package:dart_shield/src/domain/analyzer_result.dart';
 import 'package:dart_shield/src/reporters/reporter.dart';
+import 'package:mason_logger/mason_logger.dart';
 
 class JsonReporter implements Reporter {
-  JsonReporter({this.outputPath = 'shield_report.json'});
+  JsonReporter({this.outputPath = 'shield_report.json', Logger? logger})
+    : _logger = logger ?? Logger();
 
   final String outputPath;
+  final Logger _logger;
 
   @override
   String get id => 'json';
@@ -37,6 +40,6 @@ class JsonReporter implements Reporter {
     await file.writeAsString(jsonStr);
 
     // Small feedback so the user knows the file was created
-    print('💾 JSON report generated at: ${file.absolute.path}');
+    _logger.info('💾 JSON report generated at: ${file.absolute.path}');
   }
 }
