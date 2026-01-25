@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:analyzer/src/lint/registry.dart';
 import 'package:analyzer_testing/analysis_rule/analysis_rule.dart';
 import 'package:dart_shield/src/analyzers/code/rules/cryptography/avoid_weak_hashing.dart';
@@ -19,7 +21,7 @@ class AvoidWeakHashingTest extends AnalysisRuleTest {
     Registry.ruleRegistry.registerLintRule(AvoidWeakHashing());
 
     // Add stub for crypto package
-    newPackage('crypto')..addFile('lib/crypto.dart', r'''
+    newPackage('crypto').addFile('lib/crypto.dart', '''
 abstract class Hash {
   List<int> convert(List<int> data);
 }
@@ -45,7 +47,7 @@ class _Sha256 implements Hash {
 
   Future<void> test_md5Convert_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'package:crypto/crypto.dart';
 void f() {
   final hash = md5.convert([1, 2, 3]);
@@ -57,7 +59,7 @@ void f() {
 
   Future<void> test_sha1Convert_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'package:crypto/crypto.dart';
 void f() {
   final hash = sha1.convert([1, 2, 3]);
@@ -68,7 +70,7 @@ void f() {
   }
 
   Future<void> test_sha256Convert_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 import 'package:crypto/crypto.dart';
 void f() {
   final hash = sha256.convert([1, 2, 3]);
@@ -78,7 +80,7 @@ void f() {
 
   Future<void> test_md5Assignment_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'package:crypto/crypto.dart';
 void f() {
   Hash hasher;
@@ -91,7 +93,7 @@ void f() {
 
   Future<void> test_sha1Assignment_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'package:crypto/crypto.dart';
 void f() {
   Hash hasher;
@@ -103,7 +105,7 @@ void f() {
   }
 
   Future<void> test_sha256Assignment_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 import 'package:crypto/crypto.dart';
 void f() {
   Hash hasher;
@@ -114,7 +116,7 @@ void f() {
 
   Future<void> test_md5InExpression_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'package:crypto/crypto.dart';
 void f() {
   final result = md5.convert([1]).toString();
@@ -126,7 +128,7 @@ void f() {
 
   Future<void> test_unrelatedIdentifier_noReport() async {
     // Identifiers named md5 or sha1 that are not from crypto package
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final md5 = 'some string';
   print(md5);

@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:analyzer/src/lint/registry.dart';
 import 'package:analyzer_testing/analysis_rule/analysis_rule.dart';
 import 'package:dart_shield/src/analyzers/code/rules/network/prefer_https_over_http.dart';
@@ -22,7 +24,7 @@ class PreferHttpsOverHttpTest extends AnalysisRuleTest {
 
   Future<void> test_httpStringLiteral_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url = 'http://example.com';
 }
@@ -32,7 +34,7 @@ void f() {
   }
 
   Future<void> test_httpsStringLiteral_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final url = 'https://example.com';
 }
@@ -41,7 +43,7 @@ void f() {
 
   Future<void> test_httpWithPath_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url = 'http://example.com/api/v1';
 }
@@ -51,7 +53,7 @@ void f() {
   }
 
   Future<void> test_emptyString_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final url = '';
 }
@@ -59,7 +61,7 @@ void f() {
   }
 
   Future<void> test_nonUrlString_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final text = 'hello world';
 }
@@ -68,7 +70,7 @@ void f() {
 
   Future<void> test_httpInVariable_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final config = 'http://api.example.com';
 }
@@ -79,7 +81,7 @@ void f() {
 
   Future<void> test_httpLocalhost_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url = 'http://localhost:8080';
 }
@@ -90,7 +92,7 @@ void f() {
 
   Future<void> test_httpWithPort_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url = 'http://example.com:3000/api';
 }
@@ -101,7 +103,7 @@ void f() {
 
   Future<void> test_httpInList_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final urls = [
     'http://example.com',
@@ -114,7 +116,7 @@ void f() {
 
   Future<void> test_httpInMap_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final config = {
     'url': 'http://example.com',
@@ -127,7 +129,7 @@ void f() {
 
   Future<void> test_multipleHttpUrls_reportsEach() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url1 = 'http://example.com';
   final url2 = 'http://other.com';

@@ -24,9 +24,9 @@ void main() {
       // on this test file itself.
       // Pattern requires [A-Z2-7]{16}. Also high entropy (> 3.0).
       // ABCDEFGHIJKLMNOP uses only [A-Z], which is valid. And has max entropy.
-      final prefix = 'AKIA';
-      final suffix = 'ABCDEFGHIJKLMNOP';
-      final secret = prefix + suffix;
+      const prefix = 'AKIA';
+      const suffix = 'ABCDEFGHIJKLMNOP';
+      const secret = prefix + suffix;
 
       final codeWithSecret =
           '''
@@ -59,7 +59,7 @@ void injectedSecret() {
         reason: 'Should have detected the injected AWS key',
       );
 
-      // The generic rule might ALSO match, so we just check if ONE of them is AWS.
+      // The generic rule might ALSO match, so we just check if ONE is AWS.
       final awsMatch = secretIssues.any(
         (i) => i.message.contains('AWS credentials'),
       );
@@ -67,8 +67,8 @@ void injectedSecret() {
       expect(
         awsMatch,
         isTrue,
-        reason:
-            'Should detect AWS specific rule. Found: ${secretIssues.map((e) => e.message)}',
+        reason: 'Should detect AWS specific rule. '
+            'Found: ${secretIssues.map((e) => e.message)}',
       );
     });
   });

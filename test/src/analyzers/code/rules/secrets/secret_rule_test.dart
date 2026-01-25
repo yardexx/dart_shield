@@ -44,7 +44,7 @@ void main() {
         description: 'desc',
         pattern: RegExp('abc', caseSensitive: false, multiLine: true),
         keywords: ['k'],
-        minEntropy: 2.0,
+        minEntropy: 2,
       );
 
       final json = rule.toJson();

@@ -55,9 +55,10 @@ class ShieldRunner {
       _logger.err(e.toString());
       if (e is ConfigException) return ExitCode.config.code;
       return ExitCode.software.code;
-    } catch (e, stack) {
-      _logger.err('Unexpected error: $e');
-      _logger.detail('$stack');
+    } on Object catch (e, stack) {
+      _logger
+        ..err('Unexpected error: $e')
+        ..detail('$stack');
       return ExitCode.software.code;
     }
   }

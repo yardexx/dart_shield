@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:analyzer/src/lint/registry.dart';
 import 'package:analyzer_testing/analysis_rule/analysis_rule.dart';
 import 'package:dart_shield/src/analyzers/code/rules/network/avoid_harcoded_urls.dart';
@@ -22,7 +24,7 @@ class AvoidHardcodedUrlsTest extends AnalysisRuleTest {
 
   Future<void> test_httpsUrl_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url = 'https://api.example.com/v1';
 }
@@ -33,7 +35,7 @@ void f() {
 
   Future<void> test_httpUrl_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url = 'http://api.example.com';
 }
@@ -43,7 +45,7 @@ void f() {
   }
 
   Future<void> test_emptyString_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final url = '';
 }
@@ -51,7 +53,7 @@ void f() {
   }
 
   Future<void> test_nonUrlString_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final text = 'hello world';
 }
@@ -60,7 +62,7 @@ void f() {
 
   Future<void> test_localhostUrl_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url = 'http://localhost:8080/api';
 }
@@ -71,7 +73,7 @@ void f() {
 
   Future<void> test_httpsWithQueryParams_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url = 'https://api.example.com/search?q=test';
 }
@@ -82,7 +84,7 @@ void f() {
 
   Future<void> test_multipleUrls_reportsEach() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final url1 = 'https://api.example.com';
   final url2 = 'http://other.example.com';
@@ -94,7 +96,7 @@ void f() {
 
   Future<void> test_urlInClassField_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 class Config {
   final baseUrl = 'https://api.example.com';
 }
@@ -105,7 +107,7 @@ class Config {
 
   Future<void> test_urlInConstant_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 const apiUrl = 'https://api.example.com/v1';
 ''',
       [lint(15, 28)],
@@ -113,7 +115,7 @@ const apiUrl = 'https://api.example.com/v1';
   }
 
   Future<void> test_partialUrl_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final path = '/api/v1/users';
 }

@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:analyzer/src/lint/registry.dart';
 import 'package:analyzer_testing/analysis_rule/analysis_rule.dart';
 import 'package:dart_shield/src/analyzers/code/rules/cryptography/prefer_secure_random.dart';
@@ -22,7 +24,7 @@ class PreferSecureRandomTest extends AnalysisRuleTest {
 
   Future<void> test_randomConstructor_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'dart:math';
 void f() {
   final rng = Random();
@@ -34,7 +36,7 @@ void f() {
 
   Future<void> test_randomWithSeed_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'dart:math';
 void f() {
   final rng = Random(42);
@@ -46,7 +48,7 @@ void f() {
 
   Future<void> test_randomInClassField_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'dart:math';
 class MyClass {
   final rng = Random();
@@ -58,7 +60,7 @@ class MyClass {
 
   Future<void> test_randomInFunction_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'dart:math';
 int getRandomNumber() {
   return Random().nextInt(100);
@@ -70,7 +72,7 @@ int getRandomNumber() {
 
   Future<void> test_multipleRandomInstances_reportsEach() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'dart:math';
 void f() {
   final rng1 = Random();
@@ -83,7 +85,7 @@ void f() {
 
   Future<void> test_randomWithVariableSeed_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'dart:math';
 void f(int seed) {
   final rng = Random(seed);
@@ -95,7 +97,7 @@ void f(int seed) {
 
   Future<void> test_randomWithTimestampSeed_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 import 'dart:math';
 void f() {
   final rng = Random(DateTime.now().millisecondsSinceEpoch);

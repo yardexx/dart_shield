@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:analyzer/src/lint/registry.dart';
 import 'package:analyzer_testing/analysis_rule/analysis_rule.dart';
 import 'package:dart_shield/src/analyzers/code/rules/secrets/avoid_hardcoded_secrets.dart';
@@ -23,7 +25,7 @@ class AvoidHardcodedSecretsTest extends AnalysisRuleTest {
   Future<void> test_awsAccessKey_reports() async {
     // AWS access keys start with AKIA and are 20 chars
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final key = 'AKIAIOSFODNN7EXAMPLE';
 }
@@ -34,7 +36,7 @@ void f() {
 
   Future<void> test_githubToken_reports() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final token = 'ghp_aBcDeFgHiJkLmNoPqRsTuVwXyZ012345';
 }
@@ -44,7 +46,7 @@ void f() {
   }
 
   Future<void> test_shortString_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final s = 'short';
 }
@@ -52,7 +54,7 @@ void f() {
   }
 
   Future<void> test_lowEntropyString_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final s = 'aaaaaaaaaaaaaaaa';
 }
@@ -60,9 +62,10 @@ void f() {
   }
 
   Future<void> test_contextVariableName_detects() async {
-    // Tests that apiKey variable name triggers keyword check with Stripe pattern
+    // Tests that apiKey variable name triggers keyword check with Stripe
+    // pattern
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final apiKey = 'sk_live_abcdefghijklmnop';
 }
@@ -73,7 +76,7 @@ void f() {
 
   Future<void> test_mapKeyContext_detects() async {
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final config = {
     'apiKey': 'sk_test_1234567890abcdef',
@@ -84,13 +87,14 @@ void f() {
     );
   }
 
-  // Note: Slack token test removed to avoid GitHub push protection false positives
-  // The xoxb- pattern is still tested in integration tests with real project scans
+  // Note: Slack token test removed to avoid GitHub push protection
+  // false positives. The xoxb- pattern is still tested in integration tests
+  // with real project scans.
 
   Future<void> test_genericApiKeyPattern_reports() async {
     // Generic API key with sufficient entropy
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final apiKey = 'api_key_xK9mN2pL5qR8vW3yZ1aB4cD7eF0gH';
 }
@@ -100,7 +104,7 @@ void f() {
   }
 
   Future<void> test_regularString_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final message = 'Hello, World!';
 }
@@ -108,7 +112,7 @@ void f() {
   }
 
   Future<void> test_emptyString_noReport() async {
-    await assertNoDiagnostics(r'''
+    await assertNoDiagnostics('''
 void f() {
   final s = '';
 }
@@ -117,7 +121,7 @@ void f() {
 
   Future<void> test_namedParameterContext_detects() async {
     await assertDiagnostics(
-      r'''
+      '''
 void configure({required String apiKey}) {}
 void f() {
   configure(apiKey: 'sk_live_abc123def456ghi789');
@@ -130,7 +134,7 @@ void f() {
   Future<void> test_jwtToken_reports() async {
     // JWT tokens have distinctive patterns
     await assertDiagnostics(
-      r'''
+      '''
 void f() {
   final token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
 }

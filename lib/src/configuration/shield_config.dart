@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'shield_config.g.dart';
 
-@JsonSerializable(anyMap: true, checked: true, disallowUnrecognizedKeys: true)
+@JsonSerializable(anyMap: true, checked: true, disallowUnrecognizedKeys: true, createToJson: false)
 class ShieldConfig {
   const ShieldConfig({this.analyzers = const ShieldAnalyzersConfig()});
 
@@ -39,7 +39,7 @@ class ShieldConfig {
   }
 }
 
-@JsonSerializable(anyMap: true, checked: true)
+@JsonSerializable(anyMap: true, checked: true, createToJson: false)
 class ShieldAnalyzersConfig {
   const ShieldAnalyzersConfig({this.code = true, this.deps = true});
 
