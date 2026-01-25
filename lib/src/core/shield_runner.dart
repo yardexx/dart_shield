@@ -2,6 +2,7 @@ import 'package:dart_shield/src/configuration/shield_config.dart';
 import 'package:dart_shield/src/core/analyzer_engine.dart';
 import 'package:dart_shield/src/core/analyzer_factory.dart';
 import 'package:dart_shield/src/core/shield_run_config.dart';
+import 'package:dart_shield/src/domain/analysis_issue.dart';
 import 'package:dart_shield/src/domain/analyzer_result.dart';
 import 'package:dart_shield/src/domain/exceptions.dart';
 import 'package:dart_shield/src/reporters/console_reporter.dart';
@@ -39,13 +40,16 @@ class ShieldRunner {
       // 4. Execution
       _logger.info('🛡️  Running ${analyzers.length} analyzers...');
       final engine = AnalyzerEngine(analyzers);
-      final results = await engine.runAll();
+      var results = await engine.runAll();
 
-      // 5. Reporting
+      // 5. Filter by minimum severity
+      results = _filterBySeverity(results, runConfig.minSeverity);
+
+      // 6. Reporting
       final reporters = _getReporters(runConfig.reporterMode);
       await Future.wait(reporters.map((r) => r.report(results)));
 
-      // 6. Exit Logic
+      // 7. Exit Logic
       return _calculateExitCode(results);
     } on ShieldException catch (e) {
       _logger.err(e.toString());
@@ -56,6 +60,27 @@ class ShieldRunner {
       _logger.detail('$stack');
       return ExitCode.software.code;
     }
+  }
+
+  /// Filters analysis results to only include issues at or above the minimum
+  /// severity level.
+  List<AnalyzerResult> _filterBySeverity(
+    List<AnalyzerResult> results,
+    Severity minSeverity,
+  ) {
+    return results.map((result) {
+      if (result is AnalysisSuccess) {
+        final filteredIssues = result.issues
+            .where((issue) => issue.severity.index <= minSeverity.index)
+            .toList();
+        return AnalysisSuccess(
+          analyzerId: result.analyzerId,
+          issues: filteredIssues,
+          duration: result.duration,
+        );
+      }
+      return result;
+    }).toList();
   }
 
   List<Reporter> _getReporters(String mode) {
