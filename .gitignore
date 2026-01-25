@@ -4,6 +4,7 @@
 .dart_tool/
 .packages
 build/
+pubspec.lock
 
 # Files generated during tests
 .test_coverage.dart
@@ -21,6 +22,9 @@ coverage/
 
 # Project
 .gemini/
+GEMINI.md
+ROADMAP.md
+RULES_CATEGORIZATION.md
 
 # Custom
 code_examples/
