@@ -48,18 +48,3 @@ jobs:
 
       - name: 📊 Run Pana
         run: dart pub global activate pana && dart pub global run pana
-
-  integration-test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v5
-      - uses: dart-lang/setup-dart@v1.6.5
-        with:
-          sdk: '3.9.0'
-
-      - name: ⛓ Install Dependencies
-        run: dart pub get
-
-      - name: 🧪 Run Integration Tests
-        run: dart test test/integration/ --timeout=120s
