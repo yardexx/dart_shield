@@ -7,7 +7,7 @@ import 'package:mason_logger/mason_logger.dart';
 
 class JsonReporter implements Reporter {
   JsonReporter({this.outputPath = 'shield_report.json', Logger? logger})
-      : _logger = logger ?? Logger();
+    : _logger = logger ?? Logger();
 
   final String outputPath;
   final Logger _logger;

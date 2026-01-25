@@ -43,7 +43,7 @@ class CodeAnalyzer implements Analyzer {
           throw ShieldProcessException(
             'Failed to execute dart analyze.',
             'Ensure the Dart SDK is installed and accessible in your PATH.\n'
-            'Original error: ${e.message}',
+                'Original error: ${e.message}',
           );
         }
 
@@ -59,7 +59,7 @@ class CodeAnalyzer implements Analyzer {
           throw ShieldProcessException(
             'dart analyze did not return valid JSON output.',
             'This usually means the analysis command crashed or '
-            'encountered a fatal error.\nOutput: $output',
+                'encountered a fatal error.\nOutput: $output',
           );
         }
 

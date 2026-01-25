@@ -67,7 +67,8 @@ void injectedSecret() {
       expect(
         awsMatch,
         isTrue,
-        reason: 'Should detect AWS specific rule. '
+        reason:
+            'Should detect AWS specific rule. '
             'Found: ${secretIssues.map((e) => e.message)}',
       );
     });
