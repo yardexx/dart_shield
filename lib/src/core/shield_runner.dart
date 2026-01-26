@@ -1,3 +1,4 @@
+import 'package:dart_shield/src/baseline/baseline_manager.dart';
 import 'package:dart_shield/src/configuration/shield_config.dart';
 import 'package:dart_shield/src/core/analyzer_engine.dart';
 import 'package:dart_shield/src/core/analyzer_factory.dart';
@@ -91,6 +92,11 @@ class ShieldRunner {
       // 5. Filter by minimum severity
       results = _filterBySeverity(results, runConfig.minSeverity);
 
+      // 5.5. Filter baselined issues
+      if (runConfig.baselinePath != null) {
+        results = await _filterBaselined(results, runConfig.baselinePath!);
+      }
+
       // 6. Reporting
       final reporters = _getReporters(runConfig.reporterMode);
       await Future.wait(reporters.map((r) => r.report(results)));
@@ -134,6 +140,31 @@ class ShieldRunner {
       }
       return result;
     }).toList();
+  }
+
+  /// Filters analysis results to exclude issues that are in the baseline.
+  Future<List<AnalyzerResult>> _filterBaselined(
+    List<AnalyzerResult> results,
+    String baselinePath,
+  ) async {
+    final manager = BaselineManager(baselinePath);
+
+    final filtered = <AnalyzerResult>[];
+    for (final result in results) {
+      if (result is AnalysisSuccess) {
+        final filteredIssues = await manager.filterBaselined(result.issues);
+        filtered.add(
+          AnalysisSuccess(
+            analyzerId: result.analyzerId,
+            issues: filteredIssues,
+            duration: result.duration,
+          ),
+        );
+      } else {
+        filtered.add(result);
+      }
+    }
+    return filtered;
   }
 
   /// Returns the list of reporters for the specified output [mode].
