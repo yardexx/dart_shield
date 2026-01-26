@@ -8,6 +8,9 @@ import 'package:dart_shield/src/core/analyzer_factory.dart';
 import 'package:dart_shield/src/domain/analyzer_result.dart';
 import 'package:mason_logger/mason_logger.dart';
 
+/// Default baseline file path following Dart conventions.
+const defaultBaselinePath = '.dart_tool/dart_shield_baseline.yaml';
+
 /// Command to create or update a baseline file for existing issues.
 ///
 /// This allows teams to adopt dart_shield in existing projects without
@@ -18,8 +21,9 @@ class BaselineCommand extends ShieldCommand {
       ..addOption(
         'output',
         abbr: 'o',
-        defaultsTo: 'shield_baseline.yaml',
-        help: 'Output path for the baseline file.',
+        defaultsTo: defaultBaselinePath,
+        help: 'Output path for the baseline file. '
+            'Defaults to $defaultBaselinePath',
       )
       ..addFlag(
         'update',
@@ -43,8 +47,8 @@ class BaselineCommand extends ShieldCommand {
 
     try {
       // Check if baseline exists when not updating
-      final baselineFile = File(outputPath);
-      if (baselineFile.existsSync() && !update) {
+      final checkFile = File(outputPath);
+      if (checkFile.existsSync() && !update) {
         logger.err(
           'Baseline file already exists: $outputPath\n'
           'Use --update to merge with existing baseline.',
@@ -81,6 +85,13 @@ class BaselineCommand extends ShieldCommand {
           .whereType<AnalysisSuccess>()
           .expand((r) => r.issues)
           .toList();
+
+      // Ensure parent directory exists
+      final baselineFile = File(outputPath);
+      final parentDir = baselineFile.parent;
+      if (!parentDir.existsSync()) {
+        parentDir.createSync(recursive: true);
+      }
 
       // Create baseline
       final manager = BaselineManager(outputPath);

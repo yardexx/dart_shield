@@ -1,3 +1,4 @@
+import 'package:dart_shield/src/cli/commands/baseline_command.dart';
 import 'package:dart_shield/src/cli/commands/shield_command.dart';
 import 'package:dart_shield/src/core/analyzer_factory.dart';
 import 'package:dart_shield/src/core/shield_run_config.dart';
@@ -33,7 +34,8 @@ class AnalyzeCommand extends ShieldCommand {
       ..addOption(
         'baseline',
         abbr: 'b',
-        help: 'Path to baseline file. Issues in baseline are not reported.',
+        help: 'Path to baseline file. Issues in baseline are not reported. '
+            'Default location is $defaultBaselinePath',
       );
   }
 
