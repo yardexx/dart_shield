@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
+import 'package:dart_shield/src/baseline/baseline_entry.dart';
 import 'package:dart_shield/src/domain/analysis_issue.dart';
 import 'package:dart_shield/src/domain/issue_context.dart';
 import 'package:yaml/yaml.dart';
@@ -112,26 +113,4 @@ class BaselineManager {
     }
     return buffer.toString();
   }
-}
-
-/// An entry in the baseline file.
-class BaselineEntry {
-  BaselineEntry({
-    required this.ruleId,
-    required this.file,
-    required this.line,
-    required this.fingerprint,
-  });
-
-  /// The rule ID.
-  final String ruleId;
-
-  /// The file path.
-  final String file;
-
-  /// The line number.
-  final int line;
-
-  /// The fingerprint (hash of rule, file, line).
-  final String fingerprint;
 }
