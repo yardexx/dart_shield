@@ -29,6 +29,11 @@ class AnalyzeCommand extends ShieldCommand {
         'exclude',
         allowed: AnalyzerFactory.availableIds,
         help: 'Exclude specific analyzers.',
+      )
+      ..addOption(
+        'baseline',
+        abbr: 'b',
+        help: 'Path to baseline file. Issues in baseline are not reported.',
       );
   }
 
@@ -48,6 +53,7 @@ class AnalyzeCommand extends ShieldCommand {
       exclude: argResults['exclude'] as List<String>? ?? [],
       reporterMode: argResults['reporter'] as String? ?? 'console',
       minSeverity: ShieldRunConfig.parseSeverity(severityStr),
+      baselinePath: argResults['baseline'] as String?,
     );
 
     final runner = ShieldRunner(logger: logger);
