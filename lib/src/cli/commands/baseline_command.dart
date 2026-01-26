@@ -9,7 +9,7 @@ import 'package:dart_shield/src/domain/analyzer_result.dart';
 import 'package:mason_logger/mason_logger.dart';
 
 /// Default baseline file path following Dart conventions.
-const defaultBaselinePath = '.dart_tool/dart_shield_baseline.yaml';
+const defaultBaselinePath = '.dart_tool/dart_shield/baseline.yaml';
 
 /// Command to create or update a baseline file for existing issues.
 ///
