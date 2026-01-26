@@ -1,0 +1,75 @@
+---
+title: Avoid Hardcoded URLs
+description: Detects hardcoded URLs in the codebase.
+---
+
+# Avoid Hardcoded URLs
+
+**Rule ID**: `avoid_hardcoded_urls`
+**Severity**: 🔵 Low
+**Category**: Network (OWASP M5)
+
+## Description
+
+This rule detects raw URL strings (starting with `http://` or `https://`) hardcoded directly into the source code. Hardcoding URLs makes the application difficult to maintain, harder to configure for different environments (dev, stage, prod), and can lead to security issues if sensitive endpoints are exposed.
+
+## Non-Compliant Code
+
+Hardcoding the API endpoint:
+
+```dart
+class ApiService {
+  // ❌ BAD: Hardcoded URL
+  final String baseUrl = 'https://api.production.com/v1';
+
+  void fetchData() { ... }
+}
+```
+
+## Compliant Code
+
+Use configuration or environment variables:
+
+```dart
+class ApiService {
+  // ✅ GOOD: URL is injected or loaded from config
+  final String baseUrl;
+
+  ApiService({required this.baseUrl});
+}
+
+// In main.dart or a config file:
+final config = AppConfig.fromEnvironment();
+final api = ApiService(baseUrl: config.apiUrl);
+```
+
+## How to Fix
+
+1.  **Extract to Configuration**: Move the URL to a configuration file (e.g., `.env`, `config.json`) or a dedicated configuration class.
+2.  **Use Environment Variables**: Use `String.fromEnvironment` or packages like `flutter_dotenv` to load URLs at runtime or build time.
+3.  **Dependency Injection**: Pass the base URL to your services via their constructor, allowing for easier testing and environment switching.
+
+## Why is this a problem?
+
+### 1. Maintainability
+If the API endpoint changes, you have to search and replace it across the entire codebase, increasing the risk of errors.
+
+### 2. Environment Management
+It becomes difficult to point the app to different environments (Development, Staging, Production) without modifying the code and rebuilding.
+
+### 3. Security
+Hardcoded URLs might accidentally expose internal testing endpoints or staging servers to the public if not managed validity.
+
+## When to Ignore
+
+This rule can be ignored for:
+
+*   **Static Resources**: Links to privacy policies, terms of service, or documentation that are unlikely to change.
+*   **Third-Party Constants**: Public URLs for stable third-party services that are not environment-dependent (e.g., `https://www.google.com`).
+
+**Always ensure that ignoring this rule does not introduce a security vulnerability in your specific use case.**
+
+## Resources
+
+*   [The Twelve-Factor App: Config](https://12factor.net/config)
+*   [Flutter: flavoring](https://docs.flutter.dev/deployment/flavors)

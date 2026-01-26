@@ -11,8 +11,20 @@ pubspec.lock
 coverage/
 .test_runner.dart
 
-# Android studio and IntelliJ
-.idea
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.bak
+
+# macOS
+.DS_Store
+
+# Project
+.gemini/
+GEMINI.md
+ROADMAP.md
+RULES_CATEGORIZATION.md
 
 # Custom
 code_examples/

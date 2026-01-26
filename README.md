@@ -10,6 +10,7 @@
     </picture>
     <p>Dart-based security-focused code analyzer which analyzes your Dart code for potential security flaws.</p>
     <a href="https://github.com/yardexx/dart_shield/actions/workflows/dart.yml"><img src="https://github.com/yardexx/dart_shield/actions/workflows/dart.yml/badge.svg" alt="Pipelines: GitHub Actions"/></a>
+    <a href="https://codecov.io/gh/yardexx/dart_shield"><img src="https://codecov.io/gh/yardexx/dart_shield/branch/master/graph/badge.svg" alt="Coverage"/></a>
     <a href="https://pub.dev/packages/very_good_analysis"><img src="https://img.shields.io/badge/style-very_good_analysis-B22C89.svg" alt="Style: Very Good Analysis"></a>
     <a href="https://www.gitbook.com/preview?utm_source=gitbook_readme_badge&utm_medium=organic&utm_campaign=preview_documentation&utm_content=link"><img src="https://img.shields.io/static/v1?message=Documented%20on%20GitBook&logo=gitbook&logoColor=ffffff&label=%20&labelColor=5c5c5c&color=3F89A1"/>
 </a>
@@ -63,12 +64,8 @@ To initialize `dart_shield` in your project, run the following command:
 dart_shield init
 ```
 
-This command creates a `shield_options.yaml` file in the root of your project. This file contains
-the configuration for `dart_shield`, which will be used during the analysis (similar to
-`analysis_options.yaml`).
-
-If a shield_options.yaml file already exists in your project and you want to recreate it, use the
-`-f` or `--force` flag:
+This command updates your `analysis_options.yaml` file to include the `dart_shield` configuration.
+If the `dart_shield` section already exists and you want to recreate it, use the `-f` or `--force` flag:
 
 ```bash
 dart_shield init -f
@@ -87,51 +84,30 @@ dart_shield analyze .
 dart_shield analyze lib
 ```
 
-This command analyzes your Dart code based on the configuration in the shield_options.yaml file.
-If the configuration file is not found, the command will fail.
+This command analyzes your Dart code for security issues.
 
 # Configuration
 
-The `shield_options.yaml` file contains configuration options, primarily rules, for `dart_shield`.
-The configuration is similar to the `analysis_options.yaml` file, making it familiar to those who
-have
-used Dart analysis tools.
+Configuration is done through your `analysis_options.yaml` file using the `dart_shield` key.
+This approach follows Dart conventions and keeps all analysis configuration in one place.
 
-Example of the `shield_options.yaml` file:
+Example configuration in `analysis_options.yaml`:
 
 ```yaml
-# This is a sample configuration file for dart_shield.
-# ⚠️ Configuration file must be named `shield_options.yaml` and placed in the root of the project.
+# Enable dart_shield as an analyzer plugin
+analyzer:
+  plugins:
+    - dart_shield
 
-# shield_options.yaml is file with structure similar to analysis_options.yaml and it defines the
-#  rules that dart_shield will use to analyze your code.
+# dart_shield configuration
+dart_shield:
+  analyzers:
+    code: true  # Enable code analysis
 
-# The `shield` key is required.
-shield:
-
-  # List of excluded files or directories from being analyzed
-  exclude:
-    # Exclude a file using path (path begins at the root of the project):
-    - 'lib/ignored.dart'
-    # Globs are also supported
-    - '**.g.dart'
-
-  # List of rules that dart_shield will use to analyze your code
-  rules:
-    - prefer_https_over_http
-    - avoid_hardcoded_secrets
-
-  # Some rules need more fine-tuning and are marked as experimental.
-  # You can enable them by setting `enable_experimental` to `true`.
-  enable_experimental: true
-
-  # List of experimental rules that dart_shield will use to analyze your code
-  # ⚠️ Experimental rules are subject to change and may not be as stable as regular rules.
-  # ⚠️ Using "experimental_rules" without setting "enable_experimental" to "true" will cause an error.
-  experimental_rules:
-    - avoid_hardcoded_urls
-    - avoid_weak_hashing
-    - prefer_secure_random
+  # Future options:
+  # exclude:
+  #   - 'lib/generated/**'
+  #   - '**.g.dart'
 ```
 
 # Rules

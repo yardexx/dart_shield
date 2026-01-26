@@ -1,0 +1,85 @@
+---
+title: Avoid Weak Hashing
+description: Detects the usage of weak or broken cryptographic hashing algorithms like MD5 or SHA-1.
+---
+
+# Avoid Weak Hashing
+
+**Rule ID**: `avoid_weak_hashing`
+**Severity**: 🔴 High
+**Category**: Cryptography (OWASP M10)
+
+## Description
+
+This rule identifies the use of cryptographic hashing algorithms that are considered weak or broken by modern security standards. Algorithms like **MD5** and **SHA-1** are known to be vulnerable to collision attacks and should not be used for security-critical purposes such as password hashing, digital signatures, or data integrity checks where collision resistance is paramount.
+
+## Non-Compliant Code
+
+Using `md5` or `sha1` from the `crypto` package:
+
+```dart
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+
+void main() {
+  var bytes = utf8.encode("foobar");
+  // ❌ BAD: MD5 is broken and insecure for security-critical operations.
+  var digest = md5.convert(bytes); 
+  print("Digest: $digest");
+}
+```
+
+## Compliant Code
+
+Use stronger, currently secure algorithms like **SHA-256** or **SHA-512**:
+
+```dart
+import 'package:crypto/crypto.dart';
+import 'dart:convert';
+
+void main() {
+  var bytes = utf8.encode("foobar");
+  // ✅ GOOD: SHA-256 is currently considered secure for general-purpose hashing.
+  var digest = sha256.convert(bytes);
+  print("Digest: $digest");
+}
+```
+
+## How to Fix
+
+1.  **For data integrity and general hashing**: Replace usages of MD5 or SHA-1 with SHA-256 or SHA-512. These are available in the same `package:crypto`.
+2.  **For password storage**:
+    *   **NEVER** use simple SHA-256/512 for passwords. These are fast and vulnerable to brute-force attacks.
+    *   Use a dedicated password hashing library like `package:argon2` or `package:bcrypt_dart`. These algorithms are designed to be computationally intensive, making brute-force attacks prohibitively expensive.
+3.  **For digital signatures**: Ensure you are using modern signature algorithms that rely on secure hash functions, such as ECDSA with SHA-256.
+
+## Why is this a problem?
+
+### 1. Collision Vulnerabilities
+Weak hash functions make it computationally feasible for attackers to find two different inputs that produce the same hash output (a collision). This can be exploited to:
+*   Forge digital signatures.
+*   Bypass integrity checks (e.g., replace a legitimate file with a malicious one that has the same hash).
+*   Create malicious inputs that bypass security filters.
+
+### 2. Pre-image Attacks
+While harder, for some weak hashes, it might be possible for an attacker to reconstruct the original input given only the hash output.
+
+### 3. Increased Brute-Force Feasibility
+For security contexts like password hashing, weak (or simply fast) hash functions make it easier for attackers to perform brute-force or dictionary attacks to guess the original secret.
+
+## When to Ignore
+
+This rule can typically be ignored in scenarios where the hash function is used purely for **non-cryptographic purposes**, and collision resistance or cryptographic security is explicitly not required.
+
+Examples include:
+*   **Checksums for data integrity where the data source is fully trusted** and tampering is not a concern (e.g., verifying a local file hasn't changed due to disk errors, but not against malicious modification).
+*   **Generating unique IDs or keys for data structures** where the primary concern is uniqueness within a trusted context, not cryptographic randomness or collision resistance against an adversary.
+*   **Legacy system compatibility**: If you are strictly interoperating with a legacy system that *only* supports a weak hash, and you cannot upgrade it, this might be a rare case for ignoring (with careful risk assessment and understanding of the limited security provided).
+
+**Always ensure that ignoring this rule does not introduce a security vulnerability in your specific use case.**
+
+## Resources
+
+*   [OWASP Mobile Top 10: M10 - Insufficient Cryptography](https://owasp.org/www-project-mobile-top-10/2024-Risks/m10-insufficient-cryptography.html)
+*   [CWE-327: Use of a Broken or Risky Cryptographic Algorithm](https://cwe.mitre.org/data/definitions/327.html)
+*   [Dart `crypto` package documentation](https://pub.dev/packages/crypto)
