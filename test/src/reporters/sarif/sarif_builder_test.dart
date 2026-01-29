@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:dart_shield/src/reporters/sarif/models/models.dart';
 import 'package:dart_shield/src/reporters/sarif/sarif_builder.dart';
-import 'package:dart_shield/src/reporters/sarif/sarif_document.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -53,9 +53,10 @@ void main() {
       );
 
       final doc = builder.build();
-      expect(doc.results, hasLength(1));
-      expect(doc.tool.rules, hasLength(1));
-      expect(doc.tool.rules.first.id, 'test_rule');
+      final run = doc.runs.first;
+      expect(run.results, hasLength(1));
+      expect(run.tool.driver.rules, hasLength(1));
+      expect(run.tool.driver.rules.first.id, 'test_rule');
     });
 
     test('deduplicates rules', () {
@@ -84,8 +85,9 @@ void main() {
         );
 
       final doc = builder.build();
-      expect(doc.results, hasLength(2));
-      expect(doc.tool.rules, hasLength(1)); // Only one rule entry
+      final run = doc.runs.first;
+      expect(run.results, hasLength(2));
+      expect(run.tool.driver.rules, hasLength(1)); // Only one rule entry
     });
 
     test('generates rule description from id if not provided', () {
@@ -105,8 +107,9 @@ void main() {
       );
 
       final doc = builder.build();
+      final run = doc.runs.first;
       expect(
-        doc.tool.rules.first.shortDescription,
+        run.tool.driver.rules.first.shortDescription.text,
         'avoid hardcoded secrets',
       );
     });
@@ -130,8 +133,9 @@ void main() {
       );
 
       final doc = builder.build();
-      final rule = doc.tool.rules.first;
-      expect(rule.shortDescription, 'Custom description');
+      final run = doc.runs.first;
+      final rule = run.tool.driver.rules.first;
+      expect(rule.shortDescription.text, 'Custom description');
       expect(rule.helpUri, 'https://docs.example.com/rules/test');
     });
 
@@ -184,8 +188,9 @@ void main() {
       );
 
       final doc = builder.build();
-      expect(doc.results, isEmpty);
-      expect(doc.tool.rules, isEmpty);
+      final run = doc.runs.first;
+      expect(run.results, isEmpty);
+      expect(run.tool.driver.rules, isEmpty);
 
       final json = builder.buildJson();
       final sarif = jsonDecode(json) as Map<String, dynamic>;
@@ -196,17 +201,23 @@ void main() {
   group('SarifDocument', () {
     test('toJson includes schema and version', () {
       final doc = SarifDocument(
-        tool: SarifTool(
-          name: 'test',
-          version: '1.0.0',
-          informationUri: 'https://example.com',
-        ),
-        results: [],
+        runs: [
+          SarifRun(
+            tool: SarifTool(
+              driver: SarifDriver(
+                name: 'test',
+                version: '1.0.0',
+                informationUri: 'https://example.com',
+              ),
+            ),
+            results: [],
+          ),
+        ],
       );
 
       final json = doc.toJson();
-      expect(json[r'$schema'], SarifDocument.schema);
-      expect(json['version'], SarifDocument.version);
+      expect(json[r'$schema'], contains('sarif'));
+      expect(json['version'], '2.1.0');
     });
   });
 
@@ -215,18 +226,22 @@ void main() {
       final result = SarifResult(
         ruleId: 'test_rule',
         level: SarifLevel.error,
-        message: 'Test message',
-        location: SarifLocation(
-          filePath: 'lib/test.dart',
-          startLine: 10,
-          startColumn: 5,
-        ),
+        message: SarifMessage(text: 'Test message'),
+        locations: [
+          SarifLocation(
+            physicalLocation: SarifPhysicalLocation(
+              artifactLocation: SarifArtifactLocation(uri: 'lib/test.dart'),
+              region: SarifRegion(startLine: 10, startColumn: 5),
+            ),
+          ),
+        ],
       );
 
       final json = result.toJson();
       expect(json['ruleId'], 'test_rule');
       expect(json['level'], 'error');
-      expect(json['message']['text'], 'Test message');
+      final message = json['message'] as Map<String, dynamic>;
+      expect(message['text'], 'Test message');
       expect(json['locations'], isA<List>());
     });
   });
@@ -234,44 +249,53 @@ void main() {
   group('SarifLocation', () {
     test('toJson includes physical location', () {
       final location = SarifLocation(
-        filePath: 'lib/src/api.dart',
-        startLine: 42,
-        startColumn: 10,
+        physicalLocation: SarifPhysicalLocation(
+          artifactLocation: SarifArtifactLocation(uri: 'lib/src/api.dart'),
+          region: SarifRegion(startLine: 42, startColumn: 10),
+        ),
       );
 
       final json = location.toJson();
       final physical = json['physicalLocation'] as Map<String, dynamic>;
-      expect(physical['artifactLocation']['uri'], 'lib/src/api.dart');
-      expect(physical['region']['startLine'], 42);
-      expect(physical['region']['startColumn'], 10);
+      final artifactLocation =
+          physical['artifactLocation'] as Map<String, dynamic>;
+      final region = physical['region'] as Map<String, dynamic>;
+      expect(artifactLocation['uri'], 'lib/src/api.dart');
+      expect(region['startLine'], 42);
+      expect(region['startColumn'], 10);
     });
 
     test('toJson includes end line/column when provided', () {
       final location = SarifLocation(
-        filePath: 'lib/test.dart',
-        startLine: 10,
-        startColumn: 5,
-        endLine: 10,
-        endColumn: 20,
+        physicalLocation: SarifPhysicalLocation(
+          artifactLocation: SarifArtifactLocation(uri: 'lib/test.dart'),
+          region: SarifRegion(
+            startLine: 10,
+            startColumn: 5,
+            endLine: 10,
+            endColumn: 20,
+          ),
+        ),
       );
 
       final json = location.toJson();
-      final region =
-          json['physicalLocation']['region'] as Map<String, dynamic>;
+      final physical = json['physicalLocation'] as Map<String, dynamic>;
+      final region = physical['region'] as Map<String, dynamic>;
       expect(region['endLine'], 10);
       expect(region['endColumn'], 20);
     });
 
     test('toJson omits end line/column when not provided', () {
       final location = SarifLocation(
-        filePath: 'lib/test.dart',
-        startLine: 10,
-        startColumn: 5,
+        physicalLocation: SarifPhysicalLocation(
+          artifactLocation: SarifArtifactLocation(uri: 'lib/test.dart'),
+          region: SarifRegion(startLine: 10, startColumn: 5),
+        ),
       );
 
       final json = location.toJson();
-      final region =
-          json['physicalLocation']['region'] as Map<String, dynamic>;
+      final physical = json['physicalLocation'] as Map<String, dynamic>;
+      final region = physical['region'] as Map<String, dynamic>;
       expect(region.containsKey('endLine'), isFalse);
       expect(region.containsKey('endColumn'), isFalse);
     });
@@ -290,31 +314,33 @@ void main() {
     test('toJson includes id and shortDescription', () {
       final rule = SarifRule(
         id: 'test_rule',
-        shortDescription: 'Test description',
+        shortDescription: SarifMessage(text: 'Test description'),
       );
 
       final json = rule.toJson();
       expect(json['id'], 'test_rule');
-      expect(json['shortDescription']['text'], 'Test description');
+      final shortDesc = json['shortDescription'] as Map<String, dynamic>;
+      expect(shortDesc['text'], 'Test description');
     });
 
     test('toJson includes optional fields when provided', () {
       final rule = SarifRule(
         id: 'test_rule',
-        shortDescription: 'Short',
-        fullDescription: 'Full description of the rule',
+        shortDescription: SarifMessage(text: 'Short'),
+        fullDescription: SarifMessage(text: 'Full description of the rule'),
         helpUri: 'https://docs.example.com/rules/test',
       );
 
       final json = rule.toJson();
-      expect(json['fullDescription']['text'], 'Full description of the rule');
+      final fullDesc = json['fullDescription'] as Map<String, dynamic>;
+      expect(fullDesc['text'], 'Full description of the rule');
       expect(json['helpUri'], 'https://docs.example.com/rules/test');
     });
 
     test('toJson omits optional fields when not provided', () {
       final rule = SarifRule(
         id: 'test_rule',
-        shortDescription: 'Short',
+        shortDescription: SarifMessage(text: 'Short'),
       );
 
       final json = rule.toJson();

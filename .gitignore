@@ -22,9 +22,11 @@ coverage/
 
 # Project
 .gemini/
-GEMINI.md
-ROADMAP.md
-RULES_CATEGORIZATION.md
+
+# Ignore all .md files in root except README.md and CHANGELOG.md
+/*.md
+!README.md
+!CHANGELOG.md
 
 # Custom
 code_examples/

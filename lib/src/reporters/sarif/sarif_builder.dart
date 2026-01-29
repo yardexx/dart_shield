@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dart_shield/src/reporters/sarif/sarif_document.dart';
+import 'package:dart_shield/src/reporters/sarif/models/models.dart';
 
 /// Fluent builder for SARIF documents.
 ///
@@ -11,13 +11,13 @@ class SarifBuilder {
     required String toolName,
     required String toolVersion,
     required String toolUri,
-  }) : _tool = SarifTool(
-          name: toolName,
-          version: toolVersion,
-          informationUri: toolUri,
-        );
+  })  : _toolName = toolName,
+        _toolVersion = toolVersion,
+        _toolUri = toolUri;
 
-  final SarifTool _tool;
+  final String _toolName;
+  final String _toolVersion;
+  final String _toolUri;
   final List<SarifResult> _results = [];
   final Map<String, SarifRule> _rules = {};
 
@@ -37,7 +37,8 @@ class SarifBuilder {
       ruleId,
       () => SarifRule(
         id: ruleId,
-        shortDescription: ruleDescription ?? ruleId.replaceAll('_', ' '),
+        shortDescription:
+            SarifMessage(text: ruleDescription ?? ruleId.replaceAll('_', ' ')),
         helpUri: ruleHelpUri,
       ),
     );
@@ -46,12 +47,18 @@ class SarifBuilder {
       SarifResult(
         ruleId: ruleId,
         level: level,
-        message: message,
-        location: SarifLocation(
-          filePath: filePath,
-          startLine: line,
-          startColumn: column,
-        ),
+        message: SarifMessage(text: message),
+        locations: [
+          SarifLocation(
+            physicalLocation: SarifPhysicalLocation(
+              artifactLocation: SarifArtifactLocation(uri: filePath),
+              region: SarifRegion(
+                startLine: line,
+                startColumn: column,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -59,13 +66,19 @@ class SarifBuilder {
   /// Build the SARIF document.
   SarifDocument build() {
     return SarifDocument(
-      tool: SarifTool(
-        name: _tool.name,
-        version: _tool.version,
-        informationUri: _tool.informationUri,
-        rules: _rules.values.toList(),
-      ),
-      results: _results,
+      runs: [
+        SarifRun(
+          tool: SarifTool(
+            driver: SarifDriver(
+              name: _toolName,
+              version: _toolVersion,
+              informationUri: _toolUri,
+              rules: _rules.values.toList(),
+            ),
+          ),
+          results: _results,
+        ),
+      ],
     );
   }
 
