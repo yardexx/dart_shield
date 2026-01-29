@@ -1,11 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:dart_shield/src/reporters/sarif/models/sarif_message.dart';
+import 'package:sarif/src/models/sarif_message.dart';
 
 part 'sarif_rule.g.dart';
 
 /// A rule (also called a "reporting descriptor") defined by a SARIF tool.
-@JsonSerializable(includeIfNull: false, createFactory: false, explicitToJson: true)
+@JsonSerializable(
+  includeIfNull: false,
+  createFactory: false,
+  explicitToJson: true,
+)
 class SarifRule {
   SarifRule({
     required this.id,

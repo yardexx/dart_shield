@@ -1,11 +1,8 @@
 import 'dart:convert';
 
-import 'package:dart_shield/src/reporters/sarif/models/models.dart';
+import 'package:sarif/src/models/models.dart';
 
 /// Fluent builder for SARIF documents.
-///
-/// This class has NO dependencies on dart_shield domain models.
-/// It can be extracted to a standalone package.
 class SarifBuilder {
   SarifBuilder({
     required String toolName,

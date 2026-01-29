@@ -4,8 +4,7 @@ import 'package:dart_shield/src/domain/analysis_issue.dart';
 import 'package:dart_shield/src/domain/analyzer_result.dart';
 import 'package:dart_shield/src/domain/issue_context.dart';
 import 'package:dart_shield/src/reporters/reporter.dart';
-import 'package:dart_shield/src/reporters/sarif/models/models.dart';
-import 'package:dart_shield/src/reporters/sarif/sarif_builder.dart';
+import 'package:sarif/sarif.dart';
 
 /// SARIF reporter that adapts dart_shield results to SARIF format.
 ///

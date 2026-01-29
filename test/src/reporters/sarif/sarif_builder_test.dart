@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:dart_shield/src/reporters/sarif/models/models.dart';
-import 'package:dart_shield/src/reporters/sarif/sarif_builder.dart';
+import 'package:sarif/sarif.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,11 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:dart_shield/src/reporters/sarif/models/sarif_run.dart';
+import 'package:sarif/src/models/sarif_run.dart';
 
 part 'sarif_document.g.dart';
 
 /// A SARIF 2.1.0 document.
-@JsonSerializable(includeIfNull: false, createFactory: false, explicitToJson: true)
+@JsonSerializable(
+  includeIfNull: false,
+  createFactory: false,
+  explicitToJson: true,
+)
 class SarifDocument {
   SarifDocument({required this.runs});
 

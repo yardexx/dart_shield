@@ -1,7 +1,4 @@
 /// SARIF 2.1.0 data models.
-///
-/// These models have NO dependencies on dart_shield domain models
-/// and can be extracted to a standalone package.
 library;
 
 export 'sarif_artifact_location.dart';

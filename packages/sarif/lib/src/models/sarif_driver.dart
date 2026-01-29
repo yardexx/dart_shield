@@ -1,11 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:dart_shield/src/reporters/sarif/models/sarif_rule.dart';
+import 'package:sarif/src/models/sarif_rule.dart';
 
 part 'sarif_driver.g.dart';
 
 /// The tool component that performed the analysis.
-@JsonSerializable(includeIfNull: false, createFactory: false, explicitToJson: true)
+@JsonSerializable(
+  includeIfNull: false,
+  createFactory: false,
+  explicitToJson: true,
+)
 class SarifDriver {
   SarifDriver({
     required this.name,
