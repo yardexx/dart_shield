@@ -1,3 +1,4 @@
+import 'package:dart_shield/src/baseline/baseline_manager.dart';
 import 'package:dart_shield/src/configuration/shield_config.dart';
 import 'package:dart_shield/src/core/analyzer_engine.dart';
 import 'package:dart_shield/src/core/analyzer_factory.dart';
@@ -90,6 +91,11 @@ class ShieldRunner {
 
       // 5. Filter by minimum severity
       results = _filterBySeverity(results, runConfig.minSeverity);
+
+      // 5.5. Filter baselined issues
+      if (runConfig.baselinePath != null) {
+        results = await _filterBaselined(results, runConfig.baselinePath!);
+      }
 
       // 6. Reporting
       final reporters = _getReporters(runConfig.reporterMode);

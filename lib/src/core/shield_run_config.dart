@@ -7,6 +7,7 @@ class ShieldRunConfig {
     this.exclude = const [],
     this.reporterMode = 'console',
     this.minSeverity = Severity.info,
+    this.baselinePath,
   });
 
   final List<String> paths;
@@ -17,6 +18,10 @@ class ShieldRunConfig {
   /// Minimum severity level to report.
   /// Issues below this severity level will be filtered out.
   final Severity minSeverity;
+
+  /// Path to the baseline file.
+  /// Issues in the baseline will be filtered out.
+  final String? baselinePath;
 
   /// Parses a severity string to the corresponding [Severity] enum.
   /// Returns [Severity.info] if the string is not recognized.

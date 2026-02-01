@@ -1,3 +1,4 @@
+import 'package:dart_shield/src/cli/commands/baseline_command.dart';
 import 'package:dart_shield/src/cli/commands/shield_command.dart';
 import 'package:dart_shield/src/core/analyzer_factory.dart';
 import 'package:dart_shield/src/core/shield_run_config.dart';
@@ -29,6 +30,12 @@ class AnalyzeCommand extends ShieldCommand {
         'exclude',
         allowed: AnalyzerFactory.availableIds,
         help: 'Exclude specific analyzers.',
+      )
+      ..addOption(
+        'baseline',
+        abbr: 'b',
+        help: 'Path to baseline file. Issues in baseline are not reported. '
+            'Default location is $defaultBaselinePath',
       );
   }
 
@@ -48,6 +55,7 @@ class AnalyzeCommand extends ShieldCommand {
       exclude: argResults['exclude'] as List<String>? ?? [],
       reporterMode: argResults['reporter'] as String? ?? 'console',
       minSeverity: ShieldRunConfig.parseSeverity(severityStr),
+      baselinePath: argResults['baseline'] as String?,
     );
 
     final runner = ShieldRunner(logger: logger);

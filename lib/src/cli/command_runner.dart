@@ -2,6 +2,7 @@ import 'package:args/args.dart';
 import 'package:args/command_runner.dart';
 import 'package:cli_completion/cli_completion.dart';
 import 'package:dart_shield/src/cli/commands/analyze_command.dart';
+import 'package:dart_shield/src/cli/commands/baseline_command.dart';
 import 'package:dart_shield/src/cli/commands/init_command.dart';
 import 'package:mason_logger/mason_logger.dart';
 
@@ -15,6 +16,7 @@ class ShieldCommandRunner extends CompletionCommandRunner<int> {
       super(executableName, description) {
     // Add sub commands
     addCommand(AnalyzeCommand(logger: _logger));
+    addCommand(BaselineCommand(logger: _logger));
     addCommand(InitCommand(logger: _logger));
   }
 
