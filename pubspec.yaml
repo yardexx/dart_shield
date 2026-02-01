@@ -10,13 +10,16 @@ topics:
   - tools
   - static-analysis
 
+workspace: 
+ - packages/sarif
+
 environment:
   sdk: ">=3.10.0 <4.0.0"
 
 dependencies:
   analysis_server_plugin: ^0.3.2
-  analyzer: ^8.2.0
-  analyzer_plugin: ^0.13.8
+  analyzer: ^10.0.2
+  analyzer_plugin: ^0.14.2
   args: ^2.5.0
   checked_yaml: ^2.0.4
   cli_completion: ^0.5.1
