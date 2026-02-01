@@ -142,6 +142,37 @@ class ShieldRunner {
     }).toList();
   }
 
+  /// Filters out issues that are already recorded in the baseline file.
+  ///
+  /// This allows teams to adopt dart_shield in existing projects without
+  /// being overwhelmed by legacy issues. Only new violations are reported.
+  ///
+  /// For each [AnalysisSuccess] result, removes issues that match entries
+  /// in the baseline. [AnalysisFailure] results pass through unchanged.
+  Future<List<AnalyzerResult>> _filterBaselined(
+    List<AnalyzerResult> results,
+    String baselinePath,
+  ) async {
+    final manager = BaselineManager(baselinePath);
+
+    final filtered = <AnalyzerResult>[];
+    for (final result in results) {
+      if (result is AnalysisSuccess) {
+        final filteredIssues = await manager.filterBaselined(result.issues);
+        filtered.add(
+          AnalysisSuccess(
+            analyzerId: result.analyzerId,
+            issues: filteredIssues,
+            duration: result.duration,
+          ),
+        );
+      } else {
+        filtered.add(result);
+      }
+    }
+    return filtered;
+  }
+
   /// Returns the list of reporters for the specified output [mode].
   ///
   /// Supported modes:
