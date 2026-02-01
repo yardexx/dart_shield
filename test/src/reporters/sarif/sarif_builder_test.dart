@@ -165,20 +165,6 @@ void main() {
       expect(run['results'], isA<List>());
     });
 
-    test('buildJson without pretty print produces compact JSON', () {
-      final builder = SarifBuilder(
-        toolName: 'test_tool',
-        toolVersion: '1.0.0',
-        toolUri: 'https://example.com',
-      );
-
-      final compactJson = builder.buildJson(pretty: false);
-      final prettyJson = builder.buildJson();
-
-      expect(compactJson.contains('\n'), isFalse);
-      expect(prettyJson.contains('\n'), isTrue);
-    });
-
     test('empty builder produces valid SARIF with no results', () {
       final builder = SarifBuilder(
         toolName: 'test_tool',

@@ -8,9 +8,9 @@ class SarifBuilder {
     required String toolName,
     required String toolVersion,
     required String toolUri,
-  })  : _toolName = toolName,
-        _toolVersion = toolVersion,
-        _toolUri = toolUri;
+  }) : _toolName = toolName,
+       _toolVersion = toolVersion,
+       _toolUri = toolUri;
 
   final String _toolName;
   final String _toolVersion;
@@ -34,30 +34,28 @@ class SarifBuilder {
       ruleId,
       () => SarifRule(
         id: ruleId,
-        shortDescription:
-            SarifMessage(text: ruleDescription ?? ruleId.replaceAll('_', ' ')),
+        shortDescription: SarifMessage(
+          text: ruleDescription ?? ruleId.replaceAll('_', ' '),
+        ),
         helpUri: ruleHelpUri,
       ),
     );
 
-    _results.add(
-      SarifResult(
-        ruleId: ruleId,
-        level: level,
-        message: SarifMessage(text: message),
-        locations: [
-          SarifLocation(
-            physicalLocation: SarifPhysicalLocation(
-              artifactLocation: SarifArtifactLocation(uri: filePath),
-              region: SarifRegion(
-                startLine: line,
-                startColumn: column,
-              ),
-            ),
+    final result = SarifResult(
+      ruleId: ruleId,
+      level: level,
+      message: SarifMessage(text: message),
+      locations: [
+        SarifLocation(
+          physicalLocation: SarifPhysicalLocation(
+            artifactLocation: SarifArtifactLocation(uri: filePath),
+            region: SarifRegion(startLine: line, startColumn: column),
           ),
-        ],
-      ),
+        ),
+      ],
     );
+
+    _results.add(result);
   }
 
   /// Build the SARIF document.
@@ -80,11 +78,8 @@ class SarifBuilder {
   }
 
   /// Build and serialize to JSON string.
-  String buildJson({bool pretty = true}) {
+  String buildJson() {
     final doc = build();
-    if (pretty) {
-      return const JsonEncoder.withIndent('  ').convert(doc.toJson());
-    }
     return jsonEncode(doc.toJson());
   }
 }

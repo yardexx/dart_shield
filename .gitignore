@@ -28,5 +28,8 @@ coverage/
 !README.md
 !CHANGELOG.md
 
+# Feature planning documents (local only)
+/features/
+
 # Custom
 code_examples/

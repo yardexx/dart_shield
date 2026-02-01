@@ -4,6 +4,9 @@ import 'package:dart_shield/src/domain/analysis_issue.dart';
 import 'package:dart_shield/src/domain/analyzer_result.dart';
 import 'package:dart_shield/src/domain/issue_context.dart';
 import 'package:dart_shield/src/reporters/reporter.dart';
+import 'package:dart_shield/src/utils/pubspec.dart';
+
+import 'package:meta/meta.dart';
 import 'package:sarif/sarif.dart';
 
 /// SARIF reporter that adapts dart_shield results to SARIF format.
@@ -20,32 +23,35 @@ class SarifReporter implements Reporter {
   }
 
   /// Generate SARIF JSON from analysis results.
-  ///
-  /// Exposed for testing.
+  @visibleForTesting
   String generateSarif(List<AnalyzerResult> results) {
     final builder = SarifBuilder(
       toolName: 'dart_shield',
-      toolVersion: '0.1.0', // TODO: Read from pubspec
+      toolVersion: Pubspec.version(),
       toolUri: 'https://github.com/yardexx/dart_shield',
     );
 
-    // Extract all issues from successful analyses
-    final issues =
-        results.whereType<AnalysisSuccess>().expand((r) => r.issues);
-
-    for (final issue in issues) {
-      builder.addResult(
-        ruleId: issue.ruleId,
-        message: issue.message,
-        level: _mapSeverity(issue.severity),
-        filePath: _getFilePath(issue.context),
-        line: _getLine(issue.context),
-        column: _getColumn(issue.context),
-        // TODO: Add rule descriptions from metadata
-      );
-    }
+    // Extract all issues from successful analyses and add them to builder
+    results
+        .whereType<AnalysisSuccess>()
+        .expand((r) => r.issues)
+        .forEach((issue) => _addIssue(builder, issue));
 
     return builder.buildJson();
+  }
+
+  /// Add an [AnalysisIssue] to the SARIF builder.
+  void _addIssue(SarifBuilder builder, AnalysisIssue issue) {
+    final FileContext(:filePath, :line, :column) = issue.context as FileContext;
+
+    builder.addResult(
+      ruleId: issue.ruleId,
+      message: issue.message,
+      level: _mapSeverity(issue.severity),
+      filePath: filePath,
+      line: line,
+      column: column,
+    );
   }
 
   /// Map dart_shield Severity to SARIF Level.
@@ -55,24 +61,6 @@ class SarifReporter implements Reporter {
       Severity.medium => SarifLevel.warning,
       Severity.low => SarifLevel.note,
       Severity.info => SarifLevel.note,
-    };
-  }
-
-  String _getFilePath(IssueContext context) {
-    return switch (context) {
-      FileContext(:final filePath) => filePath,
-    };
-  }
-
-  int _getLine(IssueContext context) {
-    return switch (context) {
-      FileContext(:final line) => line,
-    };
-  }
-
-  int _getColumn(IssueContext context) {
-    return switch (context) {
-      FileContext(:final column) => column,
     };
   }
 }

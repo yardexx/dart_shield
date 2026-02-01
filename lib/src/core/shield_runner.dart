@@ -8,7 +8,7 @@ import 'package:dart_shield/src/domain/exceptions.dart';
 import 'package:dart_shield/src/reporters/console_reporter.dart';
 import 'package:dart_shield/src/reporters/json_reporter.dart';
 import 'package:dart_shield/src/reporters/reporter.dart';
-import 'package:dart_shield/src/reporters/sarif/sarif_reporter.dart';
+import 'package:dart_shield/src/reporters/sarif_reporter.dart';
 import 'package:mason_logger/mason_logger.dart';
 
 class ShieldRunner {
