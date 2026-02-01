@@ -1,4 +1,4 @@
-import 'package:dart_shield/src/analyzers/utils/shannon_entropy.dart';
+import 'package:dart_shield/src/utils/shannon_entropy.dart';
 import 'package:test/test.dart';
 
 void main() {

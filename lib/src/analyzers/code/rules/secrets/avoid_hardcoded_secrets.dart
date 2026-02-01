@@ -5,7 +5,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/error/error.dart';
 import 'package:dart_shield/src/analyzers/code/rules/secrets/rule_provider.dart';
-import 'package:dart_shield/src/analyzers/utils/shannon_entropy.dart';
+import 'package:dart_shield/src/utils/shannon_entropy.dart';
 
 class AvoidHardcodedSecrets extends AnalysisRule {
   AvoidHardcodedSecrets()

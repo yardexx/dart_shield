@@ -9,7 +9,7 @@ extension DiagnosticMapper on analyzer.Diagnostic {
     final location = lineInfo.getLocation(offset);
 
     return AnalysisIssue(
-      ruleId: diagnosticCode.name.toLowerCase(),
+      ruleId: diagnosticCode.lowerCaseName,
       severity: _mapSeverity(severity),
       message: problemMessage.messageText.toString(),
       context: FileContext(

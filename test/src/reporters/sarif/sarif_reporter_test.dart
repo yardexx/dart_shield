@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:dart_shield/src/domain/analysis_issue.dart';
 import 'package:dart_shield/src/domain/analyzer_result.dart';
 import 'package:dart_shield/src/domain/issue_context.dart';
-import 'package:dart_shield/src/reporters/sarif/sarif_reporter.dart';
+import 'package:dart_shield/src/reporters/sarif_reporter.dart';
 import 'package:test/test.dart';
 
 void main() {
