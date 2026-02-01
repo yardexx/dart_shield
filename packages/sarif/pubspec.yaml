@@ -1,7 +1,6 @@
 name: sarif
 description: SARIF 2.1.0 (Static Analysis Results Interchange Format) data structures and builder for Dart.
 version: 0.1.0
-publish_to: none
 
 environment:
   sdk: ">=3.10.0 <4.0.0"
