@@ -9,7 +9,7 @@ class AnalyzeCommand extends ShieldCommand {
       ..addOption(
         'reporter',
         abbr: 'r',
-        allowed: ['console', 'json', 'both'],
+        allowed: ['console', 'json', 'sarif'],
         defaultsTo: 'console',
         help: 'Select the output format.',
       )

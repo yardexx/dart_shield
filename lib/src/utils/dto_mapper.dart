@@ -1,5 +1,5 @@
 import 'package:dart_shield/src/analyzers/code/rules/rule_metadata.dart';
-import 'package:dart_shield/src/analyzers/utils/analyzer_result.dart';
+import 'package:dart_shield/src/utils/analyzer_result.dart';
 import 'package:dart_shield/src/domain/analysis_issue.dart';
 import 'package:dart_shield/src/domain/issue_context.dart';
 

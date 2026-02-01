@@ -1,0 +1,170 @@
+---
+title: GitHub Actions Integration
+description: How to integrate dart_shield with GitHub Actions and the Security tab
+---
+
+# GitHub Actions Integration
+
+dart_shield can integrate with GitHub's code scanning features through SARIF (Static Analysis Results Interchange Format) output. This enables:
+
+- Security issues appearing in the GitHub Security tab
+- PR annotations showing security issues inline
+- Tracking security issues over time
+- Integration with enterprise security dashboards
+
+## Basic Setup
+
+Add dart_shield to your GitHub Actions workflow:
+
+```yaml
+name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Install dart_shield
+        run: dart pub global activate dart_shield
+
+      - name: Run dart_shield
+        run: dart_shield analyze --reporter=sarif > results.sarif
+
+      - name: Upload SARIF to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+```
+
+## Upload SARIF to GitHub Security
+
+The key step is uploading the SARIF file to GitHub:
+
+```yaml
+- name: Run dart_shield
+  run: dart_shield analyze --reporter=sarif > results.sarif
+
+- name: Upload SARIF
+  uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: results.sarif
+```
+
+## Fail on High Severity Issues
+
+To fail the build when high-severity issues are found:
+
+```yaml
+- name: Run dart_shield
+  run: |
+    dart_shield analyze --reporter=sarif --min-severity=high > results.sarif
+    # Exit code will be non-zero if issues are found
+  continue-on-error: true
+  id: shield
+
+- name: Upload SARIF
+  uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: results.sarif
+
+- name: Check for failures
+  if: steps.shield.outcome == 'failure'
+  run: exit 1
+```
+
+## Full Example with Multiple Outputs
+
+```yaml
+name: Security Analysis
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+
+permissions:
+  security-events: write
+  contents: read
+
+jobs:
+  dart-shield:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Install dart_shield
+        run: dart pub global activate dart_shield
+
+      - name: Run security analysis
+        run: dart_shield analyze --reporter=sarif > results.sarif
+        continue-on-error: true
+
+      - name: Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: results.sarif
+          category: dart-shield
+
+      - name: Upload SARIF as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sarif-results
+          path: results.sarif
+```
+
+## Required Permissions
+
+For the SARIF upload to work, your workflow needs the `security-events: write` permission:
+
+```yaml
+permissions:
+  security-events: write
+  contents: read
+```
+
+## Viewing Results
+
+After the workflow runs:
+
+1. Go to your repository on GitHub
+2. Click the **Security** tab
+3. Click **Code scanning alerts** in the sidebar
+4. View dart_shield findings alongside other security tools
+
+## Troubleshooting
+
+### SARIF upload fails
+
+Ensure your repository has GitHub Advanced Security enabled (required for private repositories) or is a public repository.
+
+### No results appearing
+
+Check that:
+- The SARIF file is not empty
+- The workflow has `security-events: write` permission
+- The `sarif_file` path is correct
+
+### Results not showing in PR
+
+SARIF results are uploaded to the default branch first. Run the workflow on your default branch before expecting results in PRs.
