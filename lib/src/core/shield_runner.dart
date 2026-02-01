@@ -66,6 +66,7 @@ class ShieldRunner {
         _logger.level = Level.error;
       }
 
+      // TODO: Rethink configuration management - RunConfig vs ShieldConfig. Maybe single ComposeConfig class?
       // 2. Load Configuration
       final fileConfig = await ShieldConfig.load();
 
