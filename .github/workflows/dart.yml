@@ -45,6 +45,7 @@ jobs:
         with:
           files: coverage/lcov.info
           fail_ci_if_error: false
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: 📊 Run Pana
         run: dart pub global activate pana && dart pub global run pana
