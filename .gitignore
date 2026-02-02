@@ -11,8 +11,25 @@ pubspec.lock
 coverage/
 .test_runner.dart
 
-# Android studio and IntelliJ
-.idea
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.bak
+
+# macOS
+.DS_Store
+
+# Project
+.gemini/
+
+# Ignore all .md files in root except README.md and CHANGELOG.md
+/*.md
+!README.md
+!CHANGELOG.md
+
+# Feature planning documents (local only)
+/features/
 
 # Custom
 code_examples/

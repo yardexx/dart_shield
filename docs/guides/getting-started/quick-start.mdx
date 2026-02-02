@@ -1,0 +1,46 @@
+---
+title: Quickstart
+description: Get started with dart_shield
+---
+
+# Quickstart
+
+## Installation
+
+`dart_shield` works as a Dart analyzer plugin. To use it, you need to add it to your project's `dev_dependencies`.
+
+```bash
+dart pub add --dev dart_shield
+```
+
+If you want to use the CLI commands globally (optional but recommended for CI/CD or quick initialization), you can also activate it globally:
+
+```bash
+dart pub global activate dart_shield
+```
+
+## Initialization
+
+In the root of your Dart/Flutter project, initialize `dart_shield`. This will configure your `analysis_options.yaml` to enable the plugin.
+
+```bash
+dart_shield init
+```
+
+## Running Analysis
+
+Once initialized, `dart_shield` rules are automatically integrated into the standard Dart analysis server. This means issues will appear in your IDE (VS Code, IntelliJ) and when running `dart analyze`.
+
+### Using standard Dart analyzer
+```bash
+dart analyze
+```
+
+### Using Shield CLI
+You can also use the `dart_shield` CLI to run analysis, which allows for custom reporters (like JSON output):
+
+```bash
+dart_shield analyze
+```
+
+<Info>`dart_shield analyze` return only security related errors, while standard analysis returns all linter errors.</Info>

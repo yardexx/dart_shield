@@ -1,0 +1,67 @@
+---
+title: Prefer HTTPS over HTTP
+description: Detects the use of insecure HTTP connections.
+---
+
+# Prefer HTTPS over HTTP
+
+**Rule ID**: `prefer_https_over_http`
+**Severity**: 🔴 High
+**Category**: Network (OWASP M5)
+
+## Description
+
+This rule identifies hardcoded URLs or string literals that start with `http://`. Using unencrypted HTTP connections exposes data to interception and modification by attackers on the network.
+
+## Non-Compliant Code
+
+Using an `http://` URL:
+
+```dart
+void main() {
+  // ❌ BAD: Unencrypted connection
+  final url = 'http://api.example.com/data';
+  print('Fetching from $url');
+}
+```
+
+## Compliant Code
+
+Use `https://`:
+
+```dart
+void main() {
+  // ✅ GOOD: Encrypted connection
+  final url = 'https://api.example.com/data';
+  print('Fetching from $url');
+}
+```
+
+## How to Fix
+
+1.  **Change the protocol**: Simply update the URL string from `http://` to `https://`.
+2.  **Verify server support**: Ensure the backend server supports TLS/SSL. Most modern services do.
+
+## Why is this a problem?
+
+### 1. Data Interception (Man-in-the-Middle)
+Data sent over HTTP is transmitted in cleartext. Any attacker positioned between the client and the server (e.g., on a public Wi-Fi network) can read sensitive information like authentication tokens, passwords, and personal data.
+
+### 2. Data Integrity
+Without the integrity checks provided by TLS, an attacker can modify the data in transit. They could inject malicious scripts into a downloaded web page or alter the response from an API to change application behavior.
+
+## When to Ignore
+
+This rule can be ignored in specific, controlled environments:
+
+*   **Localhost Development**: When connecting to a local server (e.g., `http://localhost:8080`) for testing purposes.
+*   **Intranet/VPN**: In highly specific enterprise environments where traffic is fully contained within a trusted network (though HTTPS is still recommended).
+*   **Public Data**: Downloading non-sensitive public data where integrity is not a concern (rare).
+
+**Always ensure that ignoring this rule does not introduce a security vulnerability in your specific use case.**
+
+## Resources
+
+*   [OWASP Mobile Top 10: M5 - Insecure Communication](https://owasp.org/www-project-mobile-top-10/2024-Risks/m5-insecure-communication.html)
+*   [CWE-319: Cleartext Transmission of Sensitive Information](https://cwe.mitre.org/data/definitions/319.html)
+*   [Google: Why HTTPS Matters](https://developers.google.com/web/fundamentals/security/encrypt-in-transit/why-https)

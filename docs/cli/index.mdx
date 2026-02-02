@@ -1,0 +1,83 @@
+---
+title: CLI Commands
+description: Learn how to use the dart_shield CLI commands.
+---
+
+# CLI Commands
+
+`dart_shield` provides a command-line interface to manage security analysis and configuration.
+
+## Global Options
+
+| Option | Abbreviation | Description |
+| :--- | :--- | :--- |
+| `--help` | `-h` | Print this usage information. |
+| `--version` | | Print the current version. |
+| `--verbose` | `-v` | Enable verbose logging. |
+
+---
+
+## `init`
+
+Initialize `dart_shield` in the current project.
+
+This command updates your `analysis_options.yaml` to include the `dart_shield` plugin and adds the default configuration section.
+
+### Usage
+
+```bash
+dart_shield init [arguments]
+```
+
+### Options
+
+| Option | Abbreviation | Description |
+| :--- | :--- | :--- |
+| `--force` | `-f` | Overwrite existing `dart_shield` configuration if present in `analysis_options.yaml`. |
+
+### Example
+
+```bash
+# Standard initialization
+dart_shield init
+
+# Force overwrite existing config
+dart_shield init --force
+```
+
+---
+
+## `analyze`
+
+Analyzes the project for possible security-related issues.
+
+This command wraps `dart analyze` and additional internal analyzers to produce a security report.
+
+### Usage
+
+```bash
+dart_shield analyze [path] [arguments]
+```
+
+*   `[path]`: The directory to analyze. Defaults to current directory `.` if not specified.
+
+### Options
+
+| Option | Abbreviation | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `--reporter` | `-r` | Select the output format. Allowed: `console`, `json`, `both`. | `console` |
+| `--only` | | Run *only* specific analyzers (ignores config file settings). Allowed: `code`. | |
+| `--exclude` | | Exclude specific analyzers. Allowed: `code`. | |
+
+### Examples
+
+```bash
+# Analyze current directory
+dart_shield analyze
+
+# Analyze specific folder with JSON output
+dart_shield analyze lib/ --reporter json
+
+# Analyze but exclude code analysis (e.g. if you only wanted other future analyzers)
+dart_shield analyze --exclude code
+```

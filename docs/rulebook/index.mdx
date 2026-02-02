@@ -1,0 +1,45 @@
+---
+title: Rulebook Overview
+description: Overview of the security rules enforced by dart_shield.
+---
+
+# Rulebook
+
+The Rulebook is the comprehensive reference for all security checks performed by `dart_shield`. It categorizes rules based on the OWASP Mobile Top 10 (2024) to provide a clear and industry-standard understanding of potential vulnerabilities.
+
+## Rule Categories
+
+### 1. Cryptography (OWASP M10 - Insufficient Cryptography)
+
+Rules in this category focus on identifying weak or improper cryptographic practices that could compromise the confidentiality, integrity, or authenticity of data.
+
+*   [Avoid Weak Hashing](/rulebook/cryptography/avoid-weak-hashing)
+*   [Prefer Secure Random](/rulebook/cryptography/prefer-secure-random)
+
+### 2. Network (OWASP M5 - Insecure Communication)
+
+This category addresses vulnerabilities related to insecure data transmission, ensuring that communication channels are protected against interception and tampering.
+
+*   [Prefer HTTPS over HTTP](/rulebook/network/prefer-https-over-http)
+*   [Avoid Hardcoded URLs](/rulebook/network/avoid-hardcoded-urls)
+
+### 3. Secrets (OWASP M1 - Improper Credential Usage)
+
+These rules aim to detect the exposure of sensitive credentials, such as API keys, tokens, and passwords, within the codebase.
+
+*   [Avoid Hardcoded Secrets](/rulebook/secrets/avoid-hardcoded-secrets)
+*   [All Secret Detection Patterns](/rulebook/secrets) (A comprehensive list of all patterns recognized by `avoid_hardcoded_secrets`)
+
+## How Rules Work
+
+`dart_shield` uses a combination of techniques to detect security issues:
+
+1.  **Pattern Matching (Regex):** Identifying strings that match known key formats (e.g., `sk_live_...`).
+2.  **Context Analysis:** Checking variable names (e.g., `const apiKey = "..."`) to increase confidence.
+3.  **Entropy Checks:** Analyzing the randomness of a string to distinguish between high-entropy secrets and regular text.
+
+## False Positives
+
+Security scanners can sometimes report false positives. If a safe string is flagged as a secret, you can ignore it using standard Dart ignore mechanisms.
+
+See [Ignoring Rules](/guides/configuration/ignoring) for details on how to suppress warnings.
