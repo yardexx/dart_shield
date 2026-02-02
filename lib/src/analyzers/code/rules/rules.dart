@@ -5,6 +5,9 @@ import 'package:dart_shield/src/analyzers/code/rules/cryptography/prefer_secure_
 import 'package:dart_shield/src/analyzers/code/rules/injection/avoid_dynamic_sql_queries.dart';
 import 'package:dart_shield/src/analyzers/code/rules/logging/avoid_logging_sensitive_data.dart';
 import 'package:dart_shield/src/analyzers/code/rules/network/avoid_certificate_pinning_bypass.dart';
+import 'package:dart_shield/src/analyzers/code/rules/flutter/avoid_insecure_webview_settings.dart';
+import 'package:dart_shield/src/analyzers/code/rules/flutter/avoid_unvalidated_deep_link.dart';
+import 'package:dart_shield/src/analyzers/code/rules/flutter/avoid_webview_javascript_bridge.dart';
 import 'package:dart_shield/src/analyzers/code/rules/network/avoid_harcoded_urls.dart';
 import 'package:dart_shield/src/analyzers/code/rules/network/prefer_https_over_http.dart';
 import 'package:dart_shield/src/analyzers/code/rules/secrets/avoid_hardcoded_secrets.dart';
@@ -23,6 +26,14 @@ final List<AnalysisRule> rules = [
   AvoidLoggingSensitiveData(),
   // Network
   AvoidCertificatePinningBypass(),
+  // Cryptography
+  AvoidWeakHashing(),
+  PreferSecureRandom(),
+  // Flutter
+  AvoidInsecureWebviewSettings(),
+  AvoidUnvalidatedDeepLink(),
+  AvoidWebviewJavascriptBridge(),
+  // Network
   AvoidHardcodedUrls(),
   PreferHttpsOverHttp(),
   // Secrets
