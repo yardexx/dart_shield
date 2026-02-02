@@ -66,6 +66,7 @@ class _Visitor extends SimpleAstVisitor<void> {
         if (expr is MethodInvocation) return true;
         if (expr is FunctionExpressionInvocation) return true;
         if (expr is AssignmentExpression) return true;
+        if (expr is AwaitExpression) return true;
         // Simple identifier alone has no effect
         if (expr is SimpleIdentifier) return false;
       }
