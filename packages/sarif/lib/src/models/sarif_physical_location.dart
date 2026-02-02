@@ -12,10 +12,7 @@ part 'sarif_physical_location.g.dart';
   explicitToJson: true,
 )
 class SarifPhysicalLocation {
-  SarifPhysicalLocation({
-    required this.artifactLocation,
-    required this.region,
-  });
+  SarifPhysicalLocation({required this.artifactLocation, required this.region});
 
   /// The artifact location.
   final SarifArtifactLocation artifactLocation;

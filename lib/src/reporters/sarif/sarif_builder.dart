@@ -12,10 +12,10 @@ class SarifBuilder {
     required String toolVersion,
     required String toolUri,
   }) : _tool = SarifTool(
-          name: toolName,
-          version: toolVersion,
-          informationUri: toolUri,
-        );
+         name: toolName,
+         version: toolVersion,
+         informationUri: toolUri,
+       );
 
   final SarifTool _tool;
   final List<SarifResult> _results = [];

@@ -12,10 +12,7 @@ part 'sarif_run.g.dart';
   explicitToJson: true,
 )
 class SarifRun {
-  SarifRun({
-    required this.tool,
-    required this.results,
-  });
+  SarifRun({required this.tool, required this.results});
 
   /// The tool that performed this run.
   final SarifTool tool;

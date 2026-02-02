@@ -48,10 +48,7 @@ dart_shield:
 dart_shield:
   analyzers: [
 '''); // Broken YAML
-      expect(
-        ShieldConfig.load,
-        throwsA(isA<ConfigException>()),
-      );
+      expect(ShieldConfig.load, throwsA(isA<ConfigException>()));
     });
 
     test('throws ConfigException on type mismatch', () async {
@@ -59,10 +56,7 @@ dart_shield:
 dart_shield:
   analyzers: "invalid_string" 
 ''');
-      expect(
-        ShieldConfig.load,
-        throwsA(isA<ConfigException>()),
-      );
+      expect(ShieldConfig.load, throwsA(isA<ConfigException>()));
     });
   });
 }

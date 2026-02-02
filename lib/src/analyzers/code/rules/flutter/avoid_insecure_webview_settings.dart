@@ -13,8 +13,7 @@ class AvoidInsecureWebviewSettings extends AnalysisRule {
   AvoidInsecureWebviewSettings()
     : super(
         name: 'avoid_insecure_webview_settings',
-        description:
-            'Avoid enabling unrestricted JavaScript mode in WebViews.',
+        description: 'Avoid enabling unrestricted JavaScript mode in WebViews.',
       );
 
   static const LintCode code = LintCode(

@@ -71,7 +71,9 @@ class BaselineManager {
   }
 
   /// Filter out issues that are already in the baseline.
-  Future<List<AnalysisIssue>> filterBaselined(List<AnalysisIssue> issues) async {
+  Future<List<AnalysisIssue>> filterBaselined(
+    List<AnalysisIssue> issues,
+  ) async {
     final baseline = await loadBaseline();
     final baselineFingerprints = baseline.map((e) => e.fingerprint).toSet();
 

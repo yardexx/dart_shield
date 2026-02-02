@@ -72,8 +72,9 @@ class _Visitor extends SimpleAstVisitor<void> {
     );
 
     // Check if it has interpolation (not just a static SQL string)
-    final hasInterpolation =
-        node.elements.any((e) => e is InterpolationExpression);
+    final hasInterpolation = node.elements.any(
+      (e) => e is InterpolationExpression,
+    );
 
     if (hasSqlKeyword && hasInterpolation) {
       rule.reportAtNode(node);

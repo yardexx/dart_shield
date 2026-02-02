@@ -153,8 +153,9 @@ void main() {
 
       final output = reporter.generateSarif(results);
       final sarif = jsonDecode(output) as Map<String, dynamic>;
-      final location = sarif['runs'][0]['results'][0]['locations'][0]
-          as Map<String, dynamic>;
+      final location =
+          sarif['runs'][0]['results'][0]['locations'][0]
+              as Map<String, dynamic>;
       final physicalLocation =
           location['physicalLocation'] as Map<String, dynamic>;
 

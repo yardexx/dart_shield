@@ -6,10 +6,7 @@ library;
 
 /// A SARIF 2.1.0 document.
 class SarifDocument {
-  SarifDocument({
-    required this.tool,
-    required this.results,
-  });
+  SarifDocument({required this.tool, required this.results});
 
   /// SARIF schema URL.
   static const String schema =
@@ -26,15 +23,15 @@ class SarifDocument {
 
   /// Convert to JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        r'$schema': schema,
-        'version': version,
-        'runs': [
-          {
-            'tool': tool.toJson(),
-            'results': results.map((r) => r.toJson()).toList(),
-          },
-        ],
-      };
+    r'$schema': schema,
+    'version': version,
+    'runs': [
+      {
+        'tool': tool.toJson(),
+        'results': results.map((r) => r.toJson()).toList(),
+      },
+    ],
+  };
 }
 
 /// Information about the tool that produced the SARIF results.
@@ -60,13 +57,13 @@ class SarifTool {
 
   /// Convert to JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'driver': {
-          'name': name,
-          'version': version,
-          'informationUri': informationUri,
-          'rules': rules.map((r) => r.toJson()).toList(),
-        },
-      };
+    'driver': {
+      'name': name,
+      'version': version,
+      'informationUri': informationUri,
+      'rules': rules.map((r) => r.toJson()).toList(),
+    },
+  };
 }
 
 /// A rule defined by a SARIF tool.
@@ -92,12 +89,11 @@ class SarifRule {
 
   /// Convert to JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'shortDescription': {'text': shortDescription},
-        if (fullDescription != null)
-          'fullDescription': {'text': fullDescription},
-        if (helpUri != null) 'helpUri': helpUri,
-      };
+    'id': id,
+    'shortDescription': {'text': shortDescription},
+    if (fullDescription != null) 'fullDescription': {'text': fullDescription},
+    if (helpUri != null) 'helpUri': helpUri,
+  };
 }
 
 /// A single result (finding) in a SARIF document.
@@ -123,11 +119,11 @@ class SarifResult {
 
   /// Convert to JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'ruleId': ruleId,
-        'level': level.name,
-        'message': {'text': message},
-        'locations': [location.toJson()],
-      };
+    'ruleId': ruleId,
+    'level': level.name,
+    'message': {'text': message},
+    'locations': [location.toJson()],
+  };
 }
 
 /// SARIF severity levels.
@@ -172,14 +168,14 @@ class SarifLocation {
 
   /// Convert to JSON-serializable map.
   Map<String, dynamic> toJson() => {
-        'physicalLocation': {
-          'artifactLocation': {'uri': filePath},
-          'region': {
-            'startLine': startLine,
-            'startColumn': startColumn,
-            if (endLine != null) 'endLine': endLine,
-            if (endColumn != null) 'endColumn': endColumn,
-          },
-        },
-      };
+    'physicalLocation': {
+      'artifactLocation': {'uri': filePath},
+      'region': {
+        'startLine': startLine,
+        'startColumn': startColumn,
+        if (endLine != null) 'endLine': endLine,
+        if (endColumn != null) 'endColumn': endColumn,
+      },
+    },
+  };
 }

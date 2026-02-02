@@ -22,7 +22,8 @@ class BaselineCommand extends ShieldCommand {
         'output',
         abbr: 'o',
         defaultsTo: defaultBaselinePath,
-        help: 'Output path for the baseline file. '
+        help:
+            'Output path for the baseline file. '
             'Defaults to $defaultBaselinePath',
       )
       ..addFlag(

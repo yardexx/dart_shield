@@ -34,7 +34,8 @@ class AnalyzeCommand extends ShieldCommand {
       ..addOption(
         'baseline',
         abbr: 'b',
-        help: 'Path to baseline file. Issues in baseline are not reported. '
+        help:
+            'Path to baseline file. Issues in baseline are not reported. '
             'Default location is $defaultBaselinePath',
       );
   }

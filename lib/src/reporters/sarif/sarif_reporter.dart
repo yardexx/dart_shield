@@ -31,8 +31,7 @@ class SarifReporter implements Reporter {
     );
 
     // Extract all issues from successful analyses
-    final issues =
-        results.whereType<AnalysisSuccess>().expand((r) => r.issues);
+    final issues = results.whereType<AnalysisSuccess>().expand((r) => r.issues);
 
     for (final issue in issues) {
       builder.addResult(

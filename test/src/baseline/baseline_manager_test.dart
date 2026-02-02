@@ -88,7 +88,11 @@ baseline:
           ruleId: 'prefer_https_over_http',
           severity: Severity.high,
           message: 'HTTP detected',
-          context: FileContext(filePath: 'lib/client.dart', line: 20, column: 3),
+          context: FileContext(
+            filePath: 'lib/client.dart',
+            line: 20,
+            column: 3,
+          ),
         ),
       ];
 
